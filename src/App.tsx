@@ -1,9 +1,29 @@
 import React, { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
+import { useSelector } from 'react-redux/es/exports'
+import { RootState } from './stores/store'
+
+interface User {
+  nombre: string,
+  telefono: string,
+  edad: number,
+}
 
 function App() {
 	const [count, setCount] = useState(0)
+	const userState = useSelector((state: RootState) => state.autoAfiliacion)
+	const { user } = userState
+
+	const handleCount = ()=>{
+		setCount((a) => a + 2)
+	}
+
+	const usuario: User = {
+		nombre: 'Juan',
+		telefono: '123456789',
+		edad: 20,
+	}
 
 	return (
 		<div className="App">
@@ -15,9 +35,9 @@ function App() {
 					<img src={reactLogo} className="logo react" alt="React logo" />
 				</a>
 			</div>
-			<h1>Vite + React</h1>
+			<h1>Vite + {user.nombre}</h1>
 			<div className="card">
-				<button onClick={() => setCount((count) => count + 1)}>
+				<button onClick={handleCount}>
           count is {count}
 				</button>
 				<p>
