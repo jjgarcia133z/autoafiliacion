@@ -7,11 +7,14 @@ function App() {
 
 	return (
 		<>
-			<BrowserRouter>
-				<Routes>
-					<Route path="/" element={<Layout />}>
+			<BrowserRouter> {/* contexto de rutas */}
+				<Routes> {/* contenedor de las rutas */}
+
+					<Route path="/pepito" element={<Layout />}>
 						<Route index element={<Main />} />
+						<Route path='datospersonales' element={<Main />} />
 					</Route>
+          
 				</Routes>
 			</BrowserRouter>
 		</>
