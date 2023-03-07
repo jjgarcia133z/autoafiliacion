@@ -6,21 +6,20 @@ const TopMenu = () => {
   
 
 	return (
-    <>
-		<div className="text-4">
+		<TopContainer>
 			<CMP05 />
 			<TitleContainer TitleContainer="content-2 content-3">
 				<h1>Paso 1</h1>
 				<p>¡Elegí el plan que se adapte mejor a tus necesidades!</p>
 			</TitleContainer>
-		</div>
-    <style></style>
-    </>
+		</TopContainer>
 	)
 }
 
 export default TopMenu
 
+const TopContainer = styled.div`
+`
 const TitleContainer = styled.div`
 display: flex;
 flex-direction: column;
@@ -45,6 +44,5 @@ color: #ffffff;
   font-weight: 400;
   font-size: 16px;
   line-height: 19px;
-  margin-bottom: 16px;
 }
 `

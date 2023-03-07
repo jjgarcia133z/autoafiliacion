@@ -26,4 +26,5 @@ width: 100%;
 padding: 24px;
 background: #2d4875;
 border-radius: 10px 60px 0px 10px;
+gap: 16px;
 `;
