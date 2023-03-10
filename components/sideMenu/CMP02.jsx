@@ -49,7 +49,8 @@ const StepperBar = styled.div`
   box-sizing: border-box;
   gap: 14px;
   position: relative;
-  margin: 18px 0;
+  margin: 18px 0;  
+  cursor: pointer;
   &::after {
     content: "";
     position: absolute;
@@ -118,11 +119,12 @@ const StepperBar = styled.div`
     align-items: center;
     color: var(--neutral-gray-colors-neutral-white);
     //styleName: Body/Body Medium  - Montserrat Medium;
-    font-family: Montserrat;
+    font-family: Montserrat_regular;
     font-size: 16px;
     font-weight: 500;
     line-height: 19px;
     letter-spacing: 0px;
-    text-align: center;
+    color: ${(props) => (props.step === 'disable' ? 'var(--primary-blue-primary-blue-200)' : 'var(--neutral-gray-colors-neutral-white)')};
+    text-align: left;
   }
 `
