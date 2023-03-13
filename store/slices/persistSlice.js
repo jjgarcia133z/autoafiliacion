@@ -1,27 +1,31 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 export const persistSlice = createSlice({
-	name: 'persistDB',
+	name: 'config',
 	initialState: {
-		name: 'pablo',
-		email: '',
-		isLoggedIn: false,
-		year: 2023,
+		currentIndex: 1,
+		pages: [
+			{
+				id: 1,
+				name: 'plan',
+				title: 'Tipo Plan',
+				url: '/',
+			},
+			{
+				id: 2,
+				name: 'datos-personales',
+				title: 'Datos Personales',
+				url: '/datos-personales',
+			},
+		],
 	},
 	reducers: {
-		setUser: (state, action) => {
-			state.name = action.payload.name
-			state.email = action.payload.email
-			state.isLoggedIn = true
-		},
-		logoutUser: (state) => {
-			state.name = ''
-			state.email = ''
-			state.isLoggedIn = false
+		setCurrentIndex: (state, action) => {
+			state.currentIndex = action.payload
 		},
 	},
 })
 
-export const { setUser, logoutUser } = persistSlice.actions
+export const { setCurrentIndex } = persistSlice.actions
 
 export default persistSlice.reducer

@@ -5,14 +5,15 @@ import storage from 'redux-persist/lib/storage'
 import { persistReducer } from 'redux-persist'
 import thunk from 'redux-thunk'
 
-import persistDB from './slices/persistSlice.js'
+import config from './slices/persistSlice.js'
 
 const persistConfig = {
 	key: 'root',
 	storage,
+	blacklist: ['config'],
 }
 const reducers = combineReducers({
-	persistDB: persistDB,
+	config: config,
 })
 const persistedReducer = persistReducer(persistConfig, reducers)
 
