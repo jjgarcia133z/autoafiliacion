@@ -6,8 +6,8 @@ import ImagePortada from '@/assets/img/PortadaAfiliacion_medismart.png'
 import { useSelector } from 'react-redux'
 
 const Layout = ({ children, title }) => {
-	//get year from persistDB using useSelector
-	const year = useSelector((state) => state.persistDB.year)
+	//get year from config using useSelector
+	const year = useSelector((state) => state.config.year)
 	return (
 		<>
 			<Head>
