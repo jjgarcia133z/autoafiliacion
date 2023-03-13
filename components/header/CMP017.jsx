@@ -1,15 +1,18 @@
 import Logo from '@/assets/img/Logo_medismart.png'
 import styled from 'styled-components'
 import CMP018 from './CMP018'
+import { useSelector } from 'react-redux'
+
 const CMP017 = () => {
+	const { pages, currentIndex} = useSelector((state) => state.config)
 	return (
 		<HeaderContainer>
 			<div>
-				<img src={Logo.src} alt="" />
+				<img src={Logo.src} alt="medismart logo" />
 			</div>
 			<div>
 				<div>
-					<CMP018 parentPage="Nueva afiliación" currentPage="Tipo Plan" />
+					<CMP018 parentPage="Nueva afiliación" currentPage={pages[currentIndex-1].title} />
 				</div>
 				<div>565</div>
 			</div>
