@@ -1,17 +1,17 @@
-import React from "react";
-import styled from "styled-components";
-import { FiChevronLeft as IconLeft } from "react-icons/fi";
+import React from 'react'
+import styled from 'styled-components'
+import { FiChevronLeft as IconLeft } from 'react-icons/fi'
 // import IconLefCaret from '../../assets/img/icons/icon-outlines-28@2x.png'
 const CMP05 = () => {
-  return (
-    <ContainerBtnExit>
-      <IconLeft />
-      <span>Salir</span>
-    </ContainerBtnExit>
-  );
-};
+	return (
+		<ContainerBtnExit>
+			<IconLeft />
+			<span>Salir</span>
+		</ContainerBtnExit>
+	)
+}
 
-export default CMP05;
+export default CMP05
 
 const ContainerBtnExit = styled.div`
   display: flex;
@@ -46,4 +46,4 @@ const ContainerBtnExit = styled.div`
     height: 24px;
     color: var(--secundary-accent-secundary-accent-main-500);
   }
-`;
+`
