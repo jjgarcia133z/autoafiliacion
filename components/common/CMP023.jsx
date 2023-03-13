@@ -99,12 +99,14 @@ const Cupon = styled.div`
       //trmobr style
       border-radius: 5px;
       border: none;
+      padding: 8px;
     }
     & > button {
       display: flex;
       justify-content: center;
       align-items: center;
       background: var(--neutral-gray-colors-neutral-white);
+      color: var(--primary-blue-primary-blue-900);
       border-radius: 5px;
       border: none;
       cursor: pointer;
@@ -122,6 +124,7 @@ const Cupon = styled.div`
       & > svg {
         width: 16px;
         height: 16px;
+        color: var(--primary-blue-primary-blue-900);
       }
     }
   }
