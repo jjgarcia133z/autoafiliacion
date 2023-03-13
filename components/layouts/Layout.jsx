@@ -68,7 +68,6 @@ const MainLayout = styled.main`
       background-position: top right;
       background-color: #ffffff;
       background-size: 100%;
-      aspect-ratio: 21/9;
       height: 388px;
       width: 1328px;
       top: 0px;
@@ -82,11 +81,14 @@ const MainLayout = styled.main`
       position: absolute;
       background: rgb(40, 65, 109);
       background: linear-gradient(
-        180deg,
-        rgba(40, 65, 109, 0.28) 0%,
-        #fff 48%,
-        #fff 100%
-      );
+          180deg,
+          rgba(40, 65, 109, 0.28) 0%,
+          rgba(40, 65, 109, 0.28) 12%,
+          rgba(255, 255, 255, 0.80) 33%,
+          rgba(255, 255, 255, 02) 45%,
+          #fff 100%
+        );
+
       height: 780px;
       width: 100%;
       top: 0;
