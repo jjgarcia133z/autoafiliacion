@@ -1,17 +1,21 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const CMP09 = () => {
+const CMP09 = ({text=''}) => {
 	return (
 		<Container>
 			<div>
-				<h1>Plan Medismart</h1>
+				<h1>Plan Medismart {text}</h1>
 				<p>
           Adquirí el mejor plan de medicina prepagada que te aporta beneficios
           en citas y servicios médicos para vos, tus amigos y familiares.
 				</p>
 			</div>
-			<div></div>
+			<div>
+				
+
+
+			</div>
 		</Container>
 	)
 }
