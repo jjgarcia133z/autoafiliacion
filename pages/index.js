@@ -1,12 +1,12 @@
-import { Inter } from 'next/font/google'
 import Layout from '@/components/layouts/Layout'
-
-const inter = Inter({ subsets: ['latin'] })
+import CMP09 from '@/components/contenedores/CMP09'
 
 export default function Home() {
 	return (
 		<>
-			<Layout title="Tipo Plan - Autoafiliacion" ></Layout>
+			<Layout title="Tipo Plan url - Autoafiliacion" >
+				<CMP09 />
+			</Layout>
 		</>
 	)
 }
