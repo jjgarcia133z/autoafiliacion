@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 // import IconLefCaret from '../../assets/img/icons/icon-outlines-28@2x.png'
-const CMP08 = () => {
+const CMP20 = () => {
 	return (
 		<Primary>
 			<div className="componente-button-group-5 componente-button-group">
@@ -12,7 +12,7 @@ const CMP08 = () => {
 	)
 }
 
-export default CMP08
+export default CMP20
 
 const Primary = styled.div`
     left: 394px;
