@@ -5,6 +5,9 @@ import CMP01 from '@/components/sideMenu/CMP01'
 import CMP017 from '../header/CMP017'
 import CMP020 from '../home/CMP020'
 import CMP06 from '../home/CMP06'
+import CMP07 from '../home/CMP07'
+import CMP010 from '../home/CMP010'
+import CMP037 from '../home/CMP037'
 const Layout = ({children, title}) => {
 	return (
 		<>
@@ -23,16 +26,15 @@ const Layout = ({children, title}) => {
 						<CMP01 />
 					</aside>
 					<article>
-					
+						<CMP07 />
 						{children}
-						
-				
+						<CMP010 />
+						<CMP037 />
 					</article>
 
 					<article>
 
-						<CMP06 />
-						<CMP020 />
+						
 					</article>
 				</section>
 				<footer>footer</footer>

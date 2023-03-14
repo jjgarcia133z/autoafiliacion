@@ -6,7 +6,7 @@ const CMP10 = () => {
 	return (
 		<Primary>
 			<div className="componente-button-group-5 componente-button-group">
-				<div className="comp-button-5 comp-button"><div className="continuar-7 continuar bodybody-medium----montserrat-medium">Continuar</div></div>
+				<div className="comp-button-5 comp-button"><div className="continuar-7 continuar bodybody-medium----montserrat-medium">Atras</div></div>
 			</div>
 		</Primary>
 	)
@@ -15,58 +15,31 @@ const CMP10 = () => {
 export default CMP10
 
 const Primary = styled.div`
-    left: 394px;
-    position: absolute;
-    top: 614px;
+    box-sizing: border-box;
 
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 8px 48px;
-    gap: 8px;
-    width: 178px;
-    height: 48px;
-    background: #CBE6E3;
-    border-radius: 5px;
-    flex: none;
-    order: 1;
-    flex-grow: 0;
+/* Auto layout */
 
-    & > div {
-    }
-        & >div {
-        
-            
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 8px 48px;
+gap: 8px;
 
+width: 138px;
+height: 48px;
 
-        
-            width: 82px;
-height: 20px;
+/* Neutral Gray Colors/Neutral - White */
 
-/* Body/Body Medium - Montserrat Medium */
+background: #FFFFFF;
+/* Neutral Gray Colors/Neutral - Medium Grey */
 
-font-family: 'Montserrat';
-font-style: normal;
-font-weight: 500;
-font-size: 16px;
-line-height: 19px;
-/* identical to box height, or 120% */
-
-
-/* Primary Green/Primary - Green 700 */
-
-color: #009382;
-
+border: 1px solid #C0C8C8;
+border-radius: 5px;
 
 /* Inside auto layout */
 
 flex: none;
-order: 1;
+order: 0;
 flex-grow: 0;
-
-
-        }
-
-
 `

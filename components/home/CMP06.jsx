@@ -6,7 +6,7 @@ import icono from '@/assets/img/icon-outlines-29@2x.png'
 // import IconLefCaret from '../../assets/img/icons/icon-outlines-28@2x.png'
 const CMP06 = () => {
 	return (
-		<Primary>
+		<Primary background={icono}>
 			<div className="plan-bar-options-1">
 			
 				<article className="plan-option">
@@ -216,7 +216,7 @@ const Primary = styled.div`
   width: 129px;
 }
 .icono-de-notificacin-4 {
-  background-image: url({icono.src});
+  background-image:url(${(props) => props.background.src});
   background-size: 100% 100%;
   height: 24px;
   min-width: 24px;
