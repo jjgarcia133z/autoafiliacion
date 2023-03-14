@@ -45,6 +45,7 @@
   --neutral-gray-colors-neutral-medium-light-grey: #e6ebeb;
   --neutral-gray-colors-neutral-white: #fff;
   --special-colors-special-contrast: #dcae70;
+  --transparent-white: rgba(255, 255, 255, 0.9);
 }
 
 * {
