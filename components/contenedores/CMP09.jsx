@@ -1,5 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
+import CMP022 from '../CMP022'
+import CMP024 from '../CMP024'
+import DogHead from '../icons/DogHead'
 
 const CMP09 = ({text=''}) => {
 	return (
@@ -12,8 +15,9 @@ const CMP09 = ({text=''}) => {
 				</p>
 			</div>
 			<div>
-				
-
+				<CMP024 />
+				{/* <CMP022 /> */}
+				{/* <DogHead /> */}
 
 			</div>
 		</Container>
