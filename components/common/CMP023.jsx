@@ -2,14 +2,13 @@ import React from 'react'
 import styled from 'styled-components'
 import cuponBackground from '@/assets/img/cuponBackGround.png'
 import { HiOutlineReceiptTax } from 'react-icons/hi'
-import { FiCheck } from 'react-icons/fi'
 
 const CMP023 = () => {
 	return (
 		<Cupon background={cuponBackground}>
 			<div>
 				<span>
-					<HiOutlineReceiptTax />{' '}
+					<HiOutlineReceiptTax />
 				</span>
 				<div>
 					<h4>Cupón de descuento</h4>
@@ -17,11 +16,10 @@ const CMP023 = () => {
 				</div>
 			</div>
 			<div>
-				<input type="text" />
-				<button>
-					{' '}
-					<FiCheck /> Aplicar
-				</button>
+				<span>
+					<input type="text" placeholder="Ingresá un código" />
+				</span>
+				<button>Aplicar</button>
 			</div>
 		</Cupon>
 	)
@@ -42,7 +40,6 @@ const Cupon = styled.div`
   & > div:first-of-type {
     display: flex;
     flex-direction: row;
-    align-items: center;
     margin-bottom: 16px;
     & > span {
       display: flex;
@@ -66,6 +63,7 @@ const Cupon = styled.div`
     & > div {
       display: flex;
       flex-direction: column;
+      align-items: flex-start;
       margin-left: 8px;
       & > h4 {
         font-family: Montserrat;
@@ -88,18 +86,21 @@ const Cupon = styled.div`
       }
     }
   }
-  & > div:last-of-type {
+  & div:last-of-type {
     display: flex;
     flex-direction: row;
-    & > input {
-      width: 143px;
-      height: 36px;
+    align-items: center;
+    & span {
       margin-right: 8px;
-      background: var(--neutral-gray-colors-neutral-white);
-      //trmobr style
-      border-radius: 5px;
-      border: none;
-      padding: 8px;
+      & > input {
+        width: 198px;
+        height: 33px;
+        background: var(--neutral-gray-colors-neutral-white);
+        //trmobr style
+        border-radius: 5px;
+        border: none;
+        padding: 8px;
+      }
     }
     & > button {
       display: flex;
@@ -121,11 +122,6 @@ const Cupon = styled.div`
       height: 36px;
       gap: 8px;
       padding: 8px;
-      & > svg {
-        width: 16px;
-        height: 16px;
-        color: var(--primary-blue-primary-blue-900);
-      }
     }
   }
 `
