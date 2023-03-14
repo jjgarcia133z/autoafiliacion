@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import { stateCss, stateAfterBefore, state } from '@/constants/constants'
 import { FiCheck } from 'react-icons/fi'
-import { setCurrentIndex } from '@/store/slices/persistSlice'
+import { setCurrentIndex } from '@/store/slices/configSlide'
 
 const CMP02 = ({
 	index = 1,
@@ -28,7 +28,7 @@ const CMP02 = ({
 	}
 
 	useEffect(() => {
-		setStepCurrentState(stepState) //set the current step state
+		setStepCurrentState(stepState) //set the current state
 	}, [stepState, index])
 
 	return (
