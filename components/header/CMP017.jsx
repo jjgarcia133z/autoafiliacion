@@ -14,7 +14,7 @@ const CMP017 = () => {
 				<div>
 					<CMP018 parentPage="Nueva afiliación" currentPage={pages[currentIndex-1].title} />
 				</div>
-				<div>565</div>
+				<div></div>{ /*icon section*/ }
 			</div>
 		</HeaderContainer>
 	)
