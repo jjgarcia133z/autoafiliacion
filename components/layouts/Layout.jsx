@@ -3,7 +3,8 @@ import React from 'react'
 import styled from 'styled-components'
 import CMP01 from '@/components/sideMenu/CMP01'
 import CMP017 from '../header/CMP017'
-import CMP08 from '../home/CMP08'
+import CMP020 from '../home/CMP020'
+import CMP06 from '../home/CMP06'
 const Layout = ({children, title}) => {
 	return (
 		<>
@@ -22,8 +23,16 @@ const Layout = ({children, title}) => {
 						<CMP01 />
 					</aside>
 					<article>
+					
 						{children}
-						<CMP08 />
+						
+				
+					</article>
+
+					<article>
+
+						<CMP06 />
+						<CMP020 />
 					</article>
 				</section>
 				<footer>footer</footer>
