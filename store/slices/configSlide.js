@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 export const persistSlice = createSlice({
 	name: 'config',
 	initialState: {
+		welcomeModal: true,
 		currentIndex: 1,
 		pages: [
 			{
@@ -23,9 +24,13 @@ export const persistSlice = createSlice({
 		setCurrentIndex: (state, action) => {
 			state.currentIndex = action.payload
 		},
+		setWelcomeModal: (state, action) => {
+			state.welcomeModal = action.payload
+		}
+
 	},
 })
 
-export const { setCurrentIndex } = persistSlice.actions
+export const { setCurrentIndex, setWelcomeModal } = persistSlice.actions
 
 export default persistSlice.reducer
