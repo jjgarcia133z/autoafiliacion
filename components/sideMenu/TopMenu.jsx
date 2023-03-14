@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import CMP05 from './CMP05'
+import CMP05 from '../common/CMP05'
 
 const TopMenu = () => {
   
