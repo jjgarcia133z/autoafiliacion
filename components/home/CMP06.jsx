@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-
-
+import line15 from '@/assets/img/line-15-4@2x.png'
+import line10  from '@/assets/img/line-10-4@2x.png'
+import icono from '@/assets/img/icon-outlines-29@2x.png'
 // import IconLefCaret from '../../assets/img/icons/icon-outlines-28@2x.png'
 const CMP06 = () => {
 	return (
@@ -28,11 +29,11 @@ const CMP06 = () => {
 											<div className="icono-de-notificacin-4"></div>
 										</div>
 									</div>
-									<img className="line-15-1" src="q" alt="Line 15" />
+									<img className="line-15-1" src={line15.src} alt="Line 15" />
 									<div className="contenido-1">
 										<div className="flex-row-1 overlineoverline-small-medium---montserrat">
 											<div className="desde-1 valign-text-middle">Desde</div>
-											<img className="line-10-1" src="img/line-10-4@2x.png" alt="Line 10" />
+											<img className="line-10-1" src={line10.src} alt="Line 10" />
 											<div className="frame-37360-1">
 												<div className="text-9">$ 13.56 por titular</div>
 												<div className="text-9">$ 6,78 por adicional</div>
@@ -49,11 +50,11 @@ const CMP06 = () => {
 					<div className="frame-37361-2 frame-37361">
 						<div className="plans-2 plans">
 							<div className="titular"><div className="text-13 headlinesh6">Plan Trimestral</div></div>
-							<img className="line-15-1" src="../img/line-15-5@2x.png" alt="Line 15" />
+							<img className="line-15-1" src={line10.src} alt="Line 15" />
 							<div className="contenido-1">
 								<div className="flex-row-1 overlineoverline-small-medium---montserrat">
 									<div className="desde-1 valign-text-middle">Desde</div>
-									<img className="line-10-1" src="img/line-10-5@2x.png" alt="Line 10" />
+									<img className="line-10-1" src={line15.src} alt="Line 10" />
 									<div className="frame-37360-1">
 										<div className="text-10">$ 40.68 por titular</div>
 										<div className="text-10">$ 20.34 por adicional</div>
@@ -67,11 +68,11 @@ const CMP06 = () => {
 					<div className="frame-37361-2 frame-37361">
 						<div className="plans-2 plans">
 							<div className="titular"><div className="text-13 headlinesh6">Plan Semestral</div></div>
-							<img className="line-15-1" src="../img/line-15-5@2x.png" alt="Line 15" />
+							<img className="line-15-1" src={line10.src} alt="Line 15" />
 							<div className="contenido-1">
 								<div className="flex-row-1 overlineoverline-small-medium---montserrat">
 									<div className="desde-1 valign-text-middle">Desde</div>
-									<img className="line-10-1" src="img/line-10-5@2x.png" alt="Line 10" />
+									<img className="line-10-1" src={line15.src} alt="Line 10" />
 									<div className="frame-37360-1">
 										<div className="text-10">$ 81.36 por titular</div>
 										<div className="text-10">$ 40.68 por adicional</div>
@@ -85,11 +86,11 @@ const CMP06 = () => {
 					<div className="frame-37361-2 frame-37361">
 						<div className="plans-2 plans">
 							<div className="titular"><div className="text-13 headlinesh6">Plan Anual</div></div>
-							<img className="line-15-1" src="img/line-15-5@2x.png" alt="Line 15" />
+							<img className="line-15-1" src={line10.src} alt="Line 15" />
 							<div className="contenido-1">
 								<div className="flex-row-1 overlineoverline-small-medium---montserrat">
 									<div className="desde-1 valign-text-middle">Desde</div>
-									<img className="line-10-1" src="img/line-10-5@2x.png" alt="Line 10" />
+									<img className="line-10-1" src={line15.src}alt="Line 10" />
 									<div className="frame-37360-1">
 										<div className="text-10">$ 162.72 por titular</div>
 										<div className="text-10">$ 81.36 por adicional</div>
@@ -121,6 +122,24 @@ const Primary = styled.div`
   height: 43px;
   min-width: 184px;
   position: relative;
+}
+.valign-text-middle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.frame-37381-1 {
+    align-self: stretch;
+    height: 152px;
+    min-width: 216px;
+    position: relative;
+}
+.overlineoverline-small-medium---montserrat {
+    font-family: "Montserrat", Helvetica;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    letter-spacing: 0;
 }
 .text-4{
 
@@ -197,7 +216,7 @@ const Primary = styled.div`
   width: 129px;
 }
 .icono-de-notificacin-4 {
-  background-image: url(../img/icon-outlines-29@2x.png);
+  background-image: url({icono.src});
   background-size: 100% 100%;
   height: 24px;
   min-width: 24px;
@@ -310,10 +329,7 @@ const Primary = styled.div`
   top: 316px;
   width: fit-content;
 }
-.plan-option{
-	gap: 10px;
 
-}
 
 .fondo-3{
   background: linear-gradient(180deg, rgb(45, 72, 117) 3.12%, rgb(0, 175, 161) 100%);

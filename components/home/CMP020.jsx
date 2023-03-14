@@ -1,21 +1,29 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import line from '@/assets/img/rectangle-4379-1.png'
+import plan from '@/assets/img/aditonal-plan-1.svg'
+import check from '@/assets/img/check.svg'
+
+import line14 from '@/assets/img/line-14.svg'
+import vector1 from '@/assets/img/vector-1.svg'
+import vector2 from '@/assets/img/vector-2.svg'
+
+import vector from '@/assets/img/vector.svg'
+
+
+
 
 const CMP08 = () => {
 	return (
 		<Primary>
-			<img src={line} width="100" height="50" />
-
+		
 			<div className="aditional-plan">
 				<div className="overlap-group4">
 					<div className="overlap-group-1">
 						<div className="frame-37365">
 							<div className="rectangle-4413"></div>
-							<img src="../../src/assets/img/adobestock-376840788-1-2.png"/>
 						</div>
-						<img className="aditonal-plan" src="img/aditonal-plan-1.svg" alt="Aditonal Plan"/>
+						<img className="aditonal-plan" src={plan.src} alt="Aditonal Plan"/>
 						<div className="box-content">
 							<div className="left-colum">
 								<div className="flex-col-4 flex-col-7">
@@ -25,13 +33,13 @@ const CMP08 = () => {
 											<div className="x000-1 x000-2 bodybody-large---montserrat-bold">$2.26</div>
 										</div>
 									</div>
-									<div className="check"><img className="check-1" src="img/check.svg" alt="Check"/></div>
+									<div className="check"><img className="check-1" src={check.src} alt="Check"/></div>
 									<div className="agregar-al-plan valign-text-middle bodybody-small---montserrat-regular">
                             Agregar<br/>al plan
 									</div>
 								</div>
 							</div>
-							<img className="line-14" src="img/line-14.svg" alt="Line 14"/>
+							<img className="line-14" src={line14.src} alt="Line 14"/>
 							<div className="right-colum">
 								<div className="flex-col-5 flex-col-7">
 									<div className="text-3">
@@ -40,24 +48,21 @@ const CMP08 = () => {
                               Este plan es para todas aquellas personas interesadas en la prevención y detección
                               temprana de cáncer, así como personas sobrevivientes o en el proceso.
 										</p>
-								
-									
-
 									</div>
-									<img className="vector" src="img/vector-1.svg" alt="Vector"/>
+									<img className="vector" src={vector1.src} alt="Vector"/>
 									<div className="flex-row-2">
 										<div className="comp-button-1 comp-button-7">
 											<p className="continuar-1 continuar-5 bodybody-small---montserrat-medium">
                                 Da click acá para ver más información
 											</p>
 										</div>
-										<img className="vector-1" src="img/vector-2.svg" alt="Vector"/>
+										<img className="vector-1" src={vector2.src} alt="Vector"/>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<img className="vector-2" src="img/vector.svg" alt="Vector"/>
+					<img className="vector-2" src={vector.src} alt="Vector"/>
 				</div>
 			</div>
 		</Primary>
@@ -72,17 +77,75 @@ const Primary = styled.div`
   display: flex;
   min-width: 918px;
 }
+.right-colum {
+    align-self: stretch;
+    height: 159px;
+    min-width: 666px;
+    position: relative;
+}
+
+
+.vector-2 {
+    height: 27px;
+    left: 694px;
+    position: absolute;
+    top: 122px;
+    width: 27px;
+}
+.line-14 {
+    height: 159px;
+    min-width: 1px;
+    object-fit: cover;
+    position: relative;
+}
+.check {
+    align-items: center;
+    display: flex;
+    gap: 8px;
+    margin-top: 24px;
+    position: relative;
+    width: fit-content;
+}
+.check-1 {
+    height: 24px;
+    min-width: 24px;
+    position: relative;
+}
+.etiqueta-de-monto-1 {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: fit-content;
+}
+.group-31 {
+    height: 34px;
+    margin-right: -2.00px;
+    min-width: 78px;
+    position: relative;
+}
+.flex-col-7 {
+    display: flex;
+    flex-direction: column;
+}
+.flex-col-4 {
+    align-items: center;
+    left: 16px;
+    min-height: 144px;
+    position: relative;
+    width: 76px;
+}
 .vector-1 {
     align-self: flex-end;
     height: 14px;
     width: 13px;
 }
-.valign-text-middle {
-    color: #ffffff;
-    font-weight: 600;
-    line-height: 33.6px;
-    white-space: nowrap;
+.left-colum {
+    height: 159px;
+    min-width: 108px;
+    position: relative;
 }
+
 
 .bodybody-large---montserrat-bold {
     font-family: "Montserrat-SemiBold", Helvetica;
@@ -92,9 +155,13 @@ const Primary = styled.div`
     letter-spacing: 0;
 }
 .agregar-al-plan {
-    left: 0;
-    position: absolute;
-    top: 0;
+  color: #ffffff;
+    font-weight: 400;
+    height: 35px;
+    line-height: 16.8px;
+    margin-top: 7px;
+    text-align: center;
+    width: 64px;
 }
 
 .bodybody-medium---montserrat-regular {
@@ -175,15 +242,7 @@ const Primary = styled.div`
     margin-right: 90.82px;
     width: 13px;
 }
-element.style {
-}
-.para-todas-aquellas {
-    color: var(--neutral-gray-colorsneutral---white);
-    font-weight: 500;
-    height: 45px;
-    line-height: 19.2px;
-    width: 664px;
-}
+
 .valign-text-middle {
     display: flex;
     flex-direction: column;
@@ -203,11 +262,7 @@ element.style {
     line-height: 19.2px;
     width: 664px;
 }
-.valign-text-middle {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
+
 .headlinesh5---radley-font-bold {
     font-family: var(--font-family-radley);
     font-size: 32px;
