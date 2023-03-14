@@ -43,4 +43,11 @@ const stateAfterBefore = {
 	},
 }
 
-export { state, stateCss, stateAfterBefore }
+const planState = {
+	mensual: 'mensual',
+	anual: 'anual',
+	trimestral: 'trimestral',
+	semestral: 'semestral',
+}
+
+export { state, stateCss, stateAfterBefore, planState }

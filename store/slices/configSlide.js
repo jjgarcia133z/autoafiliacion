@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-export const persistSlice = createSlice({
+export const config = createSlice({
 	name: 'config',
 	initialState: {
 		welcomeModal: true,
@@ -31,6 +31,6 @@ export const persistSlice = createSlice({
 	},
 })
 
-export const { setCurrentIndex, setWelcomeModal } = persistSlice.actions
+export const { setCurrentIndex, setWelcomeModal } = config.actions
 
-export default persistSlice.reducer
+export default config.reducer
