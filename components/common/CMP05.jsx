@@ -13,27 +13,30 @@ const CMP05 = () => {
 
 export default CMP05
 
-const ContainerBtnExit = styled.div`
+const ContainerBtnExit = styled.button`
   display: flex;
+  border: none;
+  background: none;
+  outline: none;
   flex-direction: row;
   justify-content: flex-start;
   gap: 8px;
   align-items: center;
-  padding: 8px 8px 8px 0px;
+  padding: 4px 0px 8px 0px;
   margin-bottom: 32px;
-  &:hover {
+  &:hover span, &:hover svg {
     cursor: pointer;
+    color: var(--secundary-accent-secundary-accent-main-500);
   }
 
   & > span {
     //styleName: Body/Body Small - Montserrat Regular;
     font-family: Montserrat;
-    font-size: 14px;
     font-weight: 400;
+    font-size: 14px;
     line-height: 17px;
     letter-spacing: 0px;
     text-align: left;
-
     color: var(--neutral-gray-colors-neutral-white);
   }
   & img {
@@ -44,6 +47,6 @@ const ContainerBtnExit = styled.div`
   & svg {
     width: 24px;
     height: 24px;
-    color: var(--secundary-accent-secundary-accent-main-500);
+    color: var(--neutral-gray-colors-neutral-white);
   }
 `

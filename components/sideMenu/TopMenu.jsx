@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import CMP05 from './CMP05'
+import CMP05 from '../common/CMP05'
 
 const TopMenu = () => {
   
@@ -30,19 +30,19 @@ background: #2d4875;
 border-radius: 10px 60px 0px 10px;
 color: #ffffff;
 & > h1 {
-  font-family: "Montserrat";
+  font-family: Montserrat;
+  font-weight: 400;
   font-style: normal;
-  font-weight: 500;
   font-size: 28px;
   line-height: 34px;
   margin-bottom: 16px;
 }
 & > p {
   /* Body/Body Medium - Montserrat Regular */
-  font-family: "Montserrat";
-  font-style: normal;
+  font-family: Montserrat;
+  font-style:normal;
   font-weight: 400;
   font-size: 16px;
-  line-height: 19px;
+  /* se quita line-height: 19p.2x; */
 }
 `

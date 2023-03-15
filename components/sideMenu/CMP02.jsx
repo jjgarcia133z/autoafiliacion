@@ -1,7 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import { stateCss, stateAfterBefore, state } from '@/constants/constants'
 import { FiCheck } from 'react-icons/fi'
+import { setCurrentIndex } from '@/store/slices/configSlide'
 
 const CMP02 = ({
 	index = 1,
@@ -10,24 +13,38 @@ const CMP02 = ({
 	first = false,
 	last = false,
 }) => {
-	const [currentStep, setCurrentStep] = React.useState(stepState)
+	const router = useRouter()
+	const dispatch = useDispatch()
+	const [stepCurrentState, setStepCurrentState] = useState(stepState)
+	const { pages, currentIndex } = useSelector((state) => state.config)
+
+	const handleClick = () => {
+		let page = pages[index - 1]
+		if (page) { //if the page exists
+			if (page.id === currentIndex) return //if the page is the current page, do nothing
+			dispatch(setCurrentIndex(index)) //set the current index
+			router.push(page.url)
+		}
+	}
+
 	useEffect(() => {
-		setCurrentStep(stepState)
+		setStepCurrentState(stepState) //set the current state
 	}, [stepState, index])
 
 	return (
 		<StepperBar
-			step={currentStep}
+			step={stepCurrentState}
 			index={index}
 			stateAfterBefore={stateAfterBefore}
 			stateCss={stateCss}
 			first={first}
 			last={last}
+			onClick={() => handleClick()}
 		>
 			<div>
 				<span>
-					{currentStep === state.success ||
-          currentStep == state.successActive ? (
+					{stepCurrentState === state.success ||
+          stepCurrentState == state.successActive ? (
 							<FiCheck />
 						) : (
 							index
@@ -50,6 +67,7 @@ const StepperBar = styled.div`
   gap: 14px;
   position: relative;
   margin: 18px 0;
+  cursor: pointer;
   &::after {
     content: "";
     position: absolute;
@@ -64,7 +82,7 @@ const StepperBar = styled.div`
   &::before {
     content: "";
     position: absolute;
-    display: ${(props) => (props.first? 'none' : 'block')};
+    display: ${(props) => (props.first ? 'none' : 'block')};
     width: 2px;
     top: -20px;
     ${(props) => props.stateAfterBefore[props.step]}
@@ -117,12 +135,16 @@ const StepperBar = styled.div`
     justify-content: flex-start;
     align-items: center;
     color: var(--neutral-gray-colors-neutral-white);
-    //styleName: Body/Body Medium  - Montserrat Medium;
     font-family: Montserrat;
     font-size: 16px;
     font-weight: 500;
     line-height: 19px;
     letter-spacing: 0px;
-    text-align: center;
+    text-align: left;
+
+    color: ${(props) =>
+		props.step === 'disable'
+			? 'var(--primary-blue-primary-blue-200)'
+			: 'var(--neutral-gray-colors-neutral-white)'};
   }
 `
