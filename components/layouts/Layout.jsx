@@ -56,7 +56,7 @@ const MainLayout = styled.main`
   box-sizing: border-box;
   display: grid;
   grid-template-rows: calc(48px + 80px) 1fr 80px;
-  grid-template-columns: 1fr 10fr 1fr;
+
   grid-template-areas:
     "header header header"
     "content content content"

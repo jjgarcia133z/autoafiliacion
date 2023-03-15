@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import CMP022 from '../CMP022'
 import CMP024 from '../CMP024'
-import DogHead from '../icons/DogHead'
+import DogHead from '../icons/Icons'
 
 const CMP09 = ({text=''}) => {
 	return (
