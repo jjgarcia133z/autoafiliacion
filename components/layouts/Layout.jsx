@@ -8,6 +8,9 @@ import CMP06 from '../home/CMP06'
 import CMP07 from '../home/CMP07'
 import CMP010 from '../home/CMP010'
 import CMP037 from '../home/CMP037'
+import CMP040 from '../home/CMP040'
+import CMP044 from '../home/CMP044'
+import CMP021 from '../home/CMP021'
 const Layout = ({children, title}) => {
 	return (
 		<>
@@ -24,12 +27,13 @@ const Layout = ({children, title}) => {
 				<section>
 					<aside>
 						<CMP01 />
+            
 					</aside>
 					<article>
-						<CMP07 />
+						
 						{children}
-						<CMP010 />
-						<CMP037 />
+					
+						<CMP021 />
 					</article>
 
 					<article>

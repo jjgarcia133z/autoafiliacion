@@ -1,23 +1,26 @@
 import React from 'react'
 import styled from 'styled-components'
 import icon from '@/assets/img/icon.svg'
-import line2 from '@/assets/img/line-2-3.svg'
+import line2 from '@/assets/img/line-2.svg'
 // import IconLefCaret from '../../assets/img/icons/icon-outlines-28@2x.png'
 const CMP10 = () => {
 	return (
 		<Primary>
-			<div className="text-field-1 text-field-5">
-				<div className="group-3-1">
-					<div className="title">
-						<div className="label montserrat-medium-bunting-20px">Correo electrónico</div>
-						<img className="icon" src={icon.src} alt="Icon"/>
-					</div>
-					<div className="group-2-1">
-						<imput className="input-placeholder bodybody-medium---montserrat-regular">Ingresá tu correo electrónico</imput>
+			<div className="text-area">
+				<div className="group-3-2">
+					<div className="label-2 label-3 montserrat-medium-bunting-20px">Dirección exacta</div>
+					<div className="group-2-3">
+						<p className="input-placeholder-1 bodybody-medium---montserrat-regular">
+                    Ingresá tu dirección de domicilio
+						</p>
 					</div>
 				</div>
-				<img className="line-2-1 line-2-4" src={line2.src} alt="Line 2"/>
+				<div className="group-4">
+					<div className="frame-37370"><img className="line-2-3 line-2-4" src={line2.src} alt="Line 2"/></div>
+				</div>
 			</div>
+
+
 		</Primary>
 	)
 }
