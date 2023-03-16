@@ -49,5 +49,25 @@ const planState = {
 	trimestral: 'trimestral',
 	semestral: 'semestral',
 }
+const position = {
+	top: 'top',
+	bottom: 'bottom',
+	left: 'left',
+	right: 'right',
+	mid: 'mid',
+	topMid: 'topMid',
+	topRight: 'topRight',
+	topLeft: 'topLeft',
+	bottomMid: 'bottomMid',
+	bottomRight: 'bottomRight',
+	bottomLeft: 'bottomLeft',
+	leftMid: 'leftMid',
+	leftTop: 'leftTop',
+	leftBottom: 'leftBottom',
+	rightMid: 'rightMid',
+	rightTop: 'rightTop',
+	rightBottom: 'rightBottom',
+	center: 'center',
+}
 
-export { state, stateCss, stateAfterBefore, planState }
+export { state, stateCss, stateAfterBefore, planState, position }
