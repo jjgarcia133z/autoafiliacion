@@ -1,24 +1,22 @@
 import React from 'react'
 import styled from 'styled-components'
-import CMP022 from '../CMP022'
-import CMP024 from '../CMP024'
-import DogHead from '../icons/Icons'
+import CMP025 from '../common/CMP025'
+import CMP038 from '../common/CMP038'
 
-const CMP09 = ({text=''}) => {
+const CMP09 = ({ text = '' }) => {
 	return (
 		<Container>
 			<div>
-				<h1>Plan Medismart {text}</h1>
+				<h1>Plan Medismart {text}
+					<CMP025 />
+				</h1>
 				<p>
           Adquirí el mejor plan de medicina prepagada que te aporta beneficios
           en citas y servicios médicos para vos, tus amigos y familiares.
 				</p>
 			</div>
 			<div>
-				<CMP024 />
-				{/* <CMP022 /> */}
-				{/* <DogHead /> */}
-
+				<CMP038 />
 			</div>
 		</Container>
 	)
@@ -34,7 +32,7 @@ const Container = styled.div`
   & > div {
     width: 100%;
     margin-top: calc(227px - 32px);
-	
+
     & > h1 {
       font-family: "Radley";
       font-size: 42px;
@@ -42,8 +40,11 @@ const Container = styled.div`
       line-height: 50.4px;
       letter-spacing: 0px;
       text-align: left;
-	  text-transform: uppercase;
-	  color: var(--primary-blue-primary-blue-900)
+      text-transform: uppercase;
+      color: var(--primary-blue-primary-blue-900);
+      position: relative;
+      width: fit-content;
+      background-color: red;
     }
     & > p {
       font-family: Montserrat;
@@ -52,8 +53,8 @@ const Container = styled.div`
       line-height: 19.2px;
       letter-spacing: 0px;
       text-align: left;
-	  max-width: 696px;
-	  color: var(--primary-blue-primary-blue-900)
+      max-width: 696px;
+      color: var(--primary-blue-primary-blue-900);
     }
   }
 `
