@@ -90,9 +90,8 @@ const Row = styled.article`
       display: flex;
       justify-content: center;
       align-items: center;
-      & svg {
-        width: 24px;
-        height: 24px;
+      & i {
+        font-size : 24px;
         color: var(--primary-green-primary-green-main-500);
       }
     }

@@ -1,5 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
+import CMP024 from '../CMP024'
+import CMP039 from '../CMP039'
+import CMP015 from '../common/CMP015'
 import CMP025 from '../common/CMP025'
 import CMP038 from '../common/CMP038'
 
@@ -16,7 +19,9 @@ const CMP09 = ({ text = '' }) => {
 				</p>
 			</div>
 			<div>
-				<CMP038 />
+				<CMP024 />
+				{/* <CMP015 /> */}
+				{/* <CMP038 /> */}
 			</div>
 		</Container>
 	)
