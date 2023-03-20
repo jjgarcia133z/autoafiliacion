@@ -8,7 +8,7 @@ export const afiliacionSlice = createSlice({
 			tipoIdentificacion: '',
 			numeroIdentificacion: '',
 			genero: '',
-			nombre: 'Marcel de mercevil lopez rojas mora',
+			nombre: 'Marcel Esquivel castro',
 			primerApellido: '',
 			segundoApellido: '',
 			correo: '',

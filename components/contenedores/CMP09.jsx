@@ -49,7 +49,6 @@ const Container = styled.div`
       color: var(--primary-blue-primary-blue-900);
       position: relative;
       width: fit-content;
-      background-color: red;
     }
     & > p {
       font-family: Montserrat;

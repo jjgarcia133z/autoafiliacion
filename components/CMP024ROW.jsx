@@ -161,11 +161,12 @@ const Row = styled.article`
       border: none;
       cursor: pointer;
       height: 48px;
-      & p {
-        color: var(--primary-blue-primary-blue-main-500);
-      }
-      &:hover p {
+      color: var(--primary-blue-primary-blue-main-500);
+      &:hover p, &:hover i {
         color: var(--primary-green-primary-green-main-500);
+      }
+      & i {
+        font-size: 24px;
       }
     }
   }

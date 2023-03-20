@@ -71,9 +71,9 @@ const MainLayout = styled.main`
   }
   section {
     display: grid;
-    grid-template-columns: 314px 1fr;
+    grid-template-columns: 1fr;
     grid-area: content;
-    grid-template-areas: "menu article";
+    grid-template-areas: "article";
     box-shadow: 0px 4px 4px rgba(192, 200, 214, 0.25);
     border-radius: 10px;
     position: relative;
@@ -122,6 +122,7 @@ const MainLayout = styled.main`
   }
   aside {
     grid-area: menu;
+    display: none
   }
   footer {
     grid-area: footer;

@@ -23,7 +23,7 @@ const Petfoot = () => {
 
 const EditPencil = () => {
 	return (
-		<i className='icon-pencil'></i>
+		<i className='icon-edit'></i>
 	)
 }
 const PlusCircle = () => {

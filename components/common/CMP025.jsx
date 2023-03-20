@@ -7,8 +7,8 @@ import indicator from '@/assets/img/icons/indicator.png'
 const CMP025 = ({
 	tipPosition = position.topMid,
 	arrowPosition = position.bottomMid,
-	tooltipWidth = '300px',
-	separation = '25',
+	tooltipWidth = '150px',
+	separation = '12',
 }) => {
 	console.log(indicator)
 	const ref = useRef(null)
@@ -79,6 +79,7 @@ const TootipContainer = styled.div`
     height: 9px;
     margin-right: 10px;
     bottom: -9px;
+    left: calc(50% - 5px);
     background-size: 100% 100%;
     background-image: url(${(props) => props.indicator});
     ${(props) =>
