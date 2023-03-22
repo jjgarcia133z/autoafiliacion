@@ -1,21 +1,67 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
-import ckeck from '@/assets/img/check-1@2x.png'
-// import IconLefCaret from '../../assets/img/icons/icon-outlines-28@2x.png'
-const CMP07 = () => {
+import checkImg from '@/assets/img/check-1@2x.png'
+
+
+import checkImg1 from '@/assets/img/check-4@2x.png'
+
+function Boton({ seleccionado, onClick }) {
 	return (
 		<Primary>
 			<div className="list-check-2 list-check">
-				<div className="check-2"><img className="check-3" src={ckeck.src} alt="Check"/></div>
+				<div className="check-2">
+					<img
+						onClick={onClick}
+						className="check-3"
+						src={seleccionado ?  checkImg1.src:checkImg.src }
+						alt="check"
+					/>
+				</div>
 				<p className="lorem-ipsum-dolor-si-1 bodybody-medium---montserrat-regular">
-					<span className="span0-1 bodybody-medium---montserrat-regular">Al marcar esta casilla y hacer clic en "Continuar", acepto la </span>
-                    
-                    
-					<span className="span1-1 bodybody-small---montserrat-medium">política de privacidad.</span>
+					<span className="span0-1 bodybody-medium---montserrat-regular">
+            Al marcar esta casilla y hacer clic en "Continuar", acepto la
+					</span>
+					<span className="span1-1 bodybody-small---montserrat-medium">
+            política de privacidad.
+					</span>
 				</p>
 			</div>
 		</Primary>
+	)
+}
+
+
+
+
+
+
+// import IconLefCaret from '../../assets/img/icons/icon-outlines-28@2x.png'
+const CMP07 = () => {
+	const [seleccionado, setSeleccionado] = useState(null)
+	
+	const handleClick = (valor) => {
+		if (valor === seleccionado) {
+		///	seleccionado=='icono-de-notificacin-4'
+			setSeleccionado(null)
+	
+		} else {
+			///seleccionado==='icono-de-notificacin-4'
+			setSeleccionado(valor)
+			
+		}
+	}
+	return (
+	
+		<Boton
+		
+		
+		
+			seleccionado={seleccionado ==='1'}
+			onClick={() => handleClick('1')}
+		>
+
+		</Boton>
 	)
 }
 
