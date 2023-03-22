@@ -341,8 +341,9 @@ const Primary = styled.div`
 .fondo-3{
   background: linear-gradient(180deg, rgb(45, 72, 117) 3.12%, rgb(0, 175, 161) 100%);
  
-  
-  border-radius: 5px;
+  border-radius: 10px;
+
+
   height: 152px;
   min-width: 216px;
   position: relative;
