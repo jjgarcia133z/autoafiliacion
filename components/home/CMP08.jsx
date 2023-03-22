@@ -2,71 +2,159 @@ import React from 'react'
 import styled from 'styled-components'
 
 // import IconLefCaret from '../../assets/img/icons/icon-outlines-28@2x.png'
-const CMP20 = () => {
+const CMP08 = ({ name, status }) => {
 	return (
 		<Primary>
-			<div className="componente-button-group-5 componente-button-group">
-				<div className="comp-button-5 comp-button"><div className="continuar-7 continuar bodybody-medium----montserrat-medium">Continuar</div></div>
-			</div>
+			
+			<button className="comp-button font" disabled={status} >{name}</button>
+			
 		</Primary>
 	)
 }
 
-export default CMP20
+export default CMP08
 
 const Primary = styled.div`
-    left: 394px;
-    position: absolute;
-    top: 614px;
-
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 8px 48px;
-    gap: 8px;
-    width: 178px;
-    height: 48px;
-    background: #CBE6E3;
-    border-radius: 5px;
-    flex: none;
-    order: 1;
-    flex-grow: 0;
-
-    & > div {
-    }
-        & >div {
-        
-            
 
 
-        
-            width: 82px;
-height: 20px;
+.font{
 
-/* Body/Body Medium - Montserrat Medium */
 
 font-family: 'Montserrat';
 font-style: normal;
 font-weight: 500;
 font-size: 16px;
 line-height: 19px;
-/* identical to box height, or 120% */
 
-
-/* Primary Green/Primary - Green 700 */
-
-color: #009382;
-
-
-/* Inside auto layout */
+color: #112145;
 
 flex: none;
 order: 1;
 flex-grow: 0;
 
 
-        }
+
+
+
+}
+
+
+
+
+
+
+.comp-button {
+ /* Auto layout */
+
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 8px 48px;
+gap: 8px;
+
+position: absolute;
+width: 130px;
+height: 48px;
+left: 534px;
+top: 85px;
+border: none;
+
+
+background: #00AFA1;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 5px;
+}
+
+.comp-button:hover {
+  background:#86C5BD;
+
+
+
+
+  display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 8px 48px;
+gap: 8px;
+
+position: absolute;
+width: 130px;
+height: 48px;
+left: 534px;
+top: 85px;
+
+
+background: #86C5BD;
+border-radius: 5px;
+
+
+}
+.comp-button:focus {
+
+    display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 8px 48px;
+gap: 8px;
+
+position: absolute;
+width: 130px;
+height: 48px;
+left: 534px;
+top: 85px;
+
+background: #008271;
+border-radius: 5px;
+color: #FFFFFF;
+
+
+}
+.comp-button:Disabled {
+    display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 8px 48px;
+gap: 8px;
+color: #009382;
+position: absolute;
+width: 130px;
+height: 48px;
+left: 534px;
+top: 85px;
+
+/* Primary Green/Primary - Green 100 */
+
+background: #CBE6E3;
+border-radius: 5px;
+
+}
+.comp-button::active {
+    
+
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 8px 48px;
+gap: 8px;
+
+position: absolute;
+width: 130px;
+height: 48px;
+left: 1150px;
+top: 85px;
+
+background: #008271;
+
+border-radius: 5px;   
+
+color: #FFFFFF;
+ }
+
 
 
 `

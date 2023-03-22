@@ -48,6 +48,7 @@ const Layout = ({ children, title, bg, gd = 0 }) => {
 				<section>
 					<aside>
 						<CMP01 />
+            
 					</aside>
 					<article>{children}</article>
 				</section>

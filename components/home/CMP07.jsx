@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 // import IconLefCaret from '../../assets/img/icons/icon-outlines-28@2x.png'
 const CMP07 = () => {
@@ -14,6 +14,40 @@ const CMP07 = () => {
 				<button>política de privacidad.</button>
 			</div>
 		</Politica>
+	)
+}
+
+
+
+
+
+
+// import IconLefCaret from '../../assets/img/icons/icon-outlines-28@2x.png'
+const CMP07 = () => {
+	const [seleccionado, setSeleccionado] = useState(null)
+	
+	const handleClick = (valor) => {
+		if (valor === seleccionado) {
+		///	seleccionado=='icono-de-notificacin-4'
+			setSeleccionado(null)
+	
+		} else {
+			///seleccionado==='icono-de-notificacin-4'
+			setSeleccionado(valor)
+			
+		}
+	}
+	return (
+	
+		<Boton
+		
+		
+		
+			seleccionado={seleccionado ==='1'}
+			onClick={() => handleClick('1')}
+		>
+
+		</Boton>
 	)
 }
 
