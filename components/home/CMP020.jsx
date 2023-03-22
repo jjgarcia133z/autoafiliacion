@@ -1,9 +1,9 @@
-import React from 'react'
-import styled from 'styled-components'
 
+import styled from 'styled-components'
+import React, { useState } from 'react'
 import plan from '@/assets/img/aditonal-plan-1.svg'
 import check from '@/assets/img/check.svg'
-
+import check1 from '@/assets/img/check-4@2x.png'
 import line14 from '@/assets/img/line-14.svg'
 import vector1 from '@/assets/img/vector-1.svg'
 import vector2 from '@/assets/img/vector-2.svg'
@@ -11,60 +11,93 @@ import vector2 from '@/assets/img/vector-2.svg'
 import vector from '@/assets/img/vector.svg'
 
 
-
-
-const CMP020 = () => {
+function Boton({ seleccionado, onClick }) {
 	return (
-		<Primary>
-		
-			<div className="aditional-plan">
-				<div className="overlap-group4">
-					<div className="overlap-group-1">
-						<div className="frame-37365">
-							<div className="rectangle-4413"></div>
-						</div>
-						<img className="aditonal-plan" src={plan.src} alt="Aditonal Plan"/>
-						<div className="box-content">
-							<div className="left-colum">
-								<div className="flex-col-4 flex-col-7">
-									<div className="etiqueta-de-monto-1">
-										<div className="title-4 bodybody-medium---montserrat-regular">Por solo</div>
-										<div className="group-31">
-											<div className="x000-1 x000-2 bodybody-large---montserrat-bold">$2.26</div>
-										</div>
-									</div>
-									<div className="check"><img className="check-1" src={check.src} alt="Check"/></div>
-									<div className="agregar-al-plan valign-text-middle bodybody-small---montserrat-regular">
-                            Agregar<br/>al plan
+		<div className="aditional-plan">
+			<div className="overlap-group4">
+				<div className="overlap-group-1">
+					<div className="frame-37365">
+						<div className="rectangle-4413"></div>
+					</div>
+					<img className="aditonal-plan" src={plan.src} alt="Aditonal Plan"/>
+					<div className="box-content">
+						<div className="left-colum">
+							<div className="flex-col-4 flex-col-7">
+								<div className="etiqueta-de-monto-1">
+									<div className="title-4 bodybody-medium---montserrat-regular">Por solo</div>
+									<div className="group-31">
+										<div className="x000-1 x000-2 bodybody-large---montserrat-bold">$2.26</div>
 									</div>
 								</div>
+								<div className="check"><img 	onClick={onClick}  className="check-1" src ={seleccionado ? check1.src:check.src} alt="Check"/></div>
+								<div className="agregar-al-plan">
+                            Agregar<br/>al plan
+								</div>
 							</div>
-							<img className="line-14" src={line14.src} alt="Line 14"/>
-							<div className="right-colum">
-								<div className="flex-col-5 flex-col-7">
-									<div className="text-3">
-										<div className="plan-onco-smart headlinesh5---radley-font-bold">Plan OncoSmart</div>
-										<p className="para-todas-aquellas valign-text-middle bodybody-medium----montserrat-medium">
+						</div>
+						<img className="line-14" src={line14.src} alt="Line 14"/>
+						<div className="right-colum">
+							<div className="flex-col-5 flex-col-7">
+								<div className="text-3">
+									<div className="plan-onco-smart">Plan OncoSmart</div>
+									<p className="para-todas-aquellas">
                               Este plan es para todas aquellas personas interesadas en la prevención y detección
                               temprana de cáncer, así como personas sobrevivientes o en el proceso.
+									</p>
+								</div>
+								<img className="vector" src={vector1.src} alt="Vector"/>
+								<div className="flex-row-2">
+									<div className="comp-button-1 comp-button-7">
+										<p className="continuar-1">
+                                Da click acá para ver más información
 										</p>
 									</div>
-									<img className="vector" src={vector1.src} alt="Vector"/>
-									<div className="flex-row-2">
-										<div className="comp-button-1 comp-button-7">
-											<p className="continuar-1 continuar-5 bodybody-small---montserrat-medium">
-                                Da click acá para ver más información
-											</p>
-										</div>
-										<img className="vector-1" src={vector2.src} alt="Vector"/>
-									</div>
+									<img className="vector-1" src={vector2.src} alt="Vector"/>
 								</div>
 							</div>
 						</div>
 					</div>
-					<img className="vector-2" src={vector.src} alt="Vector"/>
 				</div>
+				<img className="vector-2" src={vector.src} alt="Vector"/>
 			</div>
+		</div>
+
+
+
+	)
+}
+
+
+
+const CMP020 = () => {
+  	
+	const [seleccionado, setSeleccionado] = useState(null)
+	
+	const handleClick = (valor) => {
+		if (valor === seleccionado) {
+		///	seleccionado=='icono-de-notificacin-4'
+			setSeleccionado(null)
+	
+		} else {
+			///seleccionado==='icono-de-notificacin-4'
+			setSeleccionado(valor)
+			
+		}
+	}
+
+	return (
+		<Primary>
+		
+			<Boton
+		
+			
+				seleccionado={seleccionado === '1'}
+				onClick={() => handleClick('1')}
+			>
+				
+			</Boton>
+
+	
 		</Primary>
 	)
 }
@@ -147,7 +180,7 @@ const Primary = styled.div`
 }
 
 
-.bodybody-large---montserrat-bold {
+.bodybody-large---montserrat-bold1 {
     font-family: "Montserrat-SemiBold", Helvetica;
     font-size: 28px;
     font-style: normal;
@@ -155,16 +188,31 @@ const Primary = styled.div`
     letter-spacing: 0;
 }
 .agregar-al-plan {
-  color: #ffffff;
-    font-weight: 400;
-    height: 35px;
-    line-height: 16.8px;
-    margin-top: 7px;
-    text-align: center;
-    width: 64px;
+  width: 64px;
+height: 35px;
+left: 22px;
+top: 110px;
+
+/* Body/Body Small - Montserrat Regular */
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 17px;
+/* or 120% */
+
+display: flex;
+align-items: center;
+text-align: center;
+
+/* Neutral Gray Colors/Neutral - White */
+
+color: #FFFFFF;
+ 
 }
 
-.bodybody-medium---montserrat-regular {
+.bodybody-medium---montserrat-regular1 {
     font-family: "Montserrat", Helvetica;
     font-size: 16px;
     font-style: normal;
@@ -173,13 +221,24 @@ const Primary = styled.div`
 }
 
 .title-4 {
-    color: #ffffff;
-    font-weight: 400;
-    line-height: 19.2px;
-    margin-top: -1.00px;
-    position: relative;
-    white-space: nowrap;
-    width: fit-content;
+  width: 65px;
+height: 20px;
+
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 19px;
+
+
+color: #FFFFFF;
+
+
+
+flex: none;
+order: 0;
+flex-grow: 0;
 }
 .bodybody-small---montserrat-medium {
     font-family: "Montserrat", Helvetica;
@@ -188,28 +247,48 @@ const Primary = styled.div`
     font-weight: 500;
     letter-spacing: 0;
 }
-.x000-2 {
+.x000-21 {
   color: #ffffff;
   font-weight: 600;
   line-height: 33.6px;
   white-space: nowrap;
 }
 .x000-1 {
-  left: 0;
-  position: absolute;
-  top: 0;
+  width: 76px;
+height: 34px;
+left: 0px;
+top: 20px;
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 600;
+font-size: 28px;
+line-height: 34px;
+color: #FFFFFF;
+
 }
 
 .continuar-5 {
-  font-weight: 500;
-  position: relative;
-  white-space: nowrap;
-  width: fit-content;
+
 }
 
 .continuar-1 {
-  color: var(--primary-blueprimary---blue-900);
-  line-height: 16.8px;
+
+
+width: 270px;
+height: 17px;
+
+
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 14px;
+line-height: 17px;
+
+
+
+
+color: #112145;
 }
 .comp-button-7 {
   align-items: center;
@@ -256,11 +335,26 @@ const Primary = styled.div`
     letter-spacing: 0;
 }
 .para-todas-aquellas {
-    color: #ffffff;
-    font-weight: 500;
-    height: 45px;
-    line-height: 19.2px;
-    width: 664px;
+ 
+
+width: 664px;
+height: 45px;
+left: 0px;
+top: 46px;
+
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 16px;
+line-height: 19px;
+
+display: flex;
+align-items: center;
+
+
+
+color: #FFFFFF;
 }
 
 .headlinesh5---radley-font-bold {
@@ -271,13 +365,21 @@ const Primary = styled.div`
     letter-spacing: 0;
 }
 .plan-onco-smart {
-    color: #ffffff;
-    font-weight: 400;
-    line-height: 38.4px;
-    margin-left: 1px;
-    margin-top: -1px;
-    min-height: 42px;
-    white-space: nowrap;
+    
+
+width: 663px;
+height: 42px;
+left: 1px;
+top: 0px;
+
+
+font-family: 'Radley';
+font-style: normal;
+font-weight: 400;
+font-size: 32px;
+line-height: 38px;
+
+color: #FFFFFF;
 }
 .text-3 {
   align-items: flex-start;
@@ -312,7 +414,8 @@ const Primary = styled.div`
   width: 838px;
 }
 .rectangle-4413 {
-  background: linear-gradient(90deg, rgb(45, 72, 117) 33.85%, rgb(0, 175, 161) 100%);
+  background: linear-gradient(90deg, #2D4875 33.85%, rgb(0, 175, 161) 100%);
+
   border-radius: 10px;
   height: 191px;
   min-width: 918px;
