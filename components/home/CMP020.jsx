@@ -13,7 +13,7 @@ import vector from '@/assets/img/vector.svg'
 
 
 
-const CMP08 = () => {
+const CMP020 = () => {
 	return (
 		<Primary>
 		
@@ -69,7 +69,7 @@ const CMP08 = () => {
 	)
 }
 
-export default CMP08
+export default CMP020
 
 const Primary = styled.div`
      .aditional-plan {
@@ -312,8 +312,8 @@ const Primary = styled.div`
   width: 838px;
 }
 .rectangle-4413 {
-  background: linear-gradient(180deg, rgb(45, 72, 117) 33.85%, rgb(0, 175, 161) 100%);
-  border-radius: 5px;
+  background: linear-gradient(90deg, rgb(45, 72, 117) 33.85%, rgb(0, 175, 161) 100%);
+  border-radius: 10px;
   height: 191px;
   min-width: 918px;
   position: relative;

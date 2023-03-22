@@ -1,11 +1,11 @@
 import Layout from '@/components/layouts/Layout'
-import CMP09 from '@/components/contenedores/CMP09'
+import CMP011 from '@/components/contenedores/CMP011'
 
 export default function TipoPlan() {
 	return (
 		<>
-			<Layout title="Tipo Plan url - Autoafiliacion">
-				<CMP09 text="test" />
+			<Layout title="Datos Personales - Autoafiliacion" bg={1}>
+				<CMP011 text="test" />
 			</Layout>
 		</>
 	)

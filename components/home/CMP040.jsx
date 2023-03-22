@@ -1,9 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 import { BsCheckCircle as Success, BsXCircle as Fail } from 'react-icons/bs'
-const CMP038 = ({
+const CMP040 = ({
 	mandatory = false,
 	state = 'none',
+	type = 'text',
 	label = 'label',
 	placeholder = '',
 	helperText = 'helper text',
@@ -12,12 +13,7 @@ const CMP038 = ({
 		<SelectContainer mandatory={mandatory} state={state}>
 			<label htmlFor="">
 				<span>{label}</span>
-				<select>
-					<option value="" disabled selected>{placeholder}</option>
-					<option value="">Select 1</option>
-					<option value="">Select 2</option>
-					<option value="">Select 3</option>
-				</select>
+				<textarea type={type} name="" id="" placeholder={placeholder}/>
 				<i>
 					{state == 'success' && <Success />}
 					{state == 'fail' && <Fail />}
@@ -29,16 +25,17 @@ const CMP038 = ({
 	)
 }
 
-export default CMP038
+export default CMP040
 
 const SelectContainer = styled.div`
+width: 100%;
   position: relative;
   & > label {
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 290px;
+    width: 100%;
     margin-bottom: 8px;
     font-family: Montserrat;
     font-size: 20px;
@@ -59,12 +56,14 @@ const SelectContainer = styled.div`
       height: 100%;
       color: var(--alert-error);
     }
-    & > select {
+    & > textarea {
       background-color: var(--neutral-gray-colors-neutral-white);
-      width: 100%;
+      width: 100% !important;
       border: none;
+      border-width: 0;
+      resize: none;
       background: transparent;
-      border-bottom: ${(props) =>
+      border-bottom: ${(props) =>      
 		props.state == 'success'
 			? '1px solid var(--alert-success)'
 			: props.state == 'fail'

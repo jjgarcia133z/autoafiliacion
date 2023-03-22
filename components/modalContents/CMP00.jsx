@@ -1,6 +1,7 @@
 import React from 'react'
 import welcome from '@/assets/img/welcome.png'
 import styled from 'styled-components'
+import CMP08 from '../home/CMP08'
 const CMP00 = () => {
 	return (
 		<WelcomeModal>
@@ -11,6 +12,7 @@ const CMP00 = () => {
 			<div>
 				<img src={welcome.src} alt="welcome" />
 			</div>
+			<CMP08 text="Empecemos" type='primary'/>
 		</WelcomeModal>
 	)
 }

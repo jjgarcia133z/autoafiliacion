@@ -2,19 +2,35 @@ import Head from 'next/head'
 import styled from 'styled-components'
 import CMP01 from '@/components/sideMenu/CMP01'
 import CMP017 from '@/components/header/CMP017'
-import ImagePortada from '@/assets/img/PortadaAfiliacion_medismart.png'
 import { useSelector } from 'react-redux'
 import CMP026 from '../common/CMP026'
 import { useState } from 'react'
 import CMP00 from '../modalContents/CMP00'
 import { setWelcomeModal } from '@/store/slices/configSlide'
 import { useDispatch } from 'react-redux'
-
-const Layout = ({ children, title }) => {
+import ImagePortada from '@/assets/img/PortadaAfiliacion_medismart.png'
+import ImagePortada2 from '@/assets/img/PortadaAfiliacion_medismart2.png'
+//bg background index
+//gd gradient state
+const Layout = ({ children, title, bg, gd = 0 }) => {
 	const { welcomeModal } = useSelector((state) => state.config)
 	const [showModal, setShowModal] = useState(true)
-	const dispatch = useDispatch()
+	const bgSelector = [
+		{
+			background: `url(${ImagePortada.src})`,
+			backgroundSize: 'cover',
+			backgroundPosition: 'center',
+			backgroundRepeat: 'no-repeat',
+		},
+		{
+			background: `url(${ImagePortada2.src})`,
+			backgroundPosition: 'right top',
+			backgroundRepeat: 'no-repeat',
+		},
+	]
+	console.log(bg, bgSelector[bg])
 	const funcOnClose = () => {
+		const dispatch = useDispatch()
 		dispatch(setWelcomeModal(false))
 	}
 	return (
@@ -25,7 +41,7 @@ const Layout = ({ children, title }) => {
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<MainLayout imageUrl={ImagePortada}>
+			<MainLayout bgSelector={bgSelector} bg={bg} gd={gd}>
 				<header>
 					<CMP017 />
 				</header>
@@ -56,14 +72,13 @@ const MainLayout = styled.main`
   box-sizing: border-box;
   display: grid;
   grid-template-rows: calc(48px + 80px) 1fr 80px;
-
+  grid-template-columns: 1fr minmax(330px, 1440px) 1fr;
   grid-template-areas:
     "header header header"
     "content content content"
     "footer footer footer";
   min-height: 100vh;
   min-width: 100%;
-
   padding: 48px 56px 0 56px;
   header {
     grid-area: header;
@@ -71,32 +86,31 @@ const MainLayout = styled.main`
   }
   section {
     display: grid;
-    grid-template-columns: 1fr;
-    grid-area: content;
-    grid-template-areas: "article";
+    grid-template-columns: 314px 1fr;
+    grid-column: 2/3;
+    grid-template-areas: "menu article";
     box-shadow: 0px 4px 4px rgba(192, 200, 214, 0.25);
+    background-color: var(--neutral-background-neutral-olive-100);
     border-radius: 10px;
     position: relative;
     overflow: hidden;
+    place-content: center;
     &:after {
       content: "";
       position: absolute;
-      background-image: url(${(props) => props.imageUrl.src});
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: top right;
-      background-color: #ffffff;
-      background-size: 100%;
+      ${(props) => props.bgSelector[props.bg]}
       height: 388px;
       width: 1328px;
       top: 0px;
       border-radius: 10px;
       top: 0;
       right: 0;
-      z-index: -2;
+      z-index: 1;
+      pointer-events: none;
     }
     &:before {
       content: "";
+      display: ${(props) => (props.gd === 1 ? 'block' : 'none')};
       position: absolute;
       background: rgb(40, 65, 109);
       background: linear-gradient(
@@ -107,13 +121,12 @@ const MainLayout = styled.main`
         rgba(255, 255, 255, 02) 45%,
         #fff 100%
       );
-
-      height: 780px;
       width: 100%;
       top: 0;
       right: 0;
-      z-index: -1;
+      z-index: 1;
       border-radius: 10px;
+      pointer-events: none;
     }
   }
   article {
@@ -122,7 +135,6 @@ const MainLayout = styled.main`
   }
   aside {
     grid-area: menu;
-    display: none
   }
   footer {
     grid-area: footer;

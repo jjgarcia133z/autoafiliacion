@@ -46,6 +46,9 @@
   --neutral-gray-colors-neutral-white: #fff;
   --special-colors-special-contrast: #dcae70;
   --transparent-white: rgba(255, 255, 255, 0.9);
+  --primary-blue-primary-blue-900-transparent:  rgba(17, 33, 69, 0.7);
+  --center-shadow: 0px 0px 4px rgba(192, 200, 214, 0.25);
+  --leftbottom-shadow: 4px 4px 4px rgba(192, 200, 214, 0.25);
 }
 
 * {
@@ -137,6 +140,10 @@ p {
 /* *[class^="icon-"]:before, *[class*=" icon-"]:before {
   font-size: 24px;
 } */
+
+.icon-search:before {
+  content: "\e91a";
+}
 .icon-eye:before {
   content: "\e900";
 }
@@ -169,6 +176,9 @@ p {
 }
 .icon-x-circle:before {
   content: "\e90a";
+}
+.icon-check-circle:before {
+  content: "\e919";
 }
 .icon-exclamation-circle:before {
   content: "\e90b";
@@ -212,3 +222,4 @@ p {
 .icon-pet:before {
   content: "\e918";
 }
+

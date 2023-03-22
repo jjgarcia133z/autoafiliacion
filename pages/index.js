@@ -4,7 +4,7 @@ import CMP09 from '@/components/contenedores/CMP09'
 export default function Home() {
 	return (
 		<>
-			<Layout title="Tipo Plan url - Autoafiliacion" >
+			<Layout title="Tipo Plan - Autoafiliacion" bg={0} gd={1} >
 				<CMP09 />
 			</Layout>
 		</>

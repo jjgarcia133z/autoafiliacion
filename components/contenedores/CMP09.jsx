@@ -1,17 +1,24 @@
 import React from 'react'
 import styled from 'styled-components'
-import CMP024 from '../CMP024'
-import CMP039 from '../CMP039'
-import CMP015 from '../common/CMP015'
+import CMP011_5 from '../common/CMP011_5'
+import CMP012 from '../common/CMP012'
 import CMP025 from '../common/CMP025'
-import CMP038 from '../common/CMP038'
 
 const CMP09 = ({ text = '' }) => {
+	const [show, setShow] = React.useState(false)
+	const showTooltip = (state) => {
+		console.log(state)
+		setShow(() => state)
+	}
 	return (
 		<Container>
 			<div>
-				<h1>Plan Medismart {text}
-					<CMP025 />
+				<h1
+					// onMouseEnter={() => showTooltip(true)}
+					// onMouseLeave={() => showTooltip(false)}
+				>
+          Plan Medismart {text}
+					<CMP025 show={show} />
 				</h1>
 				<p>
           Adquirí el mejor plan de medicina prepagada que te aporta beneficios
@@ -19,7 +26,18 @@ const CMP09 = ({ text = '' }) => {
 				</p>
 			</div>
 			<div>
-				<CMP024 />
+				<div>
+					
+
+				</div>
+				<div style={{display: 'flex', gap: '20px'}}>
+          
+					<CMP012 price="14.35" title="Persona" description="Afiliá un amigo o familiar, para que tenga tus mismos beneficios" />
+				
+					<CMP012 price="9.35" title="Mascotas" description="Afiliá a tu perro o gato y aprovechá beneficios para cuidar de su salud."  type="perro" />
+				</div>
+
+				{/* <CMP024 /> */}
 				{/* <CMP015 /> */}
 				{/* <CMP038 /> */}
 			</div>
@@ -37,7 +55,7 @@ const Container = styled.div`
   & > div {
     width: 100%;
     margin-top: calc(227px - 32px);
-
+    margin-bottom: 32px;
     & > h1 {
       font-family: "Radley";
       font-size: 42px;

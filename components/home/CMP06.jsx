@@ -20,11 +20,7 @@ const CMP06 = () => {
 								</div>
 								<div className="plans-3 plans">
 									<div className="titular-3 titular">
-										<div className="text-4 headlinesh6">Plan Mensual</div>
-
-
-
-										
+										<div className="text-4 headlinesh6">Plan Mensual</div>										
 										<div className="list-check-3 list-check">
 											<div className="icono-de-notificacin-4"></div>
 										</div>

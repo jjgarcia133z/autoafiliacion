@@ -2,9 +2,12 @@ import React from 'react'
 import styled from 'styled-components'
 import { HiPlus as Plus } from 'react-icons/hi'
 
-const CMP015 = () => {
+const CMP015 = ({click}) => {
+	const handleClick = () => {
+		click()
+	}
 	return (
-		<ButtonAdd>
+		<ButtonAdd onClick={()=> handleClick()}>
 			<span>
 				<Plus />
 			</span>
@@ -26,7 +29,7 @@ const ButtonAdd = styled.button`
   border-radius: 5px;
   padding: 9.5px 8px;
   background-color: var(--secundary-accent-secundary-accent-main-500);
-
+  cursor: pointer;
   gap: 8px;
   & > span {
     display: flex;
@@ -50,5 +53,9 @@ const ButtonAdd = styled.button`
   & > span:last-of-type {
     display: flex;
     align-items: center;
+  }
+
+  &:hover {
+    background-color: var(--secundary-accent-secundary-accent-400);
   }
 `

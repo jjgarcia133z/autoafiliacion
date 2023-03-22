@@ -62,7 +62,7 @@ const BackGroundModal = styled.div`
     background-color: var(--neutral-gray-colors-neutral-white);
     border-radius: 10px;
     border: 1px solid var(--neutral-gray-colors-neutral-medium-grey);
-    box-shadow: 4px 4px 4px rgb(192, 200, 214, 0.25);
+    box-shadow: var(--leftbottom-shadow);
     & > div:first-of-type {
       display: flex;
       justify-content: space-between;

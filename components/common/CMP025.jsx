@@ -7,10 +7,11 @@ import indicator from '@/assets/img/icons/indicator.png'
 const CMP025 = ({
 	tipPosition = position.topMid,
 	arrowPosition = position.bottomMid,
-	tooltipWidth = '150px',
+	tooltipWidth = '205px',
 	separation = '12',
+	text = 'Acá podés ver el ahorro que tendrás al pasarte a otro periódo de pago a partir del trimestral.',
+	show = false,
 }) => {
-	console.log(indicator)
 	const ref = useRef(null)
 	const [tooltipMesure, setTooltipMesure] = useState(0)
 	useEffect(() => {
@@ -23,10 +24,11 @@ const CMP025 = ({
 			}
 			return prev
 		})
-	}, [])
+	}, [show])
 
 	return (
 		<TootipContainer
+			show={show}
 			indicator={indicator.src}
 			ref={ref}
 			width={tooltipWidth}
@@ -41,8 +43,7 @@ const CMP025 = ({
 			arrowPosition={arrowPosition}
 		>
 			<div>
-        Acá podés ver el ahorro que tendrás al pasarte a otro periódo de pago a
-        partir del trimestral.
+				{text}
 			</div>
 			<button>
 				<XElement />
@@ -55,7 +56,7 @@ export default CMP025
 
 const TootipContainer = styled.div`
   position: absolute;
-  display: flex;
+  display: ${(props) => (props.show ? 'flex' : 'none')};
   background-color: var(--primary-blue-primary-blue-900);
   border-radius: 10px;
   width: ${(props) => props.width};
