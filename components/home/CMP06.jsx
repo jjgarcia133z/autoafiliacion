@@ -1,124 +1,126 @@
-import React from 'react'
+import React, { useState } from 'react'
+
+
 import styled from 'styled-components'
 import line15 from '@/assets/img/line-15-4@2x.png'
 import line10  from '@/assets/img/line-10-4@2x.png'
 import icono from '@/assets/img/icon-outlines-29@2x.png'
-// import IconLefCaret from '../../assets/img/icons/icon-outlines-28@2x.png'
-const CMP06 = () => {
+
+const planes  = [
+	{ nombre: 'Plan Mensual', precio_titular: 13.56 , precio_adicional: 7.78},
+	{ nombre: 'Plan Trimestral', precio_titular: 81.36 , precio_adicional: 23.78},
+	{ nombre: 'Plan Semestral', precio_titular: 94.4 , precio_adicional: 35.78},
+	{ nombre: 'Plan Anual', precio_titular: 162.75 , precio_adicional: 54.43},
+]
+function Boton({ valor, precio_titular,precio_adicional,  seleccionado, onClick ,planes}) {
 	return (
-		<Primary background={icono}>
-			<div className="plan-bar-options-1">
-			
-				<article className="plan-option">
-					<div className="frame-37361-3 frame-37361">
-						<div className="frame-37381-1">
-							<div className="overlap-group-3">
-								<div className="fondo-2">
-									<set1>
-										<div className="fondo-3"></div>
-									</set1>
-								</div>
-								<div className="plans-3 plans">
-									<div className="titular-3 titular">
-										<div className="text-4 headlinesh6">Plan Mensual</div>
 
 
+	
+		<button   
+			onClick={onClick} className="plan-option" >
+       
+			<div className="frame-37361-3 frame-37361">
+				<div className={seleccionado ? 'frame-373s61-2' : 'frame-37361-2'}>
+          
+					<div className="overlap-group-3">
+						<div className="fondo-2">
+							<set1>
+								<div className={seleccionado ? 'fondo-3' : 'white'}></div>
 
-										
-										<div className="list-check-3 list-check">
-											<div className="icono-de-notificacin-4"></div>
-										</div>
-									</div>
-									<img className="line-15-1" src={line15.src} alt="Line 15" />
-									<div className="contenido-1">
-										<div className="flex-row-1 overlineoverline-small-medium---montserrat">
-											<div className="desde-1 valign-text-middle">Desde</div>
-											<img className="line-10-1" src={line10.src} alt="Line 10" />
-											<div className="frame-37360-1">
-												<div className="text-9">$ 13.56 por titular</div>
-												<div className="text-9">$ 6,78 por adicional</div>
-											</div>
-										</div>
-									</div>
+                
+							</set1>
+						</div>
+						<div className="plans-3 plans">
+							<div className="titular-3 titular">
+								<div className="text-4 headlinesh6">{valor}</div>
+								<div className="list-check-3 list-check">
+
+                
+									<div className={seleccionado ? 'icono-de-notificacin-4' : 'white'}></div>
 								</div>
 							</div>
-						</div>
-					</div>
-				</article>
-
-				<article className="plan-option-2 plan-option">
-					<div className="frame-37361-2 frame-37361">
-						<div className="plans-2 plans">
-							<div className="titular"><div className="text-13 headlinesh6">Plan Trimestral</div></div>
-							<img className="line-15-1" src={line10.src} alt="Line 15" />
+							<img className="line-15-1" src={line15.src} alt="Line 15" />
 							<div className="contenido-1">
 								<div className="flex-row-1 overlineoverline-small-medium---montserrat">
 									<div className="desde-1 valign-text-middle">Desde</div>
-									<img className="line-10-1" src={line15.src} alt="Line 10" />
+									<img className="line-10-1" src={line10.src} alt="Line 10" />
 									<div className="frame-37360-1">
-										<div className="text-10">$ 40.68 por titular</div>
-										<div className="text-10">$ 20.34 por adicional</div>
+										<div className="text-9">${precio_titular} por titular</div>
+										<div className="text-9">${precio_adicional} por adicional</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</article>
-				<article className="plan-option-2 plan-option">
-					<div className="frame-37361-2 frame-37361">
-						<div className="plans-2 plans">
-							<div className="titular"><div className="text-13 headlinesh6">Plan Semestral</div></div>
-							<img className="line-15-1" src={line10.src} alt="Line 15" />
-							<div className="contenido-1">
-								<div className="flex-row-1 overlineoverline-small-medium---montserrat">
-									<div className="desde-1 valign-text-middle">Desde</div>
-									<img className="line-10-1" src={line15.src} alt="Line 10" />
-									<div className="frame-37360-1">
-										<div className="text-10">$ 81.36 por titular</div>
-										<div className="text-10">$ 40.68 por adicional</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</article>
-				<article className="plan-option-2 plan-option">
-					<div className="frame-37361-2 frame-37361">
-						<div className="plans-2 plans">
-							<div className="titular"><div className="text-13 headlinesh6">Plan Anual</div></div>
-							<img className="line-15-1" src={line10.src} alt="Line 15" />
-							<div className="contenido-1">
-								<div className="flex-row-1 overlineoverline-small-medium---montserrat">
-									<div className="desde-1 valign-text-middle">Desde</div>
-									<img className="line-10-1" src={line15.src}alt="Line 10" />
-									<div className="frame-37360-1">
-										<div className="text-10">$ 162.72 por titular</div>
-										<div className="text-10">$ 81.36 por adicional</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</article>
-
-
-
-
-
-
-
-			
+				</div>
 			</div>
-      
-		</Primary>
+		</button>
+
 	)
 }
 
+
+const CMP06 = () => {
+	
+	const [seleccionado, setSeleccionado] = useState(null)
+	
+	const handleClick = (valor) => {
+		if (valor === seleccionado) {
+		///	seleccionado=='icono-de-notificacin-4'
+			setSeleccionado(null)
+	
+		} else {
+			///seleccionado==='icono-de-notificacin-4'
+			setSeleccionado(valor)
+			
+		}
+	}
+
+
+	return (
+    
+		<Primary background={icono}>
+			<div className="plan-bar-options-1">	
+
+
+  
+
+				{planes.map((plan, index) => (
+			
+
+					<Boton
+						key={index}
+						valor={plan.nombre}
+						precio_titular={plan.precio_titular}
+						precio_adicional={plan.precio_adicional}
+						seleccionado={seleccionado === plan.nombre}
+						onClick={() => handleClick(plan.nombre)}
+					>
+				
+					</Boton>
+
+				))}
+
+
+			</div>
+			
+
+		</Primary>	
+		
+	)
+ 
+ 
+}
+
 export default CMP06
-
-
 const Primary = styled.div`
+.selected {
+  background-color: blue;
+  color: white;
+}
 .contenido-1 {
+  
   height: 43px;
   min-width: 184px;
   position: relative;
@@ -165,8 +167,9 @@ const Primary = styled.div`
   position: relative;
 }
 .frame-37361-2 {
-  background-color: #4d638a;
   border-radius: 10px;
+
+  background-color: #4d638a;
   height: 152px;
   min-width: 216px;
 }
@@ -177,6 +180,10 @@ const Primary = styled.div`
   height: 152px;
   position: relative;
   width: 216px;
+  border:none;
+  border-radius: 10px;
+
+
 }
 .headlinesh6{
     font-size: 24px;
@@ -286,7 +293,7 @@ const Primary = styled.div`
 }
 .plans {
   align-items: flex-start;
-  border-radius: 5px;
+
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -333,8 +340,8 @@ const Primary = styled.div`
 
 .fondo-3{
   background: linear-gradient(180deg, rgb(45, 72, 117) 3.12%, rgb(0, 175, 161) 100%);
-  border: 1px solid;
-  border-color: var(--secundary-accentsecundary---accent---main-500);
+ 
+  
   border-radius: 5px;
   height: 152px;
   min-width: 216px;

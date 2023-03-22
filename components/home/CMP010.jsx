@@ -2,12 +2,12 @@ import React from 'react'
 import styled from 'styled-components'
 
 // import IconLefCaret from '../../assets/img/icons/icon-outlines-28@2x.png'
-const CMP10 = () => {
+const CMP10 = ({ name, status }) => {
 	return (
 		<Primary>
-			<div className="componente-button-group-5 componente-button-group">
-				<div className="comp-button-5 comp-button"><div className="continuar-7 continuar bodybody-medium----montserrat-medium">Atras</div></div>
-			</div>
+			
+			<button className="comp-button font" disabled={status} >{name}</button>
+		
 		</Primary>
 	)
 }
@@ -15,9 +15,36 @@ const CMP10 = () => {
 export default CMP10
 
 const Primary = styled.div`
-    box-sizing: border-box;
 
-/* Auto layout */
+
+.font{
+
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 16px;
+line-height: 19px;
+
+color: #112145;
+
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+
+
+
+}
+
+
+
+
+
+
+.comp-button {
+ /* Auto layout */
 
 display: flex;
 flex-direction: row;
@@ -26,20 +53,82 @@ align-items: center;
 padding: 8px 48px;
 gap: 8px;
 
-width: 138px;
+position: absolute;
+width: 130px;
 height: 48px;
+left: 534px;
+top: 85px;
+border: none;
 
-/* Neutral Gray Colors/Neutral - White */
 
-background: #FFFFFF;
-/* Neutral Gray Colors/Neutral - Medium Grey */
+background: #ffff;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 5px;
+}
 
-border: 1px solid #C0C8C8;
+.comp-button:hover {
+  background: #E6EBEB;
+
+
+
+
+  display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 8px 48px;
+gap: 8px;
+
+position: absolute;
+width: 130px;
+height: 48px;
+left: 534px;
+top: 85px;
+
+
 border-radius: 5px;
 
-/* Inside auto layout */
 
-flex: none;
-order: 0;
-flex-grow: 0;
+}
+.comp-button:focus {
+
+    display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 8px 48px;
+gap: 8px;
+
+position: absolute;
+width: 130px;
+height: 48px;
+left: 534px;
+top: 85px;
+
+background: #E6EBEB;;
+border-radius: 5px;
+color: #112145;
+
+
+}
+.comp-button:Disabled {
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 8px 48px;
+gap: 8px;
+color: #959B9B;
+position: absolute;
+width: 130px;
+height: 48px;
+left: 534px;
+top: 85px;
+background: #E6EBEB;;
+border-radius: 5px;
+
+}
+
+
+
 `
