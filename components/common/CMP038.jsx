@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import { BsCheckCircle as Success, BsXCircle as Fail } from 'react-icons/bs'
 const CMP038 = ({
 	mandatory = false,
 	state = 'none',
@@ -12,16 +11,12 @@ const CMP038 = ({
 		<SelectContainer mandatory={mandatory} state={state}>
 			<label htmlFor="">
 				<span>{label}</span>
-				<select>
-					<option value="" disabled selected>{placeholder}</option>
+				<select  defaultValue={0}>
+					<option value="0" disabled>{placeholder}</option>
 					<option value="">Select 1</option>
 					<option value="">Select 2</option>
 					<option value="">Select 3</option>
 				</select>
-				<i>
-					{state == 'success' && <Success />}
-					{state == 'fail' && <Fail />}
-				</i>
 			</label>
 			{state == 'success' ||
         (state == 'fail' && <span>{helperText}</span>)}
@@ -129,10 +124,6 @@ const SelectContainer = styled.div`
     border-radius: 50%;
     color: ${(props) =>
 		props.state == 'success' ? 'var(--alert-success)' : 'var(--alert-error)'};
-    background-color: ${(props) =>
-		props.state == 'success' || props.state == 'fail'
-			? 'var(--neutral-background-neutral-olive-100)'
-			: 'transparent'};
     pointer-events: none;
     & > svg {
       width: 16px;
