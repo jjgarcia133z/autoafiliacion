@@ -50,14 +50,10 @@ display: flex;
 flex-direction: row;
 justify-content: center;
 align-items: center;
-padding: 8px 48px;
+padding: 14px 48px;
 gap: 8px;
-
-position: absolute;
 width: 130px;
 height: 48px;
-left: 534px;
-top: 85px;
 border: none;
 
 
@@ -78,12 +74,8 @@ justify-content: center;
 align-items: center;
 padding: 8px 48px;
 gap: 8px;
-
-position: absolute;
 width: 130px;
 height: 48px;
-left: 534px;
-top: 85px;
 
 
 background: #86C5BD;
@@ -99,12 +91,8 @@ justify-content: center;
 align-items: center;
 padding: 8px 48px;
 gap: 8px;
-
-position: absolute;
 width: 130px;
 height: 48px;
-left: 534px;
-top: 85px;
 
 background: #008271;
 border-radius: 5px;
@@ -120,11 +108,8 @@ align-items: center;
 padding: 8px 48px;
 gap: 8px;
 color: #009382;
-position: absolute;
 width: 130px;
 height: 48px;
-left: 534px;
-top: 85px;
 
 /* Primary Green/Primary - Green 100 */
 
@@ -141,12 +126,8 @@ justify-content: center;
 align-items: center;
 padding: 8px 48px;
 gap: 8px;
-
-position: absolute;
 width: 130px;
 height: 48px;
-left: 1150px;
-top: 85px;
 
 background: #008271;
 
