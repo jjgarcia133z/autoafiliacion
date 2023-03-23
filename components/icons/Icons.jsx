@@ -31,6 +31,9 @@ const XElement = () => {
 const Search = () => {
 	return <i className="icon-search"></i>
 }
+const Check = () => {
+	return <i className="icon-check"></i>
+}
 
 export {
 	XElement,
@@ -43,4 +46,5 @@ export {
 	TrashCan,
 	ChevronDown,
 	Search,
+	Check,
 }
