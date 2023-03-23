@@ -7,6 +7,9 @@ import CMP020 from '../home/CMP020'
 import CMP037 from '../home/CMP037'
 import CMP040 from '../home/CMP040'
 import CMP07 from '../home/CMP07'
+import CMP08 from '../home/CMP08'
+import CMP010 from '../home/CMP010'
+import Loading from '../common/Loading'
 
 const CMP011 = () => {
 	return (
@@ -99,7 +102,6 @@ const CMP011 = () => {
 				<CMP040
 					label="Dirección exacta"
 					placeholder="Ingresá tu dirección de domicilio"
-					state='fail'
 				/>
 			</Row>
 			<Row bottom={32}>
@@ -111,6 +113,11 @@ const CMP011 = () => {
 			<Row>
 				<CMP07 />
 			</Row>
+			<Row>
+				<CMP010 text="Atrás" />
+				<CMP08 text="Continuar" />
+				<Loading />
+			</Row>
 		</Container>
 	)
 }
@@ -121,7 +128,7 @@ const Row = styled.div`
   flex-direction: row;
   gap: 32px;
   width: 100%;
-  margin-bottom:${props => props.bottom || 32}px;
+  margin-bottom: ${(props) => props.bottom || 32}px;
 `
 const Container = styled.div`
   width: 100%;
