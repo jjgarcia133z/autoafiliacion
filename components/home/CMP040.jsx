@@ -130,7 +130,7 @@ width: 100%;
 		props.state == 'success' ? 'var(--alert-success)' : 'var(--alert-error)'};
     background-color: ${(props) =>
 		props.state == 'success' || props.state == 'fail'
-			? 'var(--neutral-background-neutral-olive-100)'
+			? 'transparent'
 			: 'transparent'};
     pointer-events: none;
     & > svg {
