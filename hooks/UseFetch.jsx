@@ -1,38 +1,29 @@
-import React from 'react'
-
-const UseFetch = () => {
-	const [data, setData] = React.useState(null)
-	const [loading, setLoading] = React.useState(true)
-	const [error, setError] = React.useState(null)
-
-	React.useEffect(() => {
-		async function fetchData() {
-			try {
-				const response = await fetch(
-					'https://ranekapi.origamid.dev/json/api/produto'
-				)
-				const json = await response.json()
-				setData(json)
-			} catch (error) {
-				setError(error)
-			} finally {
-				setLoading(false)
-			}
+import { useEffect, useState } from 'react'
+const useFetch = () => {
+	const [data, setData] = useState(null)
+	const [loading, setLoading] = useState(true)
+	const [error, setError] = useState(null)
+	async function fetchData(url) {
+		try {
+			const response = await fetch(
+				url
+			)
+			const json = await response.json()
+			setData(json)
+		} catch (error) {
+			setError(error)
+		} finally {
+			setLoading(false)
 		}
-		fetchData()
-	}, [])
-	const get = (url) => {
-		return fetch(url)
-			.then((response) => response.json())
-			.then((json) => json)
 	}
+
     
 	return {
 		data,
 		loading,
 		error,
-		get,
+		fetchData
 	}
 }
 
-export default UseFetch
+export default useFetch
