@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const Loading = ({contrast}) => {
+const Loading = () => {
 	return (
 		<LoadingContainer className="loading">
 			<span></span>

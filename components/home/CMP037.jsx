@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { BsCheckCircle as Success, BsXCircle as Fail } from 'react-icons/bs'
 const CMP038 = ({
@@ -9,7 +9,7 @@ const CMP038 = ({
 	placeholder = '',
 	helperText = 'helper text',
 }) => {
-	const [helperState, setHelperState] = useState('none')
+	// const [helperState, setHelperState] = useState('none')
 	return (
 		<SelectContainer mandatory={mandatory} state={state}>
 			<label htmlFor="">

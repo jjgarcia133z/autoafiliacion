@@ -16,7 +16,6 @@ function Boton({
 	precio_adicional,
 	seleccionado,
 	onClick,
-	planes,
 }) {
 	return (
 		<button onClick={onClick} className="plan-option">

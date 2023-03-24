@@ -13,7 +13,7 @@ import data from '@/data/countries.json'
 import usePage from '@/hooks/usePage'
 const Layout = ({ children}) => {
 	const { welcomeModal, currentIndex } = useSelector((state) => state.config)
-	const { flagData } = useSelector((state) => state.storage)
+	// const { flagData } = useSelector((state) => state.storage)
 	const [showModal, setShowModal] = useState(true)
 	const dispatch = useDispatch()
 	const { goTo } = usePage()
