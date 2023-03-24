@@ -1,5 +1,5 @@
 import Layout from '@/components/layouts/Layout'
-import CMP011 from '@/components/contenedores/CMP011'
+import CMP011 from '@/components/contenedores/CMP011_DATOS_PERSONALES'
 
 export default function TipoPlan() {
 	return (

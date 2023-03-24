@@ -24,6 +24,12 @@ export const config = createSlice({
 				title: 'Agregar Beneficiarios',
 				url: '/agregar-beneficiarios',
 			},
+			{
+				id: 4,
+				name: 'agregar-mascota',
+				title: 'Agregar mascota',
+				url: '/agregar-mascota',
+			},
 		],
 	},
 	reducers: {

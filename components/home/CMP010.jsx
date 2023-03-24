@@ -17,7 +17,7 @@ const CMP010 = ({
 		}
 	}
 	return (
-		<Btn style={BtnStyles[style]} disabled={disabled} onClick={handleClick}>
+		<Btn style={BtnStyles[style]} disabled={disabled} onClick={()=>handleClick()}>
 			{Icon && <Loading />}
 			<span>{text}</span>
 		</Btn>

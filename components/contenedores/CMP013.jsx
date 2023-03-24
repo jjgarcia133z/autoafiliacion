@@ -10,12 +10,26 @@ import CMP07 from '../home/CMP07'
 import CMP08 from '../home/CMP08'
 import CMP010 from '../home/CMP010'
 import CMP024ROW from '../CMP024ROW'
-
+import { setCurrentIndex } from '@/store/slices/configSlice'
+import { useDispatch } from 'react-redux'
+import usePage from '@/hooks/usePage'
 const CMP013 = () => {
+	const dispatch = useDispatch()
+	const { goTo } = usePage()
+	const handleClickLast = () => {
+		goTo('/datos-personales', () => {
+			dispatch(setCurrentIndex(2))
+		})
+	}
+	const handleClickNext = () => {
+		goTo('/agregar-beneficiarios', () => {
+			dispatch(setCurrentIndex(4))
+		})
+	}
 	return (
 		<Container>
 			<div>
-				<CMP044 title="Ingresá tus datos personales" />
+				<CMP044 title="Ingresá los datos del beneficiario" />
 			</div>
 
 			<Row>
@@ -122,12 +136,11 @@ const CMP013 = () => {
 				<CMP07 />
 			</Row>
 			<Row>
-				<CMP08 text="Atrás" disabled={false} style="secondaryLarge"/>
-				<CMP010 text="Continuar"  style="primaryLarge"/>
+				<CMP08 text="Atrás" disabled={false} style="secondaryLarge" onClickHandle={handleClickLast}/>
+				<CMP010 text="Continuar"  style="primaryLarge" onClickHandle={handleClickNext}/>
 				
 				
 			</Row>
-			<CMP024ROW name="Carlos Alfaro Rojas"  typePlan="Persona" benficiario="Propietario" />
 		</Container>
 	)
 }

@@ -11,6 +11,7 @@ const CMP012 = ({
 	title = 'title',
 	description = 'description',
 	price = '0.00',
+	forType='por mes'
 }) => {
 	return (
 		<CardContainer
@@ -27,7 +28,7 @@ const CMP012 = ({
 				<CMP015 />
 			</div>
 			<div>
-				<CMP016 price={price} />
+				<CMP016 price={price} forType={forType} />
 			</div>
 		</CardContainer>
 	)
@@ -36,13 +37,17 @@ const CMP012 = ({
 export default CMP012
 
 const CardContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   width: 428px;
   height: 335px;
   background-image: url(${(props) => props.CardBackground});
   border-radius: 10px;
-  padding: 24px 0 0 24px;
+  padding: 0px 0 0 24px;
   position: relative;
   & > div:nth-child(1) {
+    position: relative;
     font-family: Montserrat;
     & > h2 {
       //styleName: Body/Body Large - Montserrat Medium;
@@ -52,6 +57,7 @@ const CardContainer = styled.div`
       letter-spacing: 0px;
       text-align: left;
       margin-bottom: 16px;
+      margin-top: 24px;
     }
     & > p {
       font-family: Montserrat;
@@ -81,7 +87,7 @@ const CardContainer = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url(${(props) =>props.type === 'persona' ? props.CardGirl : props.CardDog});
+    background-image: url(${(props) => props.type === 'persona' ? props.CardGirl : props.CardDog});
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
