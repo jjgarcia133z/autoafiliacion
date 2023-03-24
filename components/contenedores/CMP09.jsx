@@ -6,7 +6,7 @@ import CMP06 from '../home/CMP06'
 
 import ImagePortada from '@/assets/img/PortadaAfiliacion_medismart.png'
 
-const CMP09 = ({ text = '' }) => {
+const CMP09 = () => {
 	const [show, setShow] = React.useState(false)
 	return (
 		<Container portada={ImagePortada}>
@@ -73,7 +73,7 @@ const Container = styled.div`
 
   & > article {
     width: 100%;
-    margin-bottom: 32px;
+    margin-bottom: 48px;
     margin-top: calc(227px - 32px);
     position: relative;
     & > h1 {

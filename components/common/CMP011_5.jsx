@@ -238,7 +238,7 @@ const SelectFilter = styled.div`
     display: ${(props) => (props.showList ? 'flex' : 'none')};
     position: absolute;
     flex-direction: column;
-    top: 78px;
+    top: 82px;
     /* background-color: #eee; */
     padding: 8px 6px;
     background-color: var(--neutral-gray-colors-neutral-white);

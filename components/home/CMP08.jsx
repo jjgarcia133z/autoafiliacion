@@ -3,9 +3,21 @@ import styled from 'styled-components'
 import Loading from '../common/Loading'
 
 // import IconLefCaret from '../../assets/img/icons/icon-outlines-28@2x.png'
-const CMP08 = ({ text, style = 'primary', Icon = false, disabled = false }) => {
+const CMP08 = ({
+	text,
+	style = 'primary',
+	Icon = false,
+	disabled = false,
+	onClickHandle = null,
+}) => {
+
+	const handleClick = () => {
+		if (onClickHandle) {
+			onClickHandle()
+		}
+	}
 	return (
-		<Btn style={BtnStyles[style]} disabled={disabled}>
+		<Btn style={BtnStyles[style]} disabled={disabled} onClick={handleClick}>
 			{Icon && <Loading />}
 			<span>{text}</span>
 		</Btn>
@@ -22,6 +34,7 @@ const Btn = styled.button`
   line-height: 19px;
   letter-spacing: 0px;
   text-align: left;
+  width: fit-content;
   padding: ${(props) => props.style.varPadding};
   height: ${(props) => props.style.varHeight};
   ${(props) => {
