@@ -25,11 +25,11 @@ function Boton({ valor, precio_titular,precio_adicional,  seleccionado, onClick 
           
 					<div className="overlap-group-3">
 						<div className="fondo-2">
-							<set1>
+							<div>
 								<div className={seleccionado ? 'fondo-3' : 'white'}></div>
 
                 
-							</set1>
+							</div>
 						</div>
 						<div className="plans-3 plans">
 							<div className="titular-3 titular">

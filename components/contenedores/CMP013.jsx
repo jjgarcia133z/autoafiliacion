@@ -9,24 +9,21 @@ import CMP040 from '../home/CMP040'
 import CMP07 from '../home/CMP07'
 import CMP08 from '../home/CMP08'
 import CMP010 from '../home/CMP010'
-import ImagePortada2 from '@/assets/img/PortadaAfiliacion_medismart2.png'
+import CMP024ROW from '../CMP024ROW'
 
-const CMP011 = () => {
+const CMP013 = () => {
 	return (
-		<Container portada={ImagePortada2}>
-			<span></span>
+		<Container>
 			<div>
 				<CMP044 title="Ingresá tus datos personales" />
 			</div>
 
 			<Row>
-				<CMP038
+				<CMP037
 					type="text"
 					mandatory={true}
 					label="Tipo de indentificación"
 					placeholder="Seleccioná tipo de identificación"
-					state=""
-					helperText="Identificacion incorrecta"
 				/>
 			</Row>
 			<Row>
@@ -62,6 +59,12 @@ const CMP011 = () => {
 					type="text"
 					mandatory={true}
 					label="Segundo Apellido"
+					placeholder="Ingresá tu primer apellido"
+				/>
+				<CMP037
+					type="text"
+					mandatory={true}
+					label="Parentesco"
 					placeholder="Ingresá tu primer apellido"
 				/>
 			</Row>
@@ -117,14 +120,17 @@ const CMP011 = () => {
 				<CMP07 />
 			</Row>
 			<Row>
-				<CMP08 text="Atrás" disabled={false} style="secondaryLarge" />
-				<CMP010 text="Continuar" style="primaryLarge" />
+				<CMP08 text="Atrás" disabled={false} style="secondaryLarge"/>
+				<CMP010 text="Continuar"  style="primaryLarge"/>
+				
+				
 			</Row>
+			<CMP024ROW name="Carlos Alfaro Rojas"  typePlan="Persona" benficiario="Propietario" />
 		</Container>
 	)
 }
 
-export default CMP011
+export default CMP013
 const Row = styled.div`
   display: flex;
   flex-direction: row;
@@ -136,20 +142,6 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
   padding: 32px;
-  & > span:nth-child(1) {
-    position: absolute;
-    display: flex;
-    top: 0;
-    right: 0;
-    z-index: 0;
-    background: url(${(props) => props.portada.src});
-    background-size: cover;
-    background-position: right;
-    background-repeat: no-repeat;
-    height: 230px;
-    width: 310px;
-    border-radius: 10px;
-  }
   & > div:first-of-type {
     margin-bottom: 32px;
   }

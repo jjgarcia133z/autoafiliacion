@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import { stateCss, stateAfterBefore, state } from '@/constants/constants'
 import { FiCheck } from 'react-icons/fi'
-import { setCurrentIndex } from '@/store/slices/configSlide'
+import { setCurrentIndex } from '@/store/slices/configSlice'
 
 const CMP02 = ({
 	index = 1,

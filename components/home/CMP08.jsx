@@ -1,141 +1,141 @@
 import React from 'react'
 import styled from 'styled-components'
+import Loading from '../common/Loading'
 
 // import IconLefCaret from '../../assets/img/icons/icon-outlines-28@2x.png'
-const CMP08 = ({ name, status }) => {
+const CMP08 = ({ text, style = 'primary', Icon = false, disabled = false }) => {
 	return (
-		<Primary>
-			
-			<button className="comp-button font" disabled={status} >{name}</button>
-			
-		</Primary>
+		<Btn style={BtnStyles[style]} disabled={disabled}>
+			{Icon && <Loading />}
+			<span>{text}</span>
+		</Btn>
 	)
 }
 
 export default CMP08
 
-const Primary = styled.div`
+const Btn = styled.button`
+  border-radius: 5px;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 19px;
+  letter-spacing: 0px;
+  text-align: left;
+  padding: ${(props) => props.style.varPadding};
+  height: ${(props) => props.style.varHeight};
+  ${(props) => {
+		props.style.font
+	}}
 
-
-.font{
-
-
-font-family: 'Montserrat';
-font-style: normal;
-font-weight: 500;
-font-size: 16px;
-line-height: 19px;
-
-color: #112145;
-
-flex: none;
-order: 1;
-flex-grow: 0;
-
-
-
-
-
-}
-
-
-
-
-
-
-.comp-button {
- /* Auto layout */
-
-display: flex;
-flex-direction: row;
-justify-content: center;
-align-items: center;
-padding: 14px 48px;
-gap: 8px;
-width: 130px;
-height: 48px;
-border: none;
-
-
-background: #00AFA1;
-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-border-radius: 5px;
-}
-
-.comp-button:hover {
-  background:#86C5BD;
-
-
-
-
-  display: flex;
-flex-direction: row;
-justify-content: center;
-align-items: center;
-padding: 8px 48px;
-gap: 8px;
-width: 130px;
-height: 48px;
-
-
-background: #86C5BD;
-border-radius: 5px;
-
-
-}
-.comp-button:focus {
-
-    display: flex;
-flex-direction: row;
-justify-content: center;
-align-items: center;
-padding: 8px 48px;
-gap: 8px;
-width: 130px;
-height: 48px;
-
-background: #008271;
-border-radius: 5px;
-color: #FFFFFF;
-
-
-}
-.comp-button:Disabled {
-    display: flex;
-flex-direction: row;
-justify-content: center;
-align-items: center;
-padding: 8px 48px;
-gap: 8px;
-color: #009382;
-width: 130px;
-height: 48px;
-
-/* Primary Green/Primary - Green 100 */
-
-background: #CBE6E3;
-border-radius: 5px;
-
-}
-.comp-button::active {
-    
-
-display: flex;
-flex-direction: row;
-justify-content: center;
-align-items: center;
-padding: 8px 48px;
-gap: 8px;
-width: 130px;
-height: 48px;
-
-background: #008271;
-
-border-radius: 5px;   
-
-color: #FFFFFF;
- }
-
-
-
+  color: var(${(props) => props.style.varTextColor});
+  background: var(${(props) => props.style.varBackgroundColor});
+  border: 1px solid var(${(props) => props.style.varBorderColor});
+  &:hover {
+    background: var(${(props) => props.style.varHoverColor});
+    color: var(${(props) => props.style.varTextHoverColor});
+  }
+  &:focus {
+    background: var(${(props) => props.style.varFocusColor});
+    color: var(${(props) => props.style.varTextFocusColor});
+  }
+  &:disabled {
+    background: var(${(props) => props.style.varDisableDColor});
+    color: var(${(props) => props.style.varTextDisabledColor});
+  }
+  &:active {
+    background: var(${(props) => props.style.varPressColor});
+    color: var(${(props) => props.style.varTextPressColor});
+  }
 `
+const BtnStyles = {
+	primary: {
+		varTextColor: '--primary-blue-primary-blue-900',
+		varTextDisabledColor: '--primary-green-primary-green-700',
+		varTextFocusColor: '--neutral-gray-colors-neutral-white',
+		varTextPressColor: '--neutral-gray-colors-neutral-white',
+		varBackgroundColor: '--primary-green-primary-green-main-500',
+		varHoverColor: '--primary-green-primary-green-300',
+		varFocusColor: '--primary-green-primary-green-800',
+		varPressColor: '--primary-green-primary-green-800',
+		varDisableDColor: '--primary-green-primary-green-100',
+		varBorderColor: '--neutral-gray-colors-neutral-medium-grey',
+		varPadding: '8px 16px 8px 16px',
+		varHeight: '48px',
+		font: {
+			fontFamily: 'Montserrat',
+			fontSize: '16px',
+			fontWeight: 500,
+			lineHeight: '19px',
+			letterSpacing: '0px',
+			textAlign: 'left',
+		},
+	},
+	primaryLarge: {
+		varTextColor: '--primary-blue-primary-blue-900',
+		varTextDisabledColor: '--primary-green-primary-green-700',
+		varTextFocusColor: '--neutral-gray-colors-neutral-white',
+		varTextPressColor: '--neutral-gray-colors-neutral-white',
+		varBackgroundColor: '--primary-green-primary-green-main-500',
+		varHoverColor: '--primary-green-primary-green-300',
+		varFocusColor: '--primary-green-primary-green-800',
+		varPressColor: '--primary-green-primary-green-800',
+		varDisableDColor: '--primary-green-primary-green-100',
+		varBorderColor: '--neutral-gray-colors-neutral-medium-grey',
+		varPadding: '8px 48px 8px 48px',
+		varHeight: '48px',
+		font: {
+			fontFamily: 'Montserrat',
+			fontSize: '16px',
+			fontWeight: 500,
+			lineHeight: '19px',
+			letterSpacing: '0px',
+			textAlign: 'left',
+		},
+	},
+
+	secondary: {
+		varTextColor: '--primary-blue-primary-blue-900',
+		varTextDisabledColor: '--neutral-gray-colors-neutral-dark-light-grey',
+		varTextFocusColor: '--neutral-gray-colors-neutral-white',
+		varTextPressColor: '--neutral-gray-colors-neutral-white',
+		varBackgroundColor: '--neutral-gray-colors-neutral-white',
+		varHoverColor: '--neutral-gray-colors-neutral-medium-light-grey',
+		varFocusColor: ' --neutral-gray-colors-neutral-medium-light-grey',
+		varPressColor: ' --neutral-gray-colors-neutral-medium-light-grey',
+		varDisableDColor: ' --neutral-gray-colors-neutral-medium-light-grey',
+		varBorderColor: '--neutral-gray-colors-neutral-medium-grey',
+		varPadding: '8px 16px 8px 16px',
+		varHeight: '48px',
+		font: {
+			fontFamily: 'Montserrat',
+			fontSize: '16px',
+			fontWeight: 500,
+			lineHeight: '19px',
+			letterSpacing: '0px',
+			textAlign: 'left',
+		},
+	},
+	secondaryLarge: {
+		varTextColor: '--primary-blue-primary-blue-900',
+		varTextDisabledColor: '--neutral-gray-colors-neutral-dark-light-grey',
+		varTextFocusColor: '--neutral-gray-colors-neutral-white',
+		varTextPressColor: '--neutral-gray-colors-neutral-white',
+		varBackgroundColor: '--neutral-gray-colors-neutral-white',
+		varHoverColor: '--neutral-gray-colors-neutral-medium-light-grey',
+		varFocusColor: ' --neutral-gray-colors-neutral-medium-light-grey',
+		varPressColor: ' --neutral-gray-colors-neutral-medium-light-grey',
+		varDisableDColor: ' --neutral-gray-colors-neutral-medium-light-grey',
+		varBorderColor: '--neutral-gray-colors-neutral-medium-grey',
+		varPadding: '8px 48px 8px 48px',
+		varHeight: '48px',
+		font: {
+			fontFamily: 'Montserrat',
+			fontSize: '16px',
+			fontWeight: 500,
+			lineHeight: '19px',
+			letterSpacing: '0px',
+			textAlign: 'left',
+		},
+	},
+}
