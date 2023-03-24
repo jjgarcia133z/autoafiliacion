@@ -1,61 +1,81 @@
 import React from 'react'
 import styled from 'styled-components'
-import CMP011_5 from '../common/CMP011_5'
-import CMP012 from '../common/CMP012'
-import CMP025 from '../common/CMP025'
 
-const CMP09 = ({ text = '' }) => {
+import CMP010 from '../home/CMP010'
+import CMP06 from '../home/CMP06'
+
+import ImagePortada from '@/assets/img/PortadaAfiliacion_medismart.png'
+
+const CMP09 = () => {
 	const [show, setShow] = React.useState(false)
-	const showTooltip = (state) => {
-		console.log(state)
-		setShow(() => state)
-	}
 	return (
-		<Container>
-			<div>
-				<h1
-					// onMouseEnter={() => showTooltip(true)}
-					// onMouseLeave={() => showTooltip(false)}
-				>
-          Plan Medismart {text}
-					<CMP025 show={show} />
-				</h1>
+		<Container portada={ImagePortada}>
+			<span></span>
+			<article>
+				<h1>Plan Medismart</h1>
 				<p>
           Adquirí el mejor plan de medicina prepagada que te aporta beneficios
           en citas y servicios médicos para vos, tus amigos y familiares.
 				</p>
-			</div>
+			</article>
 			<div>
-				<div>
-					
+				<CMP06 />
 
-				</div>
-				<div style={{display: 'flex', gap: '20px'}}>
-          
-					<CMP012 price="14.35" title="Persona" description="Afiliá un amigo o familiar, para que tenga tus mismos beneficios" />
-				
-					<CMP012 price="9.35" title="Mascotas" description="Afiliá a tu perro o gato y aprovechá beneficios para cuidar de su salud."  type="perro" />
-				</div>
-
-				{/* <CMP024 /> */}
-				{/* <CMP015 /> */}
-				{/* <CMP038 /> */}
+				<Row>
+					<CMP010 text="Continuar" style="primaryLarge" />
+				</Row>
 			</div>
 		</Container>
 	)
 }
 
 export default CMP09
-
+const Row = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 34px;
+  width: 100%;
+  margin-bottom: ${(props) => props.bottom || 32}px;
+`
 const Container = styled.div`
   width: 100%;
   height: 100%;
-  /* background-color: #ff000045; */
   padding: 32px;
-  & > div {
+  margin-bottom: 32px;
+  & > span:nth-child(1) {
+    position: absolute;
+    display: flex;
+    top: 0;
+    right: 0;
+    z-index: 0;
+    background: url(${(props) => props.portada.src});
+    background-size: cover;
+    background-position: right;
+    background-repeat: no-repeat;
+    &:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0),
+        rgba(255, 255, 255, 1)
+      );
+      z-index: -12;
+    }
+    height: 388px;
+    width: 1328px;
+    border-radius: 10px;
+  }
+
+  & > article {
     width: 100%;
+    margin-bottom: 48px;
     margin-top: calc(227px - 32px);
-    margin-bottom: 32px;
+    position: relative;
     & > h1 {
       font-family: "Radley";
       font-size: 42px;
@@ -67,6 +87,7 @@ const Container = styled.div`
       color: var(--primary-blue-primary-blue-900);
       position: relative;
       width: fit-content;
+      margin-bottom: 8px;
     }
     & > p {
       font-family: Montserrat;
@@ -76,6 +97,7 @@ const Container = styled.div`
       letter-spacing: 0px;
       text-align: left;
       max-width: 696px;
+      z-index: 1;
       color: var(--primary-blue-primary-blue-900);
     }
   }

@@ -18,6 +18,12 @@ export const config = createSlice({
 				title: 'Datos Personales',
 				url: '/datos-personales',
 			},
+			{
+				id: 3,
+				name: 'agregar-beneficiarios',
+				title: 'Agregar Beneficiarios',
+				url: '/agregar-beneficiarios',
+			},
 		],
 	},
 	reducers: {

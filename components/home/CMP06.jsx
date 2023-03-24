@@ -25,11 +25,11 @@ function Boton({ valor, precio_titular,precio_adicional,  seleccionado, onClick 
           
 					<div className="overlap-group-3">
 						<div className="fondo-2">
-							<set1>
+							<div>
 								<div className={seleccionado ? 'fondo-3' : 'white'}></div>
 
                 
-							</set1>
+							</div>
 						</div>
 						<div className="plans-3 plans">
 							<div className="titular-3 titular">
@@ -78,17 +78,10 @@ const CMP06 = () => {
 	}
 
 
-	return (
-    
+	return (    
 		<Primary background={icono}>
-			<div className="plan-bar-options-1">	
-
-
-  
-
+			<div className="plan-bar-options-1">
 				{planes.map((plan, index) => (
-			
-
 					<Boton
 						key={index}
 						valor={plan.nombre}
@@ -96,25 +89,19 @@ const CMP06 = () => {
 						precio_adicional={plan.precio_adicional}
 						seleccionado={seleccionado === plan.nombre}
 						onClick={() => handleClick(plan.nombre)}
-					>
-				
+					>				
 					</Boton>
-
 				))}
-
-
 			</div>
-			
-
-		</Primary>	
-		
-	)
- 
- 
+		</Primary>		
+	) 
 }
 
 export default CMP06
 const Primary = styled.div`
+display: flex;
+position: relative;
+margin-bottom: 66px;
 .selected {
   background-color: blue;
   color: white;
@@ -331,9 +318,6 @@ const Primary = styled.div`
 	align-items: flex-start;
   display: flex;
   gap: 24px;
-  left: 348px;
-  position: absolute;
-  top: 316px;
   width: fit-content;
 }
 

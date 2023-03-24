@@ -2,7 +2,14 @@ import React from 'react'
 import welcome from '@/assets/img/welcome.png'
 import styled from 'styled-components'
 import CMP08 from '../home/CMP08'
+import { useDispatch } from 'react-redux'
+import { setWelcomeModal } from '@/store/slices/configSlice'
 const CMP00 = () => {
+	const dispatch = useDispatch()
+	const funcOnClose = () => {
+		console.log('Click')
+		dispatch(setWelcomeModal(false))
+	}
 	return (
 		<WelcomeModal>
 			<p>Ahora podrás realizar tu afiliación de manera rápida y segura.</p>
@@ -12,7 +19,9 @@ const CMP00 = () => {
 			<div>
 				<img src={welcome.src} alt="welcome" />
 			</div>
-			<CMP08 text="Empecemos" type='primary'/>
+			<div>
+				<CMP08 text="Empecemos" style="primaryLarge" onClickHandle={funcOnClose} />
+			</div>
 		</WelcomeModal>
 	)
 }
@@ -25,26 +34,7 @@ const WelcomeModal = styled.div`
   width: 100%;
   height: 100%;
 
-  & button {
-    //styleName: Button/Primary Button - Montserrat Medium;
-    font-family: Montserrat;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 17px;
-    letter-spacing: 0px;
-    text-align: left;
-    color: var(--neutral-gray-colors-neutral-white);
-    background: var(--primary-blue-primary-blue-900);
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    height: 48px;
-    margin-top: 16px;
-  }
-
   & p:nth-child(1) {
-    //styleName: Body/Body Large - Montserrat Regular;
     font-family: Montserrat;
     font-size: 28px;
     font-weight: 400;
@@ -56,7 +46,6 @@ const WelcomeModal = styled.div`
     color: var(--primary-blue-primary-blue-main-500);
   }
   & p:nth-child(2) {
-    //styleName: Body/Body Medium - Montserrat Regular;
     font-family: Montserrat;
     font-size: 16px;
     font-weight: 400;
@@ -67,7 +56,7 @@ const WelcomeModal = styled.div`
     margin-bottom: 35.25px;
     color: var(--primary-blue-primary-blue-main-500);
   }
-  & div:first-of-type {
+  & > div:nth-of-type(1) {
     width: 100%;
     height: 100%;
     display: flex;
@@ -77,5 +66,11 @@ const WelcomeModal = styled.div`
       width: 400px;
       margin-bottom: 43.63px;
     }
+  }
+  & > div:nth-of-type(2) {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 `
