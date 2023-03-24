@@ -41,6 +41,13 @@ const CMP013 = () => {
 					label="Género"
 					placeholder="Seleccióna tipo de género"
 				/>
+
+				<CMP037
+					type="text"
+					mandatory={true}
+					label="Parentesco"
+					placeholder="Seleccioná el parentesco"
+				/>
 			</Row>
 			<Row>
 				<CMP037
@@ -61,12 +68,7 @@ const CMP013 = () => {
 					label="Segundo Apellido"
 					placeholder="Ingresá tu primer apellido"
 				/>
-				<CMP037
-					type="text"
-					mandatory={true}
-					label="Parentesco"
-					placeholder="Ingresá tu primer apellido"
-				/>
+
 			</Row>
 			<Row>
 				<CMP037

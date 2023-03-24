@@ -85,22 +85,25 @@ const CMP011_5 = ({ country = 'CR' }) => {
 				<SelectFilter showList={showList} ref={dropdownRef}>
 					{selectedCountry && (
 						<div>
-							<span onClick={() => handleShowList()}>
-								<Flag
-									height={27 * 0.7}
-									width={40 * 0.7}
-									src={selectedCountry.src}
+							<span>Número de celular</span>
+							<div>
+								<span onClick={() => handleShowList()}>
+									<Flag
+										height={27 * 0.7}
+										width={40 * 0.7}
+										src={selectedCountry.src}
+									/>
+									<ChevronDown />
+								</span>
+								<span>{selectedCountry.codeArea}</span>
+								<input
+									type="text"
+									onChange={handleChange}
+									onBlur={handleBlur}
+									maxLength={8}
+									value={phone}
 								/>
-								<ChevronDown />
-							</span>
-							<span>{selectedCountry.codeArea}</span>
-							<input
-								type="text"
-								onChange={handleChange}
-								onBlur={handleBlur}
-								maxLength={8}
-								value={phone}
-							/>
+							</div>
 						</div>
 					)}
 					<div>
@@ -160,28 +163,60 @@ const SelectFilter = styled.div`
   letter-spacing: 0px;
   text-align: left;
   position: relative;
-
-  & > div:nth-child(1) {
+  & > span {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    gap: 16px;
+    gap: 8px;
+    padding: 8px 16px;
+    cursor: pointer;
+  }
+
+  & > div:nth-child(1) {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 14px;
     border-bottom: 1px solid var(--primary-blue-primary-blue-200);
-    & > span:first-of-type {
+    & > span {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 290px;
+      margin-bottom: 8px;
+      font-family: Montserrat;
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 19px;
+      letter-spacing: 0px;
+      text-align: left;
+      color: var(--neutral-gray-colors-neutral-gray-500);
+    }
+    & > div {
       display: flex;
       flex-direction: row;
       align-items: center;
+      justify-content: space-between;
       gap: 8px;
-      padding-left: 8px;
-      cursor: pointer;
-      & > i {
-        font-size: 20px;
-        color: var(--neutral-gray-colors-neutral-gray-500);
-      }
-      & > img {
-        box-shadow: 0px 1px 2px 0px #1018280f;
-        box-shadow: 0px 1px 3px 0px #1018281a;
+      & > span:first-of-type {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+        padding-left: 8px;
+
+        cursor: pointer;
+        & > i {
+          font-size: 20px;
+          color: var(--neutral-gray-colors-neutral-gray-500);
+        }
+        & > img {
+          box-shadow: 0px 1px 2px 0px #1018280f;
+          box-shadow: 0px 1px 3px 0px #1018281a;
+        }
       }
     }
     & input {
@@ -203,7 +238,7 @@ const SelectFilter = styled.div`
     display: ${(props) => (props.showList ? 'flex' : 'none')};
     position: absolute;
     flex-direction: column;
-    top: 40px;
+    top: 78px;
     /* background-color: #eee; */
     padding: 8px 6px;
     background-color: var(--neutral-gray-colors-neutral-white);

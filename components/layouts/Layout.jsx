@@ -12,7 +12,7 @@ import { setFlags } from '@/store/slices/storageSlice'
 import useFetch from '@/hooks/useFetch'
 import data from '@/data/countries.json'
 const Layout = ({ children, title, bg, gd = 0 }) => {
-	const { welcomeModal } = useSelector((state) => state.config)
+	const { welcomeModal, currentIndex } = useSelector((state) => state.config)
 	const { flagData } = useSelector((state) => state.storage)
 	const [showModal, setShowModal] = useState(true)
 	const dispatch = useDispatch()
@@ -44,7 +44,7 @@ const Layout = ({ children, title, bg, gd = 0 }) => {
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<MainLayout>
+			<MainLayout currentIndex={currentIndex}>
 				<header>
 					<CMP017 />
 				</header>
@@ -87,7 +87,7 @@ const MainLayout = styled.main`
     grid-column: 2/3;
     /* background-color: #f47676; */
   }
-  section:nth-of-type(1) {
+  & > section {
     display: grid;
     grid-template-columns: 314px 1fr;
     grid-column: 2/3;
@@ -97,15 +97,17 @@ const MainLayout = styled.main`
     position: relative;
     overflow: hidden;
     place-content: center;
+    background-color: ${(props) => props.currentIndex !== 1 ? ' var(--neutral-background-neutral-olive-100)' : 'var(--neutral-gray-colors-neutral-white)' };
+
   }
-  article {
+  & > article {
     grid-area: article;
     /* background-color: #051aff; */
   }
-  aside {
+  & > aside {
     grid-area: menu;
   }
-  footer {
+  & > footer {
     grid-area: footer;
     background-color: #ffffff;
     display: flex;
