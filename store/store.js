@@ -4,8 +4,9 @@ import { combineReducers } from 'redux'
 import { persistReducer } from 'redux-persist'
 import thunk from 'redux-thunk'
 
-import config from './slices/configSlide.js'
-import afiliacion from './slices/afiliacionSlide.js'
+import config from './slices/configSlice.js'
+import afiliacion from './slices/afiliacionSlice.js'
+import storage from './slices/storageSlice.js'
 import storageSession from 'reduxjs-toolkit-persist/lib/storage/session'
 
 const persistConfig = {
@@ -16,6 +17,7 @@ const persistConfig = {
 const reducers = combineReducers({
 	config: config,
 	afiliacion: afiliacion,
+	storage: storage,
 })
 const persistedReducer = persistReducer(persistConfig, reducers)
 
