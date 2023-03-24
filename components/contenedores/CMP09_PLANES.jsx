@@ -1,13 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
-
-import CMP010 from '../home/CMP010'
 import CMP06 from '../home/CMP06'
 
 import ImagePortada from '@/assets/img/PortadaAfiliacion_medismart.png'
+import { useDispatch, useSelector } from 'react-redux'
+import { setCurrentIndex } from '@/store/slices/configSlice'
+import CMP08 from '../home/CMP08'
 
+import usePage from '@/hooks/usePage'
 const CMP09 = () => {
-	const [show, setShow] = React.useState(false)
+	const [show, setShow] = useState(false)
+	const { pages, currentIndex } = useSelector((state) => state.config)
+	const dispatch = useDispatch()
+	const { goTo } = usePage()
+	const handleClick = () => {
+		goTo('/datos-personales', () => {
+			dispatch(setCurrentIndex(2))      
+		})		
+	}
 	return (
 		<Container portada={ImagePortada}>
 			<span></span>
@@ -20,9 +30,8 @@ const CMP09 = () => {
 			</article>
 			<div>
 				<CMP06 />
-
 				<Row>
-					<CMP010 text="Continuar" style="primaryLarge" />
+					<CMP08 text="Continuar" style="primaryLarge" onClickHandle={handleClick} />
 				</Row>
 			</div>
 		</Container>

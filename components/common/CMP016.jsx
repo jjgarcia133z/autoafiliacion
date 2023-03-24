@@ -1,12 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const CMP016 = ({price}) => {
+const CMP016 = ({ price, forType }) => {
 	return (
 		<PriceContainer>
 			<span>Desde</span>
 			<span>${price}</span>
-			<span>por mes</span>
+			<span>{forType}</span>
 		</PriceContainer>
 	)
 }
@@ -41,10 +41,10 @@ const PriceContainer = styled.div`
     text-align: left;
   }
   & > span:nth-child(3) {
-    font-family: Raleway;
+    font-family: Montserrat;
     font-size: 12px;
-    font-weight: 500;
-    line-height: 13px;
+    font-weight: 400;
+    line-height: 14px;
     letter-spacing: 0px;
     text-align: left;
   }

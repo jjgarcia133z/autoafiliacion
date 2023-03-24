@@ -49,6 +49,7 @@
   --primary-blue-primary-blue-900-transparent:  rgba(17, 33, 69, 0.7);
   --center-shadow: 0px 0px 4px rgba(192, 200, 214, 0.25);
   --leftbottom-shadow: 4px 4px 4px rgba(192, 200, 214, 0.25);
+  --gradient-plan: linear-gradient(116.34deg, rgb(45, 72, 117) 3.13%, rgb(0, 175, 161) 100%)
 }
 
 * {
