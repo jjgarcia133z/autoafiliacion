@@ -6,7 +6,7 @@ import check1 from '@/assets/img/check-4@2x.png'
 import line14 from '@/assets/img/line-14.svg'
 import vector1 from '@/assets/img/vector-1.svg'
 import vector2 from '@/assets/img/vector-2.svg'
-
+import Image from 'next/image'
 import vector from '@/assets/img/vector.svg'
 
 function Boton({ seleccionado, onClick }) {
@@ -17,7 +17,8 @@ function Boton({ seleccionado, onClick }) {
 					<div className="frame-37365">
 						<div className="rectangle-4413"></div>
 					</div>
-					<img className="aditonal-plan" src={plan.src} alt="Aditonal Plan" />
+					{/* <img className="aditonal-plan" src={plan.src} alt="Aditonal Plan" /> */}
+					<Image className='aditonal-plan' src={plan.src} alt="Aditonal Plan" />
 					<div className="box-content">
 						<div className="left-colum">
 							<div className="flex-col-4 flex-col-7">
@@ -32,12 +33,13 @@ function Boton({ seleccionado, onClick }) {
 									</div>
 								</div>
 								<div className="check">
-									<img
+									{/* <img
 										onClick={onClick}
 										className="check-1"
 										src={seleccionado ? check1.src : check.src}
 										alt="Check"
-									/>
+									/> */}
+									<Image onClick={onClick} className='check-1' src={seleccionado ? check1.src : check.src} alt="Check" />
 								</div>
 								<div className="agregar-al-plan">
                   Agregar
@@ -46,7 +48,13 @@ function Boton({ seleccionado, onClick }) {
 								</div>
 							</div>
 						</div>
-						<img className="line-14" src={line14.src} alt="Line 14" />
+						{/* <img className="line-14" src={line14.src} alt="Line 14" /> */}
+						<Image
+							className="line-14"
+							src={line14.src}
+							alt="Line 14"
+						/>
+              
 						<div className="right-colum">
 							<div className="flex-col-5 flex-col-7">
 								<div className="text-3">
@@ -57,20 +65,23 @@ function Boton({ seleccionado, onClick }) {
                     sobrevivientes o en el proceso.
 									</p>
 								</div>
-								<img className="vector" src={vector1.src} alt="Vector" />
+								{/* <img className="vector" src={vector1.src} alt="Vector" /> */}
+								<Image className='vector' src={vector1.src} alt="Vector" />
 								<div className="flex-row-2">
 									<div className="comp-button-1 comp-button-7">
 										<p className="continuar-1">
                       Da click acá para ver más información
 										</p>
 									</div>
-									<img className="vector-1" src={vector2.src} alt="Vector" />
+									{/* <img className="vector-1" src={vector2.src} alt="Vector" /> */}
+									<Image className='vector-1' src={vector2.src} alt="Vector" />
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<img className="vector-2" src={vector.src} alt="Vector" />
+				{/* <img className="vector-2" src={vector.src} alt="Vector" /> */}
+				<Image className='vector-2' src={vector.src} alt="Vector" />
 			</div>
 		</div>
 	)

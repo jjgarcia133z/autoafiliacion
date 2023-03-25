@@ -1,8 +1,10 @@
 import React from 'react'
+import Image from 'next/image'
 
 const Flag = ({ width = 24, height = 24, src}) => {
 	return (
 		<img height={height} width={width} src={src}  />
+		// <Image height={height} width={width} src={src}  />
 	)
 }
 

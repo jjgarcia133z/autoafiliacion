@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-
+import Image from 'next/image'
 // import IconLefCaret from '../../assets/img/icons/icon-outlines-28@2x.png'
 const CMP10 = () => {
 	return (
@@ -12,7 +12,9 @@ const CMP10 = () => {
 							<div className="title-1 headlinesh3---radley-font-bold">Necesitamos validar tu cuenta</div>
 							<a href="javascript:HideOverlay('componentes', 'animate-disappear');">
 								<div className="icono-de-notificacin-5">
-									<img className="icon-outlines-1" src="img/icon-outlines-1.svg" alt="Icon Outlines"/></div></a>
+									{/* <img className="icon-outlines-1" src="img/icon-outlines-1.svg" alt="Icon Outlines"/> */}
+									<Image className="icon-outlines-1" src="img/icon-outlines-1.svg" alt="Icon Outlines"/>
+								</div></a>
 						</div>
 						<div className="componente-button-group">
 							<article className="comp-button-3 comp-button-7">
@@ -51,7 +53,8 @@ const CMP10 = () => {
 									</div>
 								</div>
 							</div>
-							<img className="code-validation-group" src="img/code-validation-group.png" alt="Code validation group"/>
+							{/* <img className="code-validation-group" src="img/code-validation-group.png" alt="Code validation group"/> */}
+							<Image className="code-validation-group" src="img/code-validation-group.png" alt="Code validation group"/>
 						</div>
 					</div>
 					<p className="text-link bodybody-small---montserrat-medium">

@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import CMP08 from '../home/CMP08'
 import { useDispatch } from 'react-redux'
 import { setWelcomeModal } from '@/store/slices/configSlice'
+import Image from 'next/image'
 const CMP00 = () => {
 	const dispatch = useDispatch()
 	const funcOnClose = () => {
@@ -17,10 +18,15 @@ const CMP00 = () => {
         Este proceso de afiliación podrá tomarte unos 5 minutos de tu tiempo.
 			</p>
 			<div>
-				<img src={welcome.src} alt="welcome" />
+				{/* <img src={welcome.src} alt="welcome" /> */}
+				<Image src={welcome.src} alt="welcome" />
 			</div>
 			<div>
-				<CMP08 text="Empecemos" style="primaryLarge" onClickHandle={funcOnClose} />
+				<CMP08
+					text="Empecemos"
+					style="primaryLarge"
+					onClickHandle={funcOnClose}
+				/>
 			</div>
 		</WelcomeModal>
 	)

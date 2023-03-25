@@ -4,13 +4,13 @@ module.exports = {
 		es2021: true,
 		node: true,
 	},
-	extends: ['eslint:recommended', 'plugin:react/recommended'],
+	extends: ['plugin:@next/next/recommended', 'plugin:react/recommended'],
 	overrides: [],
 	parserOptions: {
 		ecmaVersion: 'latest',
 		sourceType: 'module',
 	},
-	plugins: ['react'],
+	plugins: ['react','@next/eslint-plugin-next'],
 	rules: {
 		indent: ['error', 'tab'],
 		'linebreak-style': 0,
@@ -19,5 +19,10 @@ module.exports = {
 		'react/react-in-jsx-scope': 'off',
 		//missing props validation rule
 		'react/prop-types': 'off',
+	},
+	settings: {
+		react: {
+			version: 'detect',
+		},
 	},
 }
