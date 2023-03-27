@@ -1,3 +1,9 @@
+/**
+ * @file Contenedor_agregar_beneficiarios.jsx
+ * @description Contenedor de datos de beneficiario.
+ * @componentNumber CMP012_5
+ */
+
 import React from 'react'
 import styled from 'styled-components'
 import CMP044 from '../common/CMP044'
@@ -9,7 +15,7 @@ import { useDispatch } from 'react-redux'
 import usePage from '@/hooks/usePage'
 import CMP012 from '../common/CMP012'
 
-const CMP012_5 = () => {
+const Contenedor_agregar_beneficiarios = () => {
 	const dispatch = useDispatch()
 	const { goTo } = usePage()
 	const handleClickLast = () => {
@@ -61,7 +67,7 @@ const CMP012_5 = () => {
 	)
 }
 
-export default CMP012_5
+export default Contenedor_agregar_beneficiarios
 const Row = styled.div`
   display: flex;
   flex-direction: row;

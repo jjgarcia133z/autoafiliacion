@@ -5,7 +5,15 @@ import CMP016 from './CMP016'
 import CardBackground from '@/assets/img/cardBackground.png'
 import CardGirl from '@/assets/img/cardGirl.png'
 import CardDog from '@/assets/img/cardDog.png'
-
+/**
+ * 
+ * @param  {string} type - 'persona' or 'mascota'
+ * @param  {string} title - 'title'
+ * @param  {string} description - 'description'
+ * @param  {string} price - '0.00'
+ * @param  {string} forType - 'por mes' or 'por cada una'
+ * @returns 
+ */
 const CMP012 = ({
 	type = 'persona',
 	title = 'title',

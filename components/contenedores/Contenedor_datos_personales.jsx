@@ -1,3 +1,8 @@
+/**
+ * @file Contenedor_datos_personales.jsx
+ * @description Contenedor de datos personales.
+ * @componentNumber CMP011
+ */
 import React from 'react'
 import styled from 'styled-components'
 import CMP011_5 from '../common/CMP011_5'
@@ -14,7 +19,7 @@ import { setCurrentIndex } from '@/store/slices/configSlice'
 import { useDispatch } from 'react-redux'
 import usePage from '@/hooks/usePage'
 
-const CMP011 = () => {
+const Contenedor_datos_personales = () => {
 	const dispatch = useDispatch()
 	const { goTo } = usePage()
 	const handleClickLast = () => {
@@ -149,7 +154,7 @@ const CMP011 = () => {
 	)
 }
 
-export default CMP011
+export default Contenedor_datos_personales
 const Row = styled.div`
   display: flex;
   flex-direction: row;

@@ -19,6 +19,7 @@ module.exports = {
 		'react/react-in-jsx-scope': 'off',
 		//missing props validation rule
 		'react/prop-types': 'off',
+		'@next/next/no-img-element': 'off'
 	},
 	settings: {
 		react: {

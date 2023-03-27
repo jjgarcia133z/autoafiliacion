@@ -1,11 +1,11 @@
 import Layout from '@/components/layouts/Layout'
-import CMP09 from '@/components/contenedores/CMP09_PLANES'
+import Contenedor_Planes from '@/components/contenedores/Contenedor_Planes'
 
 export default function Home() {
 	return (
 		
 		<Layout title="Tipo Plan url - Autoafiliacion" >
-			<CMP09 />
+			<Contenedor_Planes />
 		</Layout>
 		
 	)

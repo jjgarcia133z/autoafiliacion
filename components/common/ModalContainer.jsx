@@ -1,9 +1,14 @@
+/**
+ * @file ModalContainer.jsx
+ * @description Contenedor de modal.
+ * @componentNumber CMP026
+ */
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { createPortal } from 'react-dom'
 import { FiX } from 'react-icons/fi'
 
-const CMP026 = ({
+const ModalContainer = ({
 	title = '',
 	setModal,
 	funcOnClose = null,
@@ -43,7 +48,7 @@ const CMP026 = ({
 	)
 }
 
-export default CMP026
+export default ModalContainer
 
 const BackGroundModal = styled.div`
   display: flex;

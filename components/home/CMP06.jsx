@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import line15 from '@/assets/img/line-15-4@2x.png'
 import line10 from '@/assets/img/line-10-4@2x.png'
 import icono from '@/assets/img/icon-outlines-29@2x.png'
-import Image from 'next/image'
 
 const planes = [
 	{ nombre: 'Plan Mensual', precio_titular: 13.56, precio_adicional: 7.78 },
@@ -39,13 +38,11 @@ function Boton({
 									></div>
 								</div>
 							</div>
-							{/* <img className="line-15-1" src={line15.src} alt="Line 15" /> */}
-							<Image className='line-15-1' src={line15.src} alt="Line 15" />
+							<img className="line-15-1" src={line15.src} alt="Line 15" />							
 							<div className="contenido-1">
 								<div className="flex-row-1 overlineoverline-small-medium---montserrat">
 									<div className="desde-1 valign-text-middle">Desde</div>
-									{/* <img className="line-10-1" src={line10.src} alt="Line 10" /> */}
-									<Image className='line-10-1' src={line10.src} alt="Line 10" />
+									<img className="line-10-1" src={line10.src} alt="Line 10" />									
 									<div className="frame-37360-1">
 										<div className="text-9">${precio_titular} por titular</div>
 										<div className="text-9">

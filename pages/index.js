@@ -1,5 +1,5 @@
 import Layout from '@/components/layouts/Layout'
-import CMP09 from '@/components/contenedores/CMP09_PLANES'
+import CMP09 from '@/components/contenedores/Contenedor_Planes'
 
 export default function Home() {
 	return (

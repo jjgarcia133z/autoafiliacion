@@ -1,38 +1,43 @@
+/**
+ * @file StepperContainer.jsx
+ * @description Contenedor de steppers.
+ * @componentNumber CMP03
+ */
 import React from 'react'
 import styled from 'styled-components'
-import CMP02 from './CMP02'
+import StepButton from './StepButton'
 import { state } from '@/constants/constants'
 
 const CMP03 = () => {
 	return (
 		<StepperBar>
-			<CMP02
+			<StepButton
 				title="Tipo plan"
 				index={1}
 				stepState={state.active}
 				first={true}
 			/>
-			<CMP02
+			<StepButton
 				title="Datos personales"
 				index={2}
 				stepState={state.active}
 			/>
-			<CMP02
+			<StepButton
 				title="Agregar beneficiarios"
 				index={3}
 				stepState={state.successActive}
 			/>
-			<CMP02
+			<StepButton
 				title="Resumen"
 				index={4}
 				stepState={state.success}
 			/>
-			<CMP02
+			<StepButton
 				title="Metodo de pago"
 				index={5}
 				stepState={state.disable}
 			/>
-			<CMP02
+			<StepButton
 				title="Datos de tu cuenta"
 				index={6}
 				stepNumber="6"

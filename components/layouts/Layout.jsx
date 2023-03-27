@@ -1,36 +1,36 @@
 import Head from 'next/head'
 import styled from 'styled-components'
-import CMP01 from '@/components/sideMenu/CMP01'
+import Contenedor_Menu from '@/components/sideMenu/Contenedor_Menu'
 import CMP017 from '@/components/header/CMP017'
 import { useSelector } from 'react-redux'
-import CMP026 from '../common/CMP026'
+import ModalContainer from '../common/ModalContainer'
 import { useEffect, useState } from 'react'
-import CMP00 from '../modalContents/CMP00'
+import Bienvenida from '../modalContents/Bienvenida'
 import { setWelcomeModal } from '@/store/slices/configSlice'
 import { useDispatch } from 'react-redux'
 import { setFlags } from '@/store/slices/storageSlice'
 import data from '@/data/countries.json'
 import usePage from '@/hooks/usePage'
-const Layout = ({ children}) => {
+const Layout = ({ children }) => {
 	const { welcomeModal, currentIndex } = useSelector((state) => state.config)
 	// const { flagData } = useSelector((state) => state.storage)
 	const [showModal, setShowModal] = useState(true)
 	const dispatch = useDispatch()
 	const { goTo } = usePage()
 	useEffect(() => {
-		if(welcomeModal && showModal) {
+		if (welcomeModal && showModal) {
 			goTo('/', () => {
 				dispatch(setWelcomeModal(true))
 			})
 		}
-		
+
 		const transformedData = data?.map((country) => {
 			//validate if country.idd has suffixes, if not, return null
 			let suffixes = country.idd.suffixes ? country.idd.suffixes[0] : ''
 			let root = country.idd.root ?? ''
 			let countryCode = country.car.signs ? country.car.signs[0] : ''
 			let src = country.flags.png ?? ''
-			let name = country.name.common ?? ''
+			let name = country.translations.spa.common ?? ''
 			return {
 				src,
 				name,
@@ -57,19 +57,19 @@ const Layout = ({ children}) => {
 				</header>
 				<section>
 					<aside>
-						<CMP01 />
+						<Contenedor_Menu />
 					</aside>
 					<article>{children}</article>
 				</section>
 				{welcomeModal && showModal && (
-					<CMP026
+					<ModalContainer
 						title="¡Hola, que bueno verte por acá!"
 						showModal={showModal}
 						setModal={setShowModal}
 						funcOnClose={funcOnClose}
 					>
-						<CMP00></CMP00>
-					</CMP026>
+						<Bienvenida />
+					</ModalContainer>
 				)}
 				<footer>® Derechos reservados - Medismart 2023</footer>
 			</MainLayout>
@@ -104,8 +104,10 @@ const MainLayout = styled.main`
     position: relative;
     overflow: hidden;
     place-content: center;
-    background-color: ${(props) => props.currentIndex !== 1 ? ' var(--neutral-background-neutral-olive-100)' : 'var(--neutral-gray-colors-neutral-white)' };
-
+    background-color: ${(props) =>
+		props.currentIndex !== 1
+			? ' var(--neutral-background-neutral-olive-100)'
+			: 'var(--neutral-gray-colors-neutral-white)'};
   }
   & > article {
     grid-area: article;

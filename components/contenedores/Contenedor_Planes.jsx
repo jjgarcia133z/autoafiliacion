@@ -1,3 +1,8 @@
+/**
+ * @file Contenedor_Planes.jsx
+ * @description Contenedor de planes de afiliación.
+ * @componentNumber CMP09 *
+ */
 import React from 'react'
 import styled from 'styled-components'
 import CMP06 from '../home/CMP06'
@@ -8,7 +13,7 @@ import { setCurrentIndex } from '@/store/slices/configSlice'
 import CMP08 from '../home/CMP08'
 
 import usePage from '@/hooks/usePage'
-const CMP09 = () => {
+const Contenedor_Planes = () => {
 	// const [show, setShow] = useState(false)
 	// const { pages, currentIndex } = useSelector((state) => state.config)
 	const dispatch = useDispatch()
@@ -42,7 +47,7 @@ const CMP09 = () => {
 	)
 }
 
-export default CMP09
+export default Contenedor_Planes
 const Row = styled.div`
   display: flex;
   flex-direction: row;

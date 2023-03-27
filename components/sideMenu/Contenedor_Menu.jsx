@@ -1,21 +1,26 @@
+/**
+ * @file Contenedor_Menu.jsx
+ * @description Contenedor de menu.
+ * @componentNumber CMP01
+ */
 import React from 'react'
 import styled from 'styled-components'
-import CMP03 from './CMP03'
+import StepperContainer from './StepperContainer'
 import TopMenu from './TopMenu'
 
-const CMP01 = () => {
+const Contenedor_Menu = () => {
 
 	return (
 		<>
 			<Menu>
 				<TopMenu />
-				<CMP03 />
+				<StepperContainer />
 			</Menu>
 		</>
 	)
 }
 
-export default CMP01
+export default Contenedor_Menu
 const Menu = styled.div`
 display: flex;
 flex-direction: column;

@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { FiChevronLeft as IconLeft } from 'react-icons/fi'
 // import IconLefCaret from '../../assets/img/icons/icon-outlines-28@2x.png'
-const CMP05 = () => {
+const BotonSalir = () => {
 	return (
 		<ContainerBtnExit>
 			<IconLeft />
@@ -11,7 +11,7 @@ const CMP05 = () => {
 	)
 }
 
-export default CMP05
+export default BotonSalir
 
 const ContainerBtnExit = styled.button`
   display: flex;

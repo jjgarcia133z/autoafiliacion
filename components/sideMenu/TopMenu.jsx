@@ -1,13 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
-import CMP05 from '../common/CMP05'
+import BotonSalir from '../common/BotonSalir'
 
 const TopMenu = () => {
   
 
 	return (
-		<TopContainer id='AAA'>
-			<CMP05 />
+		<TopContainer>
+			<BotonSalir />
 			<TitleContainer TitleContainer="content-2 content-3">
 				<h1>Paso 1</h1>
 				<p>¡Elegí el plan que se adapte mejor a tus necesidades!</p>
