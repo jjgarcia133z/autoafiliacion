@@ -11,6 +11,7 @@ import ImagePortada from '@/assets/img/PortadaAfiliacion_medismart.png'
 import { useDispatch } from 'react-redux'
 import { setCurrentIndex, setStatus } from '@/store/slices/configSlice'
 import CMP08 from '../home/CMP08'
+import Calendario from '../common/Calendario'
 
 import usePage from '@/hooks/usePage'
 const Contenedor_Planes = () => {
@@ -35,6 +36,10 @@ const Contenedor_Planes = () => {
 				</p>
 			</article>
 			<div>
+
+				<Row>
+					<Calendario />
+				</Row>
 				<CMP06 />
 				<Row>
 					<CMP08
@@ -43,6 +48,7 @@ const Contenedor_Planes = () => {
 						onClickHandle={handleClick}
 					/>
 				</Row>
+		
 			</div>
 		</Container>
 	)
