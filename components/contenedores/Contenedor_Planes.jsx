@@ -6,10 +6,10 @@
 import React from 'react'
 import styled from 'styled-components'
 import CMP06 from '../home/CMP06'
-
+import { state } from '@/constants/constants'
 import ImagePortada from '@/assets/img/PortadaAfiliacion_medismart.png'
 import { useDispatch } from 'react-redux'
-import { setCurrentIndex } from '@/store/slices/configSlice'
+import { setCurrentIndex, setStatus } from '@/store/slices/configSlice'
 import CMP08 from '../home/CMP08'
 
 import usePage from '@/hooks/usePage'
@@ -21,6 +21,7 @@ const Contenedor_Planes = () => {
 	const handleClick = () => {
 		goTo('/datos-personales', () => {
 			dispatch(setCurrentIndex(2))
+			dispatch(setStatus(1))
 		})
 	}
 	return (

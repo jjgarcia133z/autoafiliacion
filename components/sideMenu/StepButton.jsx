@@ -25,6 +25,7 @@ const StepButton = ({
 	const { pages, currentIndex } = useSelector((state) => state.config)
 
 	const handleClick = () => {
+		if (stepCurrentState === state.disable) return //if the step is disabled, do nothing
 		let page = pages[index - 1]
 		if (page) { //if the page exists
 			if (page.id === currentIndex) return //if the page is the current page, do nothing

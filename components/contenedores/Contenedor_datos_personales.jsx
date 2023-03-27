@@ -15,7 +15,7 @@ import CMP07 from '../home/CMP07'
 import CMP08 from '../home/CMP08'
 import CMP010 from '../home/CMP010'
 import ImagePortada2 from '@/assets/img/PortadaAfiliacion_medismart2.png'
-import { setCurrentIndex } from '@/store/slices/configSlice'
+import { setCurrentIndex, setStatus } from '@/store/slices/configSlice'
 import { useDispatch } from 'react-redux'
 import usePage from '@/hooks/usePage'
 
@@ -30,6 +30,7 @@ const Contenedor_datos_personales = () => {
 	const handleClickNext = () => {
 		goTo('/agregar-beneficiarios', () => {
 			dispatch(setCurrentIndex(3))
+			dispatch(setStatus(2))
 		})
 	}
 

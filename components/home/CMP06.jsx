@@ -38,11 +38,11 @@ function Boton({
 									></div>
 								</div>
 							</div>
-							<img className="line-15-1" src={line15.src} alt="Line 15" />							
+							<img className="line-15-1" src={line15.src} alt="Line 15" />
 							<div className="contenido-1">
 								<div className="flex-row-1 overlineoverline-small-medium---montserrat">
 									<div className="desde-1 valign-text-middle">Desde</div>
-									<img className="line-10-1" src={line10.src} alt="Line 10" />									
+									<img className="line-10-1" src={line10.src} alt="Line 10" />
 									<div className="frame-37360-1">
 										<div className="text-9">${precio_titular} por titular</div>
 										<div className="text-9">
@@ -59,7 +59,7 @@ function Boton({
 	)
 }
 
-const CMP06 = () => {
+const CMP06 = ({ defaul = 0 }) => {
 	const [seleccionado, setSeleccionado] = useState(null)
 
 	const handleClick = (valor) => {
@@ -75,16 +75,21 @@ const CMP06 = () => {
 	return (
 		<Primary background={icono}>
 			<div className="plan-bar-options-1">
-				{planes.map((plan, index) => (
-					<Boton
-						key={index}
-						valor={plan.nombre}
-						precio_titular={plan.precio_titular}
-						precio_adicional={plan.precio_adicional}
-						seleccionado={seleccionado === plan.nombre}
-						onClick={() => handleClick(plan.nombre)}
-					></Boton>
-				))}
+				{planes.map((plan, index) => {
+					if (index === defaul && !seleccionado) {
+						handleClick(plan.nombre)
+					}
+					return (
+						<Boton
+							key={index}
+							valor={plan.nombre}
+							precio_titular={plan.precio_titular}
+							precio_adicional={plan.precio_adicional}
+							seleccionado={seleccionado === plan.nombre}
+							onClick={() => handleClick(plan.nombre)}
+						/>
+					)
+				})}
 			</div>
 		</Primary>
 	)
