@@ -18,6 +18,7 @@ import ImagePortada2 from '@/assets/img/PortadaAfiliacion_medismart2.png'
 import { setCurrentIndex, setStatus } from '@/store/slices/configSlice'
 import { useDispatch } from 'react-redux'
 import usePage from '@/hooks/usePage'
+import { state } from '@/constants/constants'
 
 const Contenedor_datos_personales = () => {
 	const dispatch = useDispatch()
@@ -30,7 +31,7 @@ const Contenedor_datos_personales = () => {
 	const handleClickNext = () => {
 		goTo('/agregar-beneficiarios', () => {
 			dispatch(setCurrentIndex(3))
-			dispatch(setStatus(2))
+			dispatch(setStatus({ index: 1, status: state.successActive }))
 		})
 	}
 

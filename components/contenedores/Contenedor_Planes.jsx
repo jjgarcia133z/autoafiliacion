@@ -21,7 +21,7 @@ const Contenedor_Planes = () => {
 	const handleClick = () => {
 		goTo('/datos-personales', () => {
 			dispatch(setCurrentIndex(2))
-			dispatch(setStatus(1))
+			dispatch(setStatus({index:0 ,status: state.successActive}))
 		})
 	}
 	return (

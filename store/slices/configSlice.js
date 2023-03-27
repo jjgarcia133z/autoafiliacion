@@ -7,32 +7,26 @@ export const config = createSlice({
 		currentIndex: 1,
 		steps: [
 			{
-				id: 1,
 				title: 'Tipo Plan',
 				status: state.active,
 			},
 			{
-				id: 2,
 				title: 'Datos Personales',
 				status: state.disable,
 			},
 			{
-				id: 3,
 				title: 'Agregar Beneficiarios',
 				status: state.disable,
 			},
 			{
-				id: 4,
 				title: 'Resumen',
 				status: state.disable,
 			},
 			{
-				id: 5,
 				title: 'Metodo de Pago',
 				status: state.disable,
 			},
 			{
-				id: 6,
 				title: 'Datos de tu cuenta',
 				status: state.disable,
 			},
@@ -62,7 +56,7 @@ export const config = createSlice({
 			state.currentIndex = action.payload
 		},
 		setStatus: (state, action) => {
-			state.steps[action.payload].status = state.active
+			state.steps[action.payload.index].status = action.payload.status
 		},
 		setWelcomeModal: (state, action) => {
 			state.welcomeModal = action.payload
