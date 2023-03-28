@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { BsCheckCircle as Success, BsXCircle as Fail } from 'react-icons/bs'
+
 const CMP037 = ({
 	mandatory = false,
 	state = 'none',
@@ -8,27 +9,58 @@ const CMP037 = ({
 	label = 'label',
 	placeholder = '',
 	helperText = 'helper text',
+	value = '',
+	setValue = null,
+	Icon = null,
+	iconAction = null,
 }) => {
-	// const [helperState, setHelperState] = useState('none')
+	const handleChange = (e) => {
+		if (setValue) {
+			setValue(e.target.value)
+		}
+	}
+	const handleIconAction = (e) => {
+		console.log('Click')
+		if (iconAction) {
+			iconAction(e)
+		}
+	}
+
 	return (
-		<SelectContainer mandatory={mandatory} state={state}>
+		<InputContainer mandatory={mandatory} state={state} iconAction={iconAction}>
 			<label htmlFor="">
 				<span>{label}</span>
-				<input type={type} name="" id="" placeholder={placeholder} />
-				<i>
-					{state == 'success' && <Success />}
-					{state == 'fail' && <Fail />}
-				</i>
+				<input
+					type={type}
+					placeholder={placeholder}
+					onChange={(e) => handleChange(e)}
+					value={value}
+				/>
+
+				{state == 'success' && !Icon && (
+					<i>
+						<Success />
+					</i>
+				)}
+				{state == 'fail' && !Icon && (
+					<i>
+						<Fail />
+					</i>
+				)}
+				{Icon && (
+					<div onClick={(e)=>handleIconAction(e)} >
+						<Icon/>
+					</div>
+				)}
 			</label>
-			{state == 'success' ||
-        (state == 'fail' && <span>{helperText}</span>)}
-		</SelectContainer>
+			{state == 'success' || (state == 'fail' && <span>{helperText}</span>)}
+		</InputContainer>
 	)
 }
 
 export default CMP037
 
-const SelectContainer = styled.div`
+const InputContainer = styled.div`
   position: relative;
   & > label {
     position: relative;
@@ -53,15 +85,15 @@ const SelectContainer = styled.div`
       top: 4px;
       right: 7px;
       width: fit-content;
-      height: 100%;
       color: var(--alert-error);
+      user-select: none;
     }
     & > input {
-      background-color: var(--neutral-gray-colors-neutral-white);
+      position: relative;
       width: 100%;
       border: none;
       background: transparent;
-      border-bottom: ${(props) =>      
+      border-bottom: ${(props) =>
 		props.state == 'success'
 			? '1px solid var(--alert-success)'
 			: props.state == 'fail'
@@ -76,6 +108,7 @@ const SelectContainer = styled.div`
       text-align: left;
       padding: 8px 0;
       color: var(--primary-blue-primary-blue-400);
+
       &::placeholder {
         color: var(--neutral-gray-colors-neutral-gray-900);
       }
@@ -83,7 +116,7 @@ const SelectContainer = styled.div`
         outline: none;
       }
     }
-    & > span {
+    & > span:nth-child(1) {
       font-family: Montserrat;
       font-size: 20px;
       font-weight: 500;
@@ -134,6 +167,25 @@ const SelectContainer = styled.div`
     & > svg {
       width: 16px;
       height: 16px;
+    }
+  }
+  & > label > div {
+    position: absolute;
+    top: 75%;
+    right: 0;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    z-index: 10;
+    &:hover {
+
+      ${(props) => props.iconAction && 'cursor: pointer;'}
     }
   }
 `
