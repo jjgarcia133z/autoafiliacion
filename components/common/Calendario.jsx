@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import CMP037 from '../home/CMP037'
 
 const Calendario = () => {
 	const [locale, setLocale] = useState('es-ES')
@@ -7,7 +8,7 @@ const Calendario = () => {
 	const [currentMonth, setCurrentMonth] = useState(new Date().getMonth()) // 05
 	const [currentDay, setCurrentDay] = useState(new Date().getDate()) // 28
 	const [selectedDay, setSelectedDay] = useState(null) // 28
-	const [months, setMonths] = useState([]) // [Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre]
+	const [firstDayOfMonth, setFirstDayOfMonth] = useState(null) // 0 [domingo
 	const [daysOfMonths, setDaysOfMonths] = useState(null) // 31
 
 	const intl = new Intl.DateTimeFormat(locale, {
@@ -23,9 +24,18 @@ const Calendario = () => {
 		setDaysOfMonths(() => {
 			return daysInMonth
 		})
+		const firstDayOfMonth = getFirstDayOfWeek(currentYear, currentMonth)
+		setFirstDayOfMonth(() => {
+			// 0 : domingo 1: lunes 2: martes 3: miercoles 4: jueves 5: viernes 6: sabado
+			return firstDayOfMonth
+		})
 	}
 	const getMonthNameByIndex = (index) => {
 		return intl.format(new Date(currentYear, index, 1))
+	}
+	const getFirstDayOfWeek = (year, month) => {
+		const date = new Date(year, month - 1, 1).getDay()
+		return date
 	}
 	const nextMonthHandler = () => {
 		if (currentMonth === 11) {
@@ -62,33 +72,41 @@ const Calendario = () => {
 	}, [currentYear, currentMonth])
 
 	return (
-		<CalendarContainer>
-			<MonthSelector>
-				<button onClick={(e) => prevMonthHandler(e)}> {'<'} </button>
-				<span>{getMonthNameByIndex(currentMonth)}</span>
-				<button onClick={(e) => nextMonthHandler(e)}>{'>'}</button>
-			</MonthSelector>
-			<YearSelector>
-				<button onClick={(e) => prevYearHandler(e)}> {'<'} </button>
-				<span>{currentYear}</span>
-				<button onClick={(e) => nextYearHandler(e)}>{'>'}</button>
-			</YearSelector>
-			<DaysHeader>
-				<span>D</span>
-				<span>L</span>
-				<span>K</span>
-				<span>M</span>
-				<span>J</span>
-				<span>V</span>
-				<span>S</span>
-			</DaysHeader>
-			<CalendarDays>
-				{daysOfMonths &&
+		<div>
+			<CalendarContainer>
+				<MonthSelector>
+					<button onClick={(e) => prevMonthHandler(e)}> {'<'} </button>
+					<span>{getMonthNameByIndex(currentMonth)}</span>
+					<button onClick={(e) => nextMonthHandler(e)}>{'>'}</button>
+				</MonthSelector>
+				<YearSelector>
+					<button onClick={(e) => prevYearHandler(e)}> {'<'} </button>
+					<span>{currentYear}</span>
+					<button onClick={(e) => nextYearHandler(e)}>{'>'}</button>
+				</YearSelector>
+				<DaysHeader>
+					<span>D</span>
+					<span>L</span>
+					<span>K</span>
+					<span>M</span>
+					<span>J</span>
+					<span>V</span>
+					<span>S</span>
+				</DaysHeader>
+				<CalendarDays firstDay={firstDayOfMonth}>
+					{daysOfMonths &&
           [...Array(daysOfMonths)].map((_, index) => {
           	return <span key={index}>{index + 1}</span>
           })}
-			</CalendarDays>
-		</CalendarContainer>
+				</CalendarDays>
+			</CalendarContainer>
+			<CMP037
+				type="text"
+				mandatory={true}
+				label="Fecha de nacimiento"
+				placeholder="20/05/2021"
+			/>
+		</div>
 	)
 }
 
@@ -98,9 +116,8 @@ const CalendarContainer = styled.div`
   margin-top: 1rem;
   display: grid;
   grid-template-columns: 1fr;
-  grid-gap: 0.5rem;
   padding: 16px 42.5px 16px 42.5px;
-  border-radius: 0.5rem;
+  border-radius: 10px;
   background: var(--primary-blue-primary-blue-main-500);
   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
   height: fit-content;
@@ -108,7 +125,7 @@ const CalendarContainer = styled.div`
 const YearSelector = styled.div`
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
-  grid-gap: 0.5rem;
+  gap: 0.5rem;
   padding: 0.5rem;
   & > button {
     display: flex;
@@ -153,8 +170,8 @@ const YearSelector = styled.div`
 const MonthSelector = styled.div`
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
-  grid-gap: 0.5rem;
-  padding: 0.5rem;
+  gap: 0.5rem;
+  padding: 0.5rem 0.5rem 16px 0.5rem;
   & > button {
     display: flex;
     border: none;
@@ -199,8 +216,8 @@ const MonthSelector = styled.div`
 const DaysHeader = styled.div`
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  grid-gap: 0.5rem;
-  padding: 0.5rem;
+  gap: 27.22px;
+  padding: 0.5rem 0.5rem 12px 0.5rem;
   span {
     display: flex;
     justify-content: center;
@@ -219,9 +236,12 @@ const DaysHeader = styled.div`
 const CalendarDays = styled.div`
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  grid-gap: 27.22px;
+  gap: 27.22px;
   padding: 0.5rem;
   width: 289.33px;
+  & > span:nth-child(1) {
+    grid-column: ${(props) => props.firstDay};
+  }
   span {
     display: flex;
     justify-content: center;

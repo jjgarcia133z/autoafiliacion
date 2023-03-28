@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { BsCheckCircle as Success, BsXCircle as Fail } from 'react-icons/bs'
-const CMP038 = ({
+const CMP037 = ({
 	mandatory = false,
 	state = 'none',
 	type = 'text',
@@ -26,7 +26,7 @@ const CMP038 = ({
 	)
 }
 
-export default CMP038
+export default CMP037
 
 const SelectContainer = styled.div`
   position: relative;
