@@ -34,6 +34,16 @@ const Search = () => {
 const Check = () => {
 	return <i className="icon-check"></i>
 }
+const ChevronRight = () => {
+	return <i className="icon-chevron-right"></i>
+}
+const ChevronLeft = () => {
+	return <i className="icon-chevron-left"></i>
+}
+const Calendar = () => {
+	return <i className="icon-calendar"></i>
+}
+
 
 export {
 	XElement,
@@ -47,4 +57,7 @@ export {
 	ChevronDown,
 	Search,
 	Check,
+	ChevronRight,
+	ChevronLeft,
+	Calendar,
 }

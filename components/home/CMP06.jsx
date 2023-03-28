@@ -81,7 +81,7 @@ const CMP06 = ({ defaul = 0 }) => {
 					}
 					return (
 						<Boton
-							key={index}
+							key={plan.nombre}
 							valor={plan.nombre}
 							precio_titular={plan.precio_titular}
 							precio_adicional={plan.precio_adicional}
