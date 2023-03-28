@@ -1,130 +1,175 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import CMP037 from '../home/CMP037'
-
+import { ChevronLeft, ChevronRight } from '../icons/Icons'
+import { Calendar } from '../icons/Icons'
 const Calendario = () => {
-	const [locale, setLocale] = useState('es-ES')
-	const [currentYear, setCurrentYear] = useState(new Date().getFullYear()) // 2023
-	const [currentMonth, setCurrentMonth] = useState(new Date().getMonth()) // 05
+	const [locale, setLocale] = useState('es')
+	const [yearSelected, setCurrentYear] = useState(new Date().getFullYear()) // 2023
+	const [monthSelected, setCurrentMonth] = useState(new Date().getMonth()) // 05
 	const [currentDay, setCurrentDay] = useState(new Date().getDate()) // 28
-	const [selectedDay, setSelectedDay] = useState(null) // 28
+	const [selectedDay, setSelectedDay] = useState(new Date().getDate()) // 28
+	const [concatenatedDate, setConcatenatedDate] = useState('') // 20/12/2023
 	const [firstDayOfMonth, setFirstDayOfMonth] = useState(null) // 0 [domingo
 	const [daysOfMonths, setDaysOfMonths] = useState(null) // 31
+	const [showCalendar, setShowCalendar] = useState(false)
 
 	const intl = new Intl.DateTimeFormat(locale, {
 		month: 'long',
 	})
+	const selectedDayHandler = (day) => {
+		const daySelected = String(day).padStart(2, '0')
+		const month = String(monthSelected).padStart(2, '0')
+		setSelectedDay(daySelected)
+		setShowCalendar(false)
+		setConcatenatedDate(() => {
+			return `${daySelected}/${month}/${yearSelected}`
+		})
+	}
+
 	const getFirstDayOfMonthWeekday = (year, month) => {
-		const firstDayOfMonth = new Date(year, month, 1)
-		const weekday = firstDayOfMonth.getDay()
-		return weekday // devuelve un número del 0 al 6 que representa el día de la semana
+		const firstDayOfMonth = new Date(year, month, 1).getDay()
+		return firstDayOfMonth // devuelve un número del 0 al 6 que representa el día de la semana
 	}
 	const getInfoCalendar = () => {
-		const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate()
+		const daysInMonth = new Date(yearSelected, monthSelected + 1, 0).getDate()
 		setDaysOfMonths(() => {
 			return daysInMonth
 		})
-		const firstDayOfMonth = getFirstDayOfWeek(currentYear, currentMonth)
+		const firstDayOfMonth = getFirstDayOfMonthWeekday(
+			yearSelected,
+			monthSelected
+		)
 		setFirstDayOfMonth(() => {
 			// 0 : domingo 1: lunes 2: martes 3: miercoles 4: jueves 5: viernes 6: sabado
-			return firstDayOfMonth
+			return firstDayOfMonth + 1
 		})
 	}
 	const getMonthNameByIndex = (index) => {
-		return intl.format(new Date(currentYear, index, 1))
-	}
-	const getFirstDayOfWeek = (year, month) => {
-		const date = new Date(year, month - 1, 1).getDay()
-		return date
+		return intl.format(new Date(yearSelected, index, 1))
 	}
 	const nextMonthHandler = () => {
-		if (currentMonth === 11) {
+		if (monthSelected === 11) {
 			setCurrentMonth(0)
-			setCurrentYear(currentYear + 1)
+			setCurrentYear(yearSelected + 1)
 		} else {
-			setCurrentMonth(currentMonth + 1)
+			setCurrentMonth(monthSelected + 1)
 		}
 		getInfoCalendar()
 	}
 	const prevMonthHandler = () => {
-		if (currentMonth === 0) {
+		if (monthSelected === 0) {
 			setCurrentMonth(11)
-			setCurrentYear(currentYear - 1)
+			setCurrentYear(yearSelected - 1)
 		} else {
-			setCurrentMonth(currentMonth - 1)
+			setCurrentMonth(monthSelected - 1)
 		}
 		getInfoCalendar()
 	}
 	const nextYearHandler = () => {
-		setCurrentYear(currentYear + 1)
+		setCurrentYear(yearSelected + 1)
 		getInfoCalendar()
 	}
 	const prevYearHandler = () => {
-		setCurrentYear(currentYear - 1)
+		setCurrentYear(yearSelected - 1)
 		getInfoCalendar()
+	}
+	const iconAction = () => {
+		setShowCalendar(!showCalendar)
 	}
 	useEffect(() => {
 		getInfoCalendar()
-		console.log({
-			currentYear,
-			currentMonth,
-		})
-	}, [currentYear, currentMonth])
+	}, [yearSelected, monthSelected])
 
 	return (
-		<div>
-			<CalendarContainer>
-				<MonthSelector>
-					<button onClick={(e) => prevMonthHandler(e)}> {'<'} </button>
-					<span>{getMonthNameByIndex(currentMonth)}</span>
-					<button onClick={(e) => nextMonthHandler(e)}>{'>'}</button>
-				</MonthSelector>
-				<YearSelector>
-					<button onClick={(e) => prevYearHandler(e)}> {'<'} </button>
-					<span>{currentYear}</span>
-					<button onClick={(e) => nextYearHandler(e)}>{'>'}</button>
-				</YearSelector>
-				<DaysHeader>
-					<span>D</span>
-					<span>L</span>
-					<span>K</span>
-					<span>M</span>
-					<span>J</span>
-					<span>V</span>
-					<span>S</span>
-				</DaysHeader>
-				<CalendarDays firstDay={firstDayOfMonth}>
-					{daysOfMonths &&
-          [...Array(daysOfMonths)].map((_, index) => {
-          	return <span key={index}>{index + 1}</span>
-          })}
-				</CalendarDays>
-			</CalendarContainer>
+		<ContainerCalendarAndInput>
+			{showCalendar && (
+				<CalendarContainer>
+					<MonthSelector>
+						<button onClick={(e) => prevMonthHandler(e)}>
+							{' '}
+							<ChevronLeft />{' '}
+						</button>
+						<span>{getMonthNameByIndex(monthSelected)}</span>
+						<button onClick={(e) => nextMonthHandler(e)}>
+							{' '}
+							<ChevronRight />
+						</button>
+					</MonthSelector>
+					<YearSelector>
+						<button onClick={(e) => prevYearHandler(e)}>
+							{' '}
+							<ChevronLeft />{' '}
+						</button>
+						<span>{yearSelected}</span>
+						<button onClick={(e) => nextYearHandler(e)}>
+							{' '}
+							<ChevronRight />
+						</button>
+					</YearSelector>
+					<DaysHeader>
+						<span>D</span>
+						<span>L</span>
+						<span>K</span>
+						<span>M</span>
+						<span>J</span>
+						<span>V</span>
+						<span>S</span>
+					</DaysHeader>
+					<CalendarDays firstDay={firstDayOfMonth}>
+						{daysOfMonths &&
+              [...Array(daysOfMonths)].map((_, index) => {
+              	return (
+              		<span
+              			key={index}
+              			onClick={() => selectedDayHandler(index + 1)}
+              			className={selectedDay === (index + 1 )? 'selected' : ''}
+              		>
+              			{console.log(selectedDay, index + 1)}
+              			{index + 1}
+              		</span>
+              	)
+              })}
+					</CalendarDays>
+				</CalendarContainer>
+			)}
 			<CMP037
 				type="text"
 				mandatory={true}
 				label="Fecha de nacimiento"
-				placeholder="20/05/2021"
+				placeholder="  DD/MM/AAAA"
+				state="success"
+				Icon={Calendar}
+				iconAction={iconAction}
+				value={concatenatedDate}
+				setValue={setConcatenatedDate}
 			/>
-		</div>
+		</ContainerCalendarAndInput>
 	)
 }
 
 export default Calendario
-
+const ContainerCalendarAndInput = styled.div`
+  position: relative;
+`
 const CalendarContainer = styled.div`
   margin-top: 1rem;
+
   display: grid;
+  position: absolute;
+  top: -350px;
+  right: -350px;
   grid-template-columns: 1fr;
-  padding: 16px 42.5px 16px 42.5px;
+  padding: 16px;
   border-radius: 10px;
   background: var(--primary-blue-primary-blue-main-500);
-  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
+  box-shadow: var(--center-shadow);
   height: fit-content;
+  z-index: 999;
 `
 const YearSelector = styled.div`
   display: grid;
-  grid-template-columns: 1fr 3fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 0.5rem;
   padding: 0.5rem;
   & > button {
@@ -135,7 +180,7 @@ const YearSelector = styled.div`
     align-items: center;
     color: var(--primary-green-primary-green-main-500);
     font-family: Roboto;
-    font-size: 15px;
+    font-size: 24px;
     font-weight: 500;
     line-height: 18px;
     letter-spacing: 0em;
@@ -169,9 +214,10 @@ const YearSelector = styled.div`
 `
 const MonthSelector = styled.div`
   display: grid;
-  grid-template-columns: 1fr 3fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 0.5rem;
   padding: 0.5rem 0.5rem 16px 0.5rem;
+
   & > button {
     display: flex;
     border: none;
@@ -180,7 +226,7 @@ const MonthSelector = styled.div`
     align-items: center;
     color: var(--primary-green-primary-green-main-500);
     font-family: Roboto;
-    font-size: 15px;
+    font-size: 24px;
     font-weight: 500;
     line-height: 18px;
     letter-spacing: 0em;
@@ -215,8 +261,9 @@ const MonthSelector = styled.div`
 `
 const DaysHeader = styled.div`
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 27.22px;
+  grid-template-columns: repeat(7, 22px);
+  gap: 23px;
+
   padding: 0.5rem 0.5rem 12px 0.5rem;
   span {
     display: flex;
@@ -228,25 +275,26 @@ const DaysHeader = styled.div`
     font-weight: 500;
     line-height: 18px;
     letter-spacing: 0em;
-    text-align: left;
     user-select: none;
     cursor: pointer;
+    width: 18px;
+    height: 18px;
   }
 `
 const CalendarDays = styled.div`
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 27.22px;
+  gap: 23px;
   padding: 0.5rem;
-  width: 289.33px;
+  width: fit-content;
   & > span:nth-child(1) {
     grid-column: ${(props) => props.firstDay};
   }
-  span {
+  & > span {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 50%;
+    border-radius: 3px;
     color: var(--neutral-gray-colors-neutral-white);
     font-family: Roboto;
     font-size: 15px;
@@ -255,11 +303,21 @@ const CalendarDays = styled.div`
     letter-spacing: 0em;
     text-align: left;
     user-select: none;
-
+    width: 22px;
+    height: 22px;
     cursor: pointer;
     &:hover {
-      background: var(--secundary-accent-secundary-accent-main-500);
-      color: var(--primary-blue-primary-blue-900);
+      background: var(--primary-blue-primary-blue-400);
+      color: var(--neutral-gray-colors-neutral-white);
+    }
+    &.selected {
+      background: var(--primary-green-primary-green-main-500);
+      color: var(--neutral-gray-colors-neutral-white);
+
+      &:hover {
+        background: var(--primary-green-primary-green-main-500);
+        color: var(--neutral-gray-colors-neutral-white);
+      }
     }
   }
 `
