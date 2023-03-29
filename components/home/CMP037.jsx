@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { BsCheckCircle as Success, BsXCircle as Fail } from 'react-icons/bs'
 
@@ -13,10 +13,17 @@ const CMP037 = ({
 	setValue = null,
 	Icon = null,
 	iconAction = null,
+	validation = null,
 }) => {
+	const [stateInput, setStateInput] = useState('none')
 	const handleChange = (e) => {
 		if (setValue) {
 			setValue(e.target.value)
+			if (e.target.value.length > 0) {
+				validation(e.target.value)
+			} else {
+				setStateInput('none')
+			}
 		}
 	}
 	const handleIconAction = (e) => {
@@ -48,8 +55,8 @@ const CMP037 = ({
 					</i>
 				)}
 				{Icon && (
-					<div onClick={(e)=>handleIconAction(e)} >
-						<Icon/>
+					<div onClick={(e) => handleIconAction(e)}>
+						<Icon />
 					</div>
 				)}
 			</label>
@@ -123,8 +130,6 @@ const InputContainer = styled.div`
       line-height: 19px;
       letter-spacing: 0px;
       text-align: left;
-
-      text-align: left;
       color: var(--primary-blue-primary-blue-900);
       margin-bottom: 14px;
     }
@@ -160,9 +165,7 @@ const InputContainer = styled.div`
     color: ${(props) =>
 		props.state == 'success' ? 'var(--alert-success)' : 'var(--alert-error)'};
     background-color: ${(props) =>
-		props.state == 'success' || props.state == 'fail'
-			? 'var(--neutral-background-neutral-olive-100)'
-			: 'transparent'};
+		props.state == 'success' || props.state == 'fail' &&'transparent'};
     pointer-events: none;
     & > svg {
       width: 16px;
@@ -184,7 +187,6 @@ const InputContainer = styled.div`
     height: 16px;
     z-index: 10;
     &:hover {
-
       ${(props) => props.iconAction && 'cursor: pointer;'}
     }
   }

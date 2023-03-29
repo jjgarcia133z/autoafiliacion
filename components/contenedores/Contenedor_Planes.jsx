@@ -22,7 +22,7 @@ const Contenedor_Planes = () => {
 	const handleClick = () => {
 		goTo('/datos-personales', () => {
 			dispatch(setCurrentIndex(2))
-			dispatch(setStatus({index:0 ,status: state.successActive}))
+			dispatch(setStatus({ index: 0, status: state.successActive }))
 		})
 	}
 	return (
@@ -36,7 +36,6 @@ const Contenedor_Planes = () => {
 				</p>
 			</article>
 			<div>
-
 				<Row>
 					<Calendario />
 				</Row>
@@ -48,7 +47,6 @@ const Contenedor_Planes = () => {
 						onClickHandle={handleClick}
 					/>
 				</Row>
-		
 			</div>
 		</Container>
 	)
@@ -124,6 +122,18 @@ const Container = styled.div`
       max-width: 696px;
       z-index: 1;
       color: var(--primary-blue-primary-blue-900);
+    }
+  }
+  @media (max-width: 1194px) {
+    & > span:nth-child(1) {
+      position: absolute;
+      top: 85px;
+      display: flex;
+      background: url(${(props) => props.portada.src});
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      width: 100%;
     }
   }
 `

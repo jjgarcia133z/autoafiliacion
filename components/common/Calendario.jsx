@@ -1,3 +1,8 @@
+/**
+ * @fileoverview Calendario
+ * @name Calendario.jsx
+ * @componentNumber CMP031
+ */
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import CMP037 from '../home/CMP037'
@@ -13,6 +18,7 @@ const Calendario = () => {
 	const [firstDayOfMonth, setFirstDayOfMonth] = useState(null) // 0 [domingo
 	const [daysOfMonths, setDaysOfMonths] = useState(null) // 31
 	const [showCalendar, setShowCalendar] = useState(false)
+	const [validation, setValidation] = useState('none')
 
 	const intl = new Intl.DateTimeFormat(locale, {
 		month: 'long',
@@ -26,7 +32,6 @@ const Calendario = () => {
 			return `${daySelected}/${month}/${yearSelected}`
 		})
 	}
-
 	const getFirstDayOfMonthWeekday = (year, month) => {
 		const firstDayOfMonth = new Date(year, month, 1).getDay()
 		return firstDayOfMonth // devuelve un número del 0 al 6 que representa el día de la semana
@@ -77,9 +82,24 @@ const Calendario = () => {
 	const iconAction = () => {
 		setShowCalendar(!showCalendar)
 	}
+	const validationDate = (date) => {
+		//validar que la fecha sea correcta con este formato DD/MM/AAAA por ejemplo 20/12/2023
+		const regex = /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/
+		if (regex.test(date)) {
+			setValidation('success')
+			return
+		} else {
+			setValidation('fail')
+			return
+		}
+	}
+
 	useEffect(() => {
 		getInfoCalendar()
-	}, [yearSelected, monthSelected])
+	}, [yearSelected, monthSelected, selectedDay])
+	useEffect(() => {
+		validationDate(concatenatedDate)
+	}, [concatenatedDate])
 
 	return (
 		<ContainerCalendarAndInput>
@@ -123,7 +143,7 @@ const Calendario = () => {
               		<span
               			key={index}
               			onClick={() => selectedDayHandler(index + 1)}
-              			className={selectedDay === (index + 1 )? 'selected' : ''}
+              			className={selectedDay === index + 1 ? 'selected' : ''}
               		>
               			{console.log(selectedDay, index + 1)}
               			{index + 1}
@@ -137,12 +157,14 @@ const Calendario = () => {
 				type="text"
 				mandatory={true}
 				label="Fecha de nacimiento"
-				placeholder="  DD/MM/AAAA"
-				state="success"
-				Icon={Calendar}
+				placeholder="  dd/mm/aaaa"
+				state={validation}
 				iconAction={iconAction}
+				Icon={Calendar}
 				value={concatenatedDate}
 				setValue={setConcatenatedDate}
+				validation={validationDate}
+				helperText="Formato incorrecto"
 			/>
 		</ContainerCalendarAndInput>
 	)
@@ -157,8 +179,8 @@ const CalendarContainer = styled.div`
 
   display: grid;
   position: absolute;
-  top: -350px;
-  right: -350px;
+  top: -230px;
+  right: -260px;
   grid-template-columns: 1fr;
   padding: 16px;
   border-radius: 10px;
@@ -171,7 +193,7 @@ const YearSelector = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 0.5rem;
-  padding: 0.5rem;
+  padding: 0.5rem 0.5rem 4px 0.5rem;
   & > button {
     display: flex;
     border: none;
@@ -179,7 +201,7 @@ const YearSelector = styled.div`
     justify-content: center;
     align-items: center;
     color: var(--primary-green-primary-green-main-500);
-    font-family: Roboto;
+    font-family: Montserrat;
     font-size: 24px;
     font-weight: 500;
     line-height: 18px;
@@ -205,6 +227,8 @@ const YearSelector = styled.div`
     user-select: none;
   }
   & > span:nth-child(2) {
+    font-family: Montserrat;
+    font-weight: 300;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -216,7 +240,7 @@ const MonthSelector = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 0.5rem;
-  padding: 0.5rem 0.5rem 16px 0.5rem;
+  padding: 0.5rem 0.5rem 4px 0.5rem;
 
   & > button {
     display: flex;
@@ -242,7 +266,7 @@ const MonthSelector = styled.div`
     justify-content: center;
     align-items: center;
     color: var(--neutral-gray-colors-neutral-white);
-    font-family: Roboto;
+    font-family: Montserrat;
     font-size: 15px;
     font-weight: 500;
     line-height: 18px;
@@ -252,6 +276,8 @@ const MonthSelector = styled.div`
     user-select: none;
   }
   & > span:nth-child(2) {
+    font-family: Montserrat;
+    font-weight: 300;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -262,15 +288,15 @@ const MonthSelector = styled.div`
 const DaysHeader = styled.div`
   display: grid;
   grid-template-columns: repeat(7, 22px);
-  gap: 23px;
+  gap: 8px;
 
-  padding: 0.5rem 0.5rem 12px 0.5rem;
+  padding: 0.5rem 0.5rem 4px 0.5rem;
   span {
     display: flex;
     justify-content: center;
     align-items: center;
     color: var(--primary-green-primary-green-main-500);
-    font-family: Roboto;
+    font-family: Montserrat;
     font-size: 15px;
     font-weight: 500;
     line-height: 18px;
@@ -284,7 +310,7 @@ const DaysHeader = styled.div`
 const CalendarDays = styled.div`
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 23px;
+  gap: 8px;
   padding: 0.5rem;
   width: fit-content;
   & > span:nth-child(1) {
@@ -296,9 +322,9 @@ const CalendarDays = styled.div`
     align-items: center;
     border-radius: 3px;
     color: var(--neutral-gray-colors-neutral-white);
-    font-family: Roboto;
-    font-size: 15px;
-    font-weight: 500;
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 300;
     line-height: 18px;
     letter-spacing: 0em;
     text-align: left;
@@ -312,7 +338,8 @@ const CalendarDays = styled.div`
     }
     &.selected {
       background: var(--primary-green-primary-green-main-500);
-      color: var(--neutral-gray-colors-neutral-white);
+      color: var(--primary-blue-primary-blue-900);
+      font-weight: 600;
 
       &:hover {
         background: var(--primary-green-primary-green-main-500);

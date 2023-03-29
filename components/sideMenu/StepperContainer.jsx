@@ -35,9 +35,11 @@ export default CMP03
 
 const StepperBar = styled.div`
   display: grid;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
+  grid-template-columns: 1fr;
+
   width: 100%;
   box-sizing: border-box;
+  @media (max-width: 1194px) {
+    display: flex;
+  }
 `

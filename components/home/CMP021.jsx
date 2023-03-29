@@ -58,13 +58,7 @@ const CMP10 = () => {
                         No he recibido el código, volver a enviarlo
 					</p>
 				</div>
-			</div>
-        
-
-
-
-
-
+			</div>    
 		</Primary>
 	)
 }

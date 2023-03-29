@@ -90,9 +90,8 @@ const MainLayout = styled.main`
   min-height: 100vh;
   min-width: 100%;
   padding: 48px 56px 0 56px;
-  header {
+  & > header {
     grid-column: 2/3;
-    /* background-color: #f47676; */
   }
   & > section {
     display: grid;
@@ -111,7 +110,6 @@ const MainLayout = styled.main`
   }
   & > article {
     grid-area: article;
-    /* background-color: #051aff; */
   }
   & > aside {
     grid-area: menu;
@@ -122,12 +120,24 @@ const MainLayout = styled.main`
     display: flex;
     justify-content: center;
     align-items: center;
-    //styleName: Body/Body Small - Montserrat Medium;
     font-family: Montserrat;
     font-size: 14px;
     font-weight: 500;
     line-height: 17px;
     letter-spacing: 0px;
     text-align: center;
+  }
+
+  @media (max-width: 1194px) {
+	padding: 48px 46px 0 46px;
+    & > section {
+      display: flex;
+	  flex-direction: column;
+	  padding: 10px;
+      box-shadow: none;
+      & > article {
+        box-shadow: 0px 4px 4px rgba(192, 200, 214, 0.25);
+      }
+    }
   }
 `
