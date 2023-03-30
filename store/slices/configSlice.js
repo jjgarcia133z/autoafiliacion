@@ -4,32 +4,44 @@ export const config = createSlice({
 	name: 'config',
 	initialState: {
 		welcomeModal: true,
-		privacyPolicy : false,
+		privacyPolicy: false,
 		currentIndex: 1,
 		steps: [
 			{
 				title: 'Tipo Plan',
 				status: state.active,
+				ready: false,
+				url: '/',
 			},
 			{
 				title: 'Datos Personales',
 				status: state.disable,
+				ready: false,
+				url: '/datos-personales',
 			},
 			{
 				title: 'Agregar Beneficiarios',
 				status: state.disable,
+				ready: false,
+				url: '/beneficiarios',
 			},
 			{
 				title: 'Resumen',
 				status: state.disable,
+				ready: false,
+				url: '/resumen',
 			},
 			{
 				title: 'Metodo de Pago',
 				status: state.disable,
+				ready: false,
+				url: '/metodo-pago',
 			},
 			{
 				title: 'Datos de tu cuenta',
 				status: state.disable,
+				ready: false,
+				url: '/datos-cuenta',
 			},
 		],
 
@@ -60,8 +72,12 @@ export const config = createSlice({
 		setCurrentIndex: (state, action) => {
 			state.currentIndex = action.payload
 		},
-		setStatus: (state, action) => {
-			state.steps[action.payload.index].status = action.payload.status
+		setStepsStatus: (state, action) => {
+			state.steps = action.payload
+		},
+		setStatusReady: (state, action) => {
+			const step = state.steps.find((step) => step.url === action.payload)
+			step.ready = true
 		},
 		setWelcomeModal: (state, action) => {
 			state.welcomeModal = action.payload
@@ -69,6 +85,11 @@ export const config = createSlice({
 	},
 })
 
-export const { setCurrentIndex, setStatus, setWelcomeModal } = config.actions
+export const {
+	setCurrentIndex,
+	setStepsStatus,
+	setStatusReady,
+	setWelcomeModal,
+} = config.actions
 
 export default config.reducer

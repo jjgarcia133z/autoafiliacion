@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import styled from 'styled-components'
 import Contenedor_Menu from '@/components/sideMenu/Contenedor_Menu'
-import CMP017 from '@/components/header/CMP017'
+import CMP017 from '@/components/header/Header'
 import { useSelector } from 'react-redux'
 import ModalContainer from '../common/ModalContainer'
 import { useEffect, useState } from 'react'

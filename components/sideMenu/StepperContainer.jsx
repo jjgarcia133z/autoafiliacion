@@ -20,10 +20,11 @@ const CMP03 = () => {
 					<StepButton
 						key={index}
 						index={index + 1}
-						stepState={step.status}
+						stepStatus={step.status}
 						title={step.title}
 						first={isFirst}
 						last={isLast}
+						url={step.url}
 					/>
 				)
 			})}

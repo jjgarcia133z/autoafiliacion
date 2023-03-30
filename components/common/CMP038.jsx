@@ -6,6 +6,7 @@ const CMP038 = ({
 	label = 'label',
 	placeholder = '',
 	helperText = 'helper text',
+	options= []
 }) => {
 	return (
 		<SelectContainer mandatory={mandatory} state={state}>
@@ -13,9 +14,11 @@ const CMP038 = ({
 				<span>{label}</span>
 				<select  defaultValue={0}>
 					<option value="0" disabled>{placeholder}</option>
-					<option value="">Select 1</option>
-					<option value="">Select 2</option>
-					<option value="">Select 3</option>
+					{options.map((item, index) => (
+						<option key={index} value={item.value}>
+							{item.label}
+						</option>
+					))}
 				</select>
 			</label>
 			{state == 'success' ||

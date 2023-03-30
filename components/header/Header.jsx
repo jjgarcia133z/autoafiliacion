@@ -1,9 +1,19 @@
+/**
+ * @file Header.jsx
+ * @description Header de la aplicación donde se muestra el logo de medismart y el componente CMP018
+ * @componentNumber CMP017
+ */
 import Logo from '@/assets/img/Logo_medismart.png'
 import styled from 'styled-components'
-import CMP018 from './CMP018'
+import BreadCrumb from './BreadCrumb'
 import { useSelector } from 'react-redux'
-const CMP017 = () => {
-	const { pages, currentIndex} = useSelector((state) => state.config)
+const Header = () => {
+	const { steps } = useSelector((state) => state.config)
+	const getActiveStep = () => {
+		const activeStep = steps.find((step) => step.status === 'active' || step.status === 'successActive')
+		if (!activeStep) return ''
+		return activeStep.title
+	}
 	return (
 		<HeaderContainer>
 			<div>
@@ -11,22 +21,26 @@ const CMP017 = () => {
 			</div>
 			<div>
 				<div>
-					<CMP018 parentPage="Nueva afiliación" currentPage={pages[currentIndex-1].title} />
+					<BreadCrumb
+						parentPage="Nueva afiliación"
+						currentPage={getActiveStep()}
+					/>
 				</div>
-				<div></div>{ /*icon section*/ }
+				<div></div>
+				{/*icon section*/}
 			</div>
 		</HeaderContainer>
 	)
 }
 
-export default CMP017
+export default Header
 const HeaderContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
   width: 100%;
   height: 80px;
-  
+
   margin-bottom: 48px;
   & > div:nth-child(1) {
     height: 80px;

@@ -9,7 +9,7 @@ import CMP06 from '../home/CMP06'
 import { state } from '@/constants/constants'
 import ImagePortada from '@/assets/img/PortadaAfiliacion_medismart.png'
 import { useDispatch } from 'react-redux'
-import { setCurrentIndex, setStatus } from '@/store/slices/configSlice'
+import { setCurrentIndex, setStatusReady } from '@/store/slices/configSlice'
 import CMP08 from '../home/CMP08'
 import Calendario from '../common/Calendario'
 
@@ -18,11 +18,13 @@ const Contenedor_Planes = () => {
 	// const [show, setShow] = useState(false)
 	// const { pages, currentIndex } = useSelector((state) => state.config)
 	const dispatch = useDispatch()
-	const { goTo } = usePage()
+	const { goTo, updateStepStatus } = usePage()
 	const handleClick = () => {
-		goTo('/datos-personales', () => {
+		let url = '/datos-personales'
+		goTo(url, () => {
 			dispatch(setCurrentIndex(2))
-			dispatch(setStatus({ index: 0, status: state.successActive }))
+			updateStepStatus(url) //set the current step as active
+			dispatch(setStatusReady(url))
 		})
 	}
 	return (

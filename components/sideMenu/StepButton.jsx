@@ -11,32 +11,35 @@ import styled from 'styled-components'
 import { stateCss, stateAfterBefore, state } from '@/constants/constants'
 import { FiCheck } from 'react-icons/fi'
 import { setCurrentIndex } from '@/store/slices/configSlice'
+import usePage from '@/hooks/usePage'
 
 const StepButton = ({
-	index = 1,
-	stepState = state.active,
+	index = 0,
+	stepStatus = state.active,
 	title = '',
 	first = false,
 	last = false,
+	url = '/error',
 }) => {
 	const router = useRouter()
 	const dispatch = useDispatch()
-	const [stepCurrentState, setStepCurrentState] = useState(stepState)
-	const { pages, currentIndex } = useSelector((state) => state.config)
+	const [stepCurrentState, setStepCurrentState] = useState(stepStatus)
+	const {goTo, updateStepStatus} = usePage()
 
 	const handleClick = () => {
 		if (stepCurrentState === state.disable) return //if the step is disabled, do nothing
-		let page = pages[index - 1]
-		if (page) { //if the page exists
-			if (page.id === currentIndex) return //if the page is the current page, do nothing
+
+		goTo(url, () => {
 			dispatch(setCurrentIndex(index)) //set the current index
-			router.push(page.url)
-		}
+			updateStepStatus(url) //set the current step as active
+		})
+
+    
 	}
 
 	useEffect(() => {
-		setStepCurrentState(stepState) //set the current state
-	}, [stepState, index])
+		setStepCurrentState(stepStatus) //set the current state
+	}, [stepStatus, index])
 
 	return (
 		<StepperBar
@@ -48,7 +51,7 @@ const StepButton = ({
 			last={last}
 			onClick={() => handleClick()}
 		>
-			<div>
+			<div data-url={url}>
 				<span>
 					{stepCurrentState === state.success ||
           stepCurrentState == state.successActive ? (

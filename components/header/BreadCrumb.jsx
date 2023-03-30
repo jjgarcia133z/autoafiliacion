@@ -1,7 +1,12 @@
+/**
+ * @file BreadCrumb.jsx
+ * @description Componente que muestra el breadcrumb de la aplicación
+ * @componentNumber CMP018
+ */
 import React from 'react'
 import styled from 'styled-components'
 
-const CMP018 = ({ parentPage = '', currentPage = '' }) => {
+const BreadCrumb = ({ parentPage = '', currentPage = '' }) => {
 	return (
 		<BreadCrumbContainer>
 			<span>{parentPage} </span>/<span> {currentPage}</span>
@@ -9,7 +14,7 @@ const CMP018 = ({ parentPage = '', currentPage = '' }) => {
 	)
 }
 
-export default CMP018
+export default BreadCrumb
 
 const BreadCrumbContainer = styled.div`
   & > span:nth-child(1) {
