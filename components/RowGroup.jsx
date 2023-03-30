@@ -1,18 +1,23 @@
+/**
+ * @file RowGroup.jsx
+ * @description Row de grupo de beneficiarios.
+ * @componentNumber CMP024
+ */
 import React from 'react'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
-import CMP024ROW from './CMP024ROW'
+import RowBeneficiario from './RowBeneficiario'
 
-const CMP024 = () => {
+const RowGroup = () => {
 	const { planMedismart, beneficiarios, mascotas, productosAdicionales } =
     useSelector((state) => state.afiliacion)
 	return (
-		<RowGroup>
+		<RowGroupContainer>
 			<div>
 				<div>
 					<p>Propietario</p>
 				</div>
-				<CMP024ROW
+				<RowBeneficiario
 					isOwnPlan={true}
 					name={planMedismart.nombre}
 					benficiario={'Propietario'}
@@ -24,7 +29,7 @@ const CMP024 = () => {
 					<p>Beneficiarios</p>
 				</div>
 				{beneficiarios.map((beneficiario, index) => (
-					<CMP024ROW
+					<RowBeneficiario
 						key={index}
 						isOwnPlan={false}
 						name={beneficiario.nombre}
@@ -38,7 +43,7 @@ const CMP024 = () => {
 					<p>Mascotas</p>
 				</div>
 				{mascotas.map((mascota, index) => (
-					<CMP024ROW
+					<RowBeneficiario
 						key={index}
 						isOwnPlan={false}
 						name={mascota.nombre}
@@ -52,7 +57,7 @@ const CMP024 = () => {
 					<p>Productos adicionales</p>
 				</div>
 				{productosAdicionales.map((productosAdicionale, index) => (
-					<CMP024ROW
+					<RowBeneficiario
 						key={index}
 						isOwnPlan={false}
 						name={productosAdicionale.nombre}
@@ -61,13 +66,13 @@ const CMP024 = () => {
 					/>
 				))}
 			</div>
-		</RowGroup>
+		</RowGroupContainer>
 	)
 }
 
-export default CMP024
+export default RowGroup
 
-const RowGroup = styled.div`
+const RowGroupContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;

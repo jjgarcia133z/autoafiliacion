@@ -5,7 +5,7 @@
  */
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import CMP037 from '../home/CMP037'
+import Input from '../home/Input'
 import { ChevronLeft, ChevronRight } from '../icons/Icons'
 import { Calendar } from '../icons/Icons'
 const Calendario = () => {
@@ -153,7 +153,7 @@ const Calendario = () => {
 					</CalendarDays>
 				</CalendarContainer>
 			)}
-			<CMP037
+			<Input
 				type="text"
 				mandatory={true}
 				label="Fecha de nacimiento"

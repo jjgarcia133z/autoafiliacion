@@ -9,17 +9,23 @@ const CMP08 = ({
 	Icon = false,
 	disabled = false,
 	onClickHandle = null,
+	isLoading = false,
 }) => {
-
 	const handleClick = () => {
 		if (onClickHandle) {
 			onClickHandle()
 		}
 	}
 	return (
-		<Btn style={BtnStyles[style]} disabled={disabled} onClick={()=>handleClick()}>
-			{Icon && <Loading />}
-			<span>{text}</span>
+		<Btn
+			style={BtnStyles[style]}
+			disabled={disabled}
+			onClick={() => handleClick()}
+			isLoading={isLoading}
+		>
+			{isLoading && <Loading />}
+			{Icon && !isLoading && <Icon />}
+			{!isLoading && <span>{text}</span>}
 		</Btn>
 	)
 }
@@ -27,13 +33,11 @@ const CMP08 = ({
 export default CMP08
 
 const Btn = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 5px;
-  font-family: Montserrat;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 19px;
-  letter-spacing: 0px;
-  text-align: left;
+  gap: 8px;
   width: fit-content;
   padding: ${(props) => props.style.varPadding};
   height: ${(props) => props.style.varHeight};
@@ -44,6 +48,18 @@ const Btn = styled.button`
   color: var(${(props) => props.style.varTextColor});
   background: var(${(props) => props.style.varBackgroundColor});
   border: 1px solid var(${(props) => props.style.varBorderColor});
+  & > span {
+    font-family: Montserrat;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19px;
+    letter-spacing: 0px;
+    text-align: left;
+  }
+  & > i {
+    font-weight: 500;
+    font-size: 24px;
+  }
   &:hover {
     background: var(${(props) => props.style.varHoverColor});
     color: var(${(props) => props.style.varTextHoverColor});

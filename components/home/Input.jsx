@@ -1,8 +1,13 @@
+/**
+ * @file Input.jsx
+ * @description Input de formulario.
+ * @componentNumber CMP037
+ */
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { BsCheckCircle as Success, BsXCircle as Fail } from 'react-icons/bs'
 
-const CMP037 = ({
+const Input = ({
 	mandatory = false,
 	state = 'none',
 	type = 'text',
@@ -65,7 +70,7 @@ const CMP037 = ({
 	)
 }
 
-export default CMP037
+export default Input
 
 const InputContainer = styled.div`
   position: relative;

@@ -14,32 +14,33 @@ const Loading = () => {
 export default Loading
 
 const LoadingContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  & > span {
     display: flex;
     justify-content: center;
     align-items: center;
-    & > span {
-        display: inline-block;
     width: 8px;
     height: 8px;
-    margin-right: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+
     border-radius: 50%;
     animation: loading 1.2s ease infinite;
-    
-    }
+  }
 
-    & > span:nth-child(1) {
-        animation-delay: 0.4s;
-        
-    }
+  & > span:nth-child(1) {
+    animation-delay: 0.4s;
+  }
 
-    & > span:nth-child(2) {
-        animation-delay: 0.8s;
-    }
+  & > span:nth-child(2) {
+    animation-delay: 0.8s;
+  }
 
-    & > span:nth-child(3) {
-        animation-delay: 1.2s;
-    }
-
+  & > span:nth-child(3) {
+    animation-delay: 1.2s;
+  }
 
   @keyframes loading {
     0% {

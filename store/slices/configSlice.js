@@ -4,6 +4,7 @@ export const config = createSlice({
 	name: 'config',
 	initialState: {
 		welcomeModal: true,
+		privacyPolicy : false,
 		currentIndex: 1,
 		steps: [
 			{
@@ -43,10 +44,14 @@ export const config = createSlice({
 			},
 			{
 				id: 3,
-				url: '/agregar-beneficiarios',
+				url: '/beneficiarios',
 			},
 			{
 				id: 4,
+				url: '/agregar-beneficiario',
+			},
+			{
+				id: 5,
 				url: '/agregar-mascota',
 			},
 		],

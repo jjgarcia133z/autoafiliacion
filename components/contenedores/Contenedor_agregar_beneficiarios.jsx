@@ -1,66 +1,151 @@
 /**
  * @file Contenedor_agregar_beneficiarios.jsx
  * @description Contenedor de datos de beneficiario.
- * @componentNumber CMP012_5
+ * @componentNumber CMP013
  */
-
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
+import CMP011_5 from '../common/CMP011_5'
+import CMP038 from '../common/CMP038'
 import CMP044 from '../common/CMP044'
+import CMP020 from '../home/CMP020'
+import Input from '../home/Input'
+import CMP040 from '../home/CMP040'
 import CMP08 from '../home/CMP08'
-import CMP010 from '../home/CMP010'
-import ImagePortada2 from '@/assets/img/PortadaAfiliacion_medismart2.png'
 import { setCurrentIndex } from '@/store/slices/configSlice'
 import { useDispatch } from 'react-redux'
 import usePage from '@/hooks/usePage'
-import CMP012 from '../common/CMP012'
-
+import { Plus } from '../icons/Icons'
 const Contenedor_agregar_beneficiarios = () => {
 	const dispatch = useDispatch()
 	const { goTo } = usePage()
-	const handleClickLast = () => {
-		goTo('/', () => {
-			dispatch(setCurrentIndex(1))
+	const handleClickCancel = () => {
+		goTo('/datos-personales', () => {
+			dispatch(setCurrentIndex(2))
 		})
 	}
-	const handleClickNext = () => {
-		goTo('/agregar-beneficiarios', () => {
-			dispatch(setCurrentIndex(3))
+	const handleClickAdd = () => {
+		goTo('/beneficiarios', () => {
+			dispatch(setCurrentIndex(4))
 		})
 	}
-
 	return (
-		<Container portada={ImagePortada2}>
+		<Container>
 			<div>
-				<CMP044 title="¿Deseás agregar algún beneficiario?" />
+				<CMP044 title="Ingresá los datos del beneficiario" />
 			</div>
+
 			<Row>
-				<CMP012
-					description="Afiliá un amigo o familiar, para que tenga tus mismos beneficios"
-					title="Persona"
-					price="13.26"
-					type="persona"
-					forType="por mes"
-				/>
-				<CMP012
-					description="Afiliá a tu perro o gato y aprovechá beneficios para cuidar de su salud."
-					title="Mascotas"
-					price="13.26"
-					type="mascota"
-					forType="por cada una"
+				<Input
+					type="text"
+					mandatory={true}
+					label="Tipo de indentificación"
+					placeholder="Seleccioná tipo de identificación"
 				/>
 			</Row>
 			<Row>
+				<Input
+					type="text"
+					mandatory={true}
+					label="Número de indentificación"
+					placeholder="ingresá tu identificación"
+				/>
+			</Row>
+			<Row>
+				<CMP038
+					type="text"
+					mandatory={false}
+					label="Género"
+					placeholder="Seleccióna tipo de género"
+				/>
+
+				<Input
+					type="text"
+					mandatory={true}
+					label="Parentesco"
+					placeholder="Seleccioná el parentesco"
+				/>
+			</Row>
+			<Row>
+				<Input
+					type="text"
+					mandatory={true}
+					label="Nombre"
+					placeholder="Ingresá tu nombre"
+				/>
+				<Input
+					type="text"
+					mandatory={true}
+					label="Primer Apellido"
+					placeholder="Ingresá tu primer apellido"
+				/>
+				<Input
+					type="text"
+					mandatory={true}
+					label="Segundo Apellido"
+					placeholder="Ingresá tu primer apellido"
+				/>
+			</Row>
+			<Row>
+				<Input
+					type="text"
+					mandatory={true}
+					label="Correo electrónico"
+					placeholder="Ingresá tu correo electrónico"
+				/>
+			</Row>
+
+			<Row>
+				<CMP011_5 />
+				<CMP011_5 />
+			</Row>
+			<Row bottom={32}>
+				<h2>Datos de residencia</h2>
+			</Row>
+			<Row>
+				<CMP038
+					type="text"
+					mandatory={false}
+					label="Provincia"
+					placeholder="Seleccioná la provincia"
+				/>
+				<CMP038
+					type="text"
+					mandatory={false}
+					label="Cantón"
+					placeholder="Seleccioná el cantón"
+				/>
+				<CMP038
+					type="text"
+					mandatory={false}
+					label="Distrito"
+					placeholder="Seleccioná el distrito"
+				/>
+			</Row>
+			<Row>
+				<CMP040
+					label="Dirección exacta"
+					placeholder="Ingresá tu dirección de domicilio"
+				/>
+			</Row>
+			<Row bottom={32}>
+				<h2>Planes adicionales</h2>
+			</Row>
+			<Row>
+				<CMP020 />
+			</Row>
+			<Row>
 				<CMP08
-					text="Atrás"
+					text="Cancelar"
 					disabled={false}
 					style="secondaryLarge"
-					onClickHandle={handleClickLast}
+					onClickHandle={handleClickCancel}
 				/>
-				<CMP010
-					text="Continuar"
+				<CMP08
+					text="Agregar"
+					Icon={Plus}
 					style="primaryLarge"
-					onClickHandle={handleClickNext}
+					onClickHandle={handleClickAdd}
 				/>
 			</Row>
 		</Container>
@@ -79,21 +164,6 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
   padding: 32px;
-  background-color: var(--neutral-background-neutral-olive-100);
-  & > span:nth-child(1) {
-    position: absolute;
-    display: flex;
-    top: 0;
-    right: 0;
-    z-index: 0;
-    background: url(${(props) => props.portada.src});
-    background-size: cover;
-    background-position: right;
-    background-repeat: no-repeat;
-    height: 230px;
-    width: 310px;
-    border-radius: 10px;
-  }
   & > div:first-of-type {
     margin-bottom: 32px;
   }

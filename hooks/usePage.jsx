@@ -15,7 +15,7 @@ const usePage = () => {
 
 	}
 	return{
-		goTo
+		goTo,
 	}
     
 }

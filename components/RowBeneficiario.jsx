@@ -1,3 +1,9 @@
+/**
+ * @file RowBeneficiario.jsx
+ * @description Row de beneficiario.
+ * @componentNumber CMP024.5
+ * 
+ */
 import React from 'react'
 import styled from 'styled-components'
 import {
@@ -11,59 +17,96 @@ import {
 } from './icons/Icons'
 // import { TbDog as DogHead } from 'react-icons/tb'
 
-const CMP024ROW = ({ name, typePlan, benficiario, price = '13.00' }) => {
+const RowBeneficiario = ({
+	name,
+	typePlan,
+	benficiario,
+	price = '13.00',
+	show = true,
+	maxWidth = '100%',
+}) => {
 	return (
-		<Row>
-			<div>
-				<span>
-					{typePlan === 'Propietario' ? (
-						<Star />
-					) : typePlan === 'Mascota' ? (
-						<Petfoot />
-					) : typePlan === 'Persona' ? (
-						<User />
-					) : (
-						<Hearth />
-					)}
-				</span>
-				<p>{name}</p>
-				<span>-</span>
-				<p>{benficiario}</p>
-			</div>
-			<div>
-				<p>
-					<span>$</span> {price}
-				</p>
-			</div>
-			<div>
-				{typePlan !== 'Propietario' && (
-					<button>
+		<>
+			{show && (
+				<Row maxWidth={maxWidth}>
+					<div>
 						<span>
-							<PlusCircle />
+							{typePlan === 'Propietario' ? (
+								<Star />
+							) : typePlan === 'Mascota' ? (
+								<Petfoot />
+							) : typePlan === 'Persona' ? (
+								<User />
+							) : (
+								<Hearth />
+							)}
 						</span>
-						<p>Agregar</p>
-					</button>
-				)}
-				<button>
-					<span>
-						<EditPencil />
-					</span>
-					<p>Editar</p>
-				</button>
-				{typePlan !== 'Propietario' && (
-					<button>
-						<span>
-							<TrashCan />
-						</span>
-						<p>Eliminar</p>
-					</button>
-				)}
-			</div>
-		</Row>
+						<p>{name}</p>
+						<span>-</span>
+						<p>{benficiario}</p>
+					</div>
+					<div>
+						<p>
+							<span>$</span> {price}
+						</p>
+					</div>
+					<div>
+						{typePlan !== 'Propietario' && (
+							<button>
+								<span>
+									<PlusCircle />
+								</span>
+								<p>Agregar</p>
+							</button>
+						)}
+						<button>
+							<span>
+								<EditPencil />
+							</span>
+							<p>Editar</p>
+						</button>
+						{typePlan !== 'Propietario' && (
+							<button>
+								<span>
+									<TrashCan />
+								</span>
+								<p>Eliminar</p>
+							</button>
+						)}
+					</div>
+				</Row>
+			)}
+			{!show && (
+				<RowEmpty maxWidth={maxWidth}>
+					<p>Aún no has agregado ningún beneficiario</p>
+				</RowEmpty>
+			)}
+		</>
 	)
 }
 
-export default CMP024ROW
+export default RowBeneficiario
+const RowEmpty = styled.article`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  background-color: var(--neutral-gray-colors-neutral-medium-light-grey);
+  height: 75px;
+  width: 100%;
+  max-width: ${(props) => props.maxWidth};
+  border-radius: 10px;
+  padding: 16px 24px 16px 24px;
+  margin-bottom: 16px;
+  & > p {
+    font-family: Montserrat;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19px;
+    letter-spacing: 0px;
+    text-align: left;
+  }
+`
 
 const Row = styled.article`
   display: grid;
@@ -73,6 +116,7 @@ const Row = styled.article`
   background-color: var(--neutral-gray-colors-neutral-medium-light-grey);
   height: 75px;
   width: 100%;
+  max-width: ${(props) => props.maxWidth};
   border-radius: 10px;
   padding: 16px 24px 16px 24px;
   margin-bottom: 16px;
@@ -91,7 +135,7 @@ const Row = styled.article`
       justify-content: center;
       align-items: center;
       & i {
-        font-size : 24px;
+        font-size: 24px;
         color: var(--primary-green-primary-green-main-500);
       }
     }
@@ -162,7 +206,8 @@ const Row = styled.article`
       cursor: pointer;
       height: 48px;
       color: var(--primary-blue-primary-blue-main-500);
-      &:hover p, &:hover i {
+      &:hover p,
+      &:hover i {
         color: var(--primary-green-primary-green-main-500);
       }
       & i {

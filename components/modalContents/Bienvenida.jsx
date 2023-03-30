@@ -12,7 +12,6 @@ import { setWelcomeModal } from '@/store/slices/configSlice'
 const Bienvenida = () => {
 	const dispatch = useDispatch()
 	const funcOnClose = () => {
-		console.log('Click')
 		dispatch(setWelcomeModal(false))
 	}
 	return (

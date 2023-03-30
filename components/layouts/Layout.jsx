@@ -11,6 +11,7 @@ import { useDispatch } from 'react-redux'
 import { setFlags } from '@/store/slices/storageSlice'
 import data from '@/data/countries.json'
 import usePage from '@/hooks/usePage'
+import PoliticaDePrivacidad from '../common/PoliticaDePrivacidad'
 const Layout = ({ children }) => {
 	const { welcomeModal, currentIndex } = useSelector((state) => state.config)
 	// const { flagData } = useSelector((state) => state.storage)
@@ -71,6 +72,7 @@ const Layout = ({ children }) => {
 						<Bienvenida />
 					</ModalContainer>
 				)}
+				
 				<footer>® Derechos reservados - Medismart 2023</footer>
 			</MainLayout>
 		</>
@@ -129,11 +131,11 @@ const MainLayout = styled.main`
   }
 
   @media (max-width: 1194px) {
-	padding: 48px 46px 0 46px;
+    padding: 48px 46px 0 46px;
     & > section {
       display: flex;
-	  flex-direction: column;
-	  padding: 10px;
+      flex-direction: column;
+      padding: 10px;
       box-shadow: none;
       & > article {
         box-shadow: 0px 4px 4px rgba(192, 200, 214, 0.25);

@@ -6,21 +6,26 @@ import CardBackground from '@/assets/img/cardBackground.png'
 import CardGirl from '@/assets/img/cardGirl.png'
 import CardDog from '@/assets/img/cardDog.png'
 /**
- * 
+ *
  * @param  {string} type - 'persona' or 'mascota'
  * @param  {string} title - 'title'
  * @param  {string} description - 'description'
  * @param  {string} price - '0.00'
  * @param  {string} forType - 'por mes' or 'por cada una'
- * @returns 
+ * @param {function} func - se ejecuta al hacer click en el boton agregar
+ * @returns
  */
 const CMP012 = ({
 	type = 'persona',
 	title = 'title',
 	description = 'description',
 	price = '0.00',
-	forType='por mes'
+	forType = 'por mes',
+	func = null,
 }) => {
+	const handleClick = () => {
+		if (func) func()
+	}
 	return (
 		<CardContainer
 			CardBackground={CardBackground.src}
@@ -33,7 +38,7 @@ const CMP012 = ({
 				<p>{description}</p>
 			</div>
 			<div>
-				<CMP015 />
+				<CMP015 onClick={handleClick} />
 			</div>
 			<div>
 				<CMP016 price={price} forType={forType} />
@@ -95,7 +100,8 @@ const CardContainer = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url(${(props) => props.type === 'persona' ? props.CardGirl : props.CardDog});
+    background-image: url(${(props) =>
+		props.type === 'persona' ? props.CardGirl : props.CardDog});
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;

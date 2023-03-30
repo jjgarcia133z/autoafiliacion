@@ -43,6 +43,9 @@ const ChevronLeft = () => {
 const Calendar = () => {
 	return <i className="icon-calendar"></i>
 }
+const Plus = () => {
+	return <i className="icon-plus"></i>
+}
 
 
 export {
@@ -60,4 +63,5 @@ export {
 	ChevronRight,
 	ChevronLeft,
 	Calendar,
+	Plus,
 }

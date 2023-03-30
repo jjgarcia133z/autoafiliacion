@@ -54,9 +54,10 @@ const BackGroundModal = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: fixed;
+  top: 50%; /* ubicar en el centro verticalmente */
+  left: 50%; /* ubicar en el centro horizontalmente */
+  transform: translate(-50%, -50%);
   z-index: 1000;
   width: 100%;
   height: 100%;

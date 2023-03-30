@@ -9,11 +9,10 @@ import CMP011_5 from '../common/CMP011_5'
 import CMP038 from '../common/CMP038'
 import CMP044 from '../common/CMP044'
 import CMP020 from '../home/CMP020'
-import CMP037 from '../home/CMP037'
+import Input from '../home/Input'
 import CMP040 from '../home/CMP040'
-import CMP07 from '../home/CMP07'
+import PoliticaCheckbox from '../home/PoliticaCheckbox'
 import CMP08 from '../home/CMP08'
-import CMP010 from '../home/CMP010'
 import ImagePortada2 from '@/assets/img/PortadaAfiliacion_medismart2.png'
 import { setCurrentIndex, setStatus } from '@/store/slices/configSlice'
 import { useDispatch } from 'react-redux'
@@ -21,6 +20,7 @@ import usePage from '@/hooks/usePage'
 import { state } from '@/constants/constants'
 
 const Contenedor_datos_personales = () => {
+	const [politicaStatus, setPoliticaStatus] = React.useState(false)
 	const dispatch = useDispatch()
 	const { goTo } = usePage()
 	const handleClickLast = () => {
@@ -29,7 +29,7 @@ const Contenedor_datos_personales = () => {
 		})
 	}
 	const handleClickNext = () => {
-		goTo('/agregar-beneficiarios', () => {
+		goTo('/beneficiarios', () => {
 			dispatch(setCurrentIndex(3))
 			dispatch(setStatus({ index: 1, status: state.successActive }))
 		})
@@ -53,11 +53,13 @@ const Contenedor_datos_personales = () => {
 				/>
 			</Row>
 			<Row>
-				<CMP037
+				<Input
 					type="text"
 					mandatory={true}
 					label="Número de indentificación"
 					placeholder="ingresá tu identificación"
+					helperText='Identificacion incorrecta'
+					state='fail'
 				/>
 			</Row>
 			<Row>
@@ -69,19 +71,19 @@ const Contenedor_datos_personales = () => {
 				/>
 			</Row>
 			<Row>
-				<CMP037
+				<Input
 					type="text"
 					mandatory={true}
 					label="Nombre"
 					placeholder="Ingresá tu nombre"
 				/>
-				<CMP037
+				<Input
 					type="text"
 					mandatory={true}
 					label="Primer Apellido"
 					placeholder="Ingresá tu primer apellido"
 				/>
-				<CMP037
+				<Input
 					type="text"
 					mandatory={true}
 					label="Segundo Apellido"
@@ -89,7 +91,7 @@ const Contenedor_datos_personales = () => {
 				/>
 			</Row>
 			<Row>
-				<CMP037
+				<Input
 					type="text"
 					mandatory={true}
 					label="Correo electrónico"
@@ -137,7 +139,7 @@ const Contenedor_datos_personales = () => {
 				<CMP020 />
 			</Row>
 			<Row>
-				<CMP07 />
+				<PoliticaCheckbox value={politicaStatus} state={setPoliticaStatus} />
 			</Row>
 			<Row>
 				<CMP08
@@ -146,7 +148,8 @@ const Contenedor_datos_personales = () => {
 					style="secondaryLarge"
 					onClickHandle={handleClickLast}
 				/>
-				<CMP010
+				<CMP08
+					disabled={!politicaStatus}
 					text="Continuar"
 					style="primaryLarge"
 					onClickHandle={handleClickNext}

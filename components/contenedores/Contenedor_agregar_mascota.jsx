@@ -1,13 +1,27 @@
+/**
+ * @file Contenedor_agregar_mascota.jsx
+ * @description Contenedor de agregar mascota.
+ * @componentNumber CMP014
+ */
 import React from 'react'
 import styled from 'styled-components'
 import CMP038 from '../common/CMP038'
 import CMP044 from '../common/CMP044'
-import CMP037 from '../home/CMP037'
+import Input from '../home/Input'
 import CMP08 from '../home/CMP08'
-import CMP010 from '../home/CMP010'
-import Loading from '../common/Loading'
+import { Plus } from '../icons/Icons'
+import { useDispatch } from 'react-redux'
+import usePage from '@/hooks/usePage'
+import { setCurrentIndex } from '@/store/slices/configSlice'
 
-const CMP011 = () => {
+const Contenedor_agregar_mascota = () => {
+	const dispatch = useDispatch()
+	const { goTo } = usePage()
+	const handleClickAdd = () => {
+		goTo('/beneficiarios', () => {
+			dispatch(setCurrentIndex(3))
+		})
+	}
 	return (
 		<Container>
 			<div>
@@ -15,7 +29,7 @@ const CMP011 = () => {
 			</div>
 
 			<Row>
-				<CMP037
+				<Input
 					type="text"
 					mandatory={true}
 					label="Tipo de mascota"
@@ -23,7 +37,7 @@ const CMP011 = () => {
 				/>
 			</Row>
 			<Row>
-				<CMP037
+				<Input
 					type="text"
 					mandatory={true}
 					label="Nombre de la mascota"
@@ -31,7 +45,7 @@ const CMP011 = () => {
 				/>
 			</Row>
 			<Row>
-				<CMP037
+				<Input
 					type="text"
 					mandatory={true}
 					label="Color"
@@ -39,7 +53,7 @@ const CMP011 = () => {
 				/>
 			</Row>
 			<Row>
-				<CMP037
+				<Input
 					type="text"
 					mandatory={true}
 					label="Raza"
@@ -48,13 +62,13 @@ const CMP011 = () => {
 			
 			</Row>
 			<Row>
-				<CMP037
+				<Input
 					type="text"
 					mandatory={true}
 					label="Fecha de nacimiento"
 					placeholder="Ingresá la fecha de nacimiento"
 				/>
-				<CMP037
+				<Input
 					type="text"
 					mandatory={true}
 					label="Edad"
@@ -69,22 +83,17 @@ const CMP011 = () => {
 					placeholder="Seleccioná el sexo del animal"
 				/>
 			
-			</Row>
-			
-			
-			
-			
+			</Row>	
 			
 			<Row>
-				<CMP010 text="Atrás" />
-				<CMP08 text="Continuar" />
-				<Loading />
+				<CMP08 text="Cancelar" style='secondaryLarge' />
+				<CMP08 text="Agregar" style='primaryLarge' Icon={Plus} onClickHandle={handleClickAdd} />
 			</Row>
 		</Container>
 	)
 }
 
-export default CMP011
+export default Contenedor_agregar_mascota
 const Row = styled.div`
   display: flex;
   flex-direction: row;

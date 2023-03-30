@@ -7,8 +7,16 @@ import line14 from '@/assets/img/line-14.svg'
 import vector1 from '@/assets/img/vector-1.svg'
 import vector2 from '@/assets/img/vector-2.svg'
 import vector from '@/assets/img/vector.svg'
+import ModalContainer from '../common/ModalContainer'
+import Bienvenida from '../modalContents/Bienvenida'
+import PlanOncoSmartInfo from '../modalContents/PlanOncoSmartInfo'
 
-function Boton({ seleccionado, onClick }) {
+function Boton({ seleccionado, onClick, setModal, modal }) {
+	const handleClick = () => {
+		if (onClick) {
+			setModal(!modal)
+		}
+	}
 	return (
 		<div className="aditional-plan">
 			<div className="overlap-group4">
@@ -46,7 +54,7 @@ function Boton({ seleccionado, onClick }) {
 							</div>
 						</div>
 						<img className="line-14" src={line14.src} alt="Line 14" />
-              
+
 						<div className="right-colum">
 							<div className="flex-col-5 flex-col-7">
 								<div className="text-3">
@@ -59,11 +67,9 @@ function Boton({ seleccionado, onClick }) {
 								</div>
 								<img className="vector" src={vector1.src} alt="Vector" />
 								<div className="flex-row-2">
-									<div className="comp-button-1 comp-button-7">
-										<p className="continuar-1">
-                      Da click acá para ver más información
-										</p>
-									</div>
+									<button className="comp-button-1 comp-button-7" onClick={()=>handleClick()}>
+                    Da click acá para ver más información
+									</button>
 									<img className="vector-1" src={vector2.src} alt="Vector" />
 								</div>
 							</div>
@@ -78,6 +84,7 @@ function Boton({ seleccionado, onClick }) {
 
 const CMP020 = () => {
 	const [seleccionado, setSeleccionado] = useState(null)
+	const [showModal, setShowModal] = useState(false)
 
 	const handleClick = (valor) => {
 		if (valor === seleccionado) {
@@ -94,7 +101,20 @@ const CMP020 = () => {
 			<Boton
 				seleccionado={seleccionado === '1'}
 				onClick={() => handleClick('1')}
+				setModal={setShowModal}
+				modal={showModal}
 			></Boton>
+			{showModal && (
+				<ModalContainer
+					title="Beneficios del Plan Oncosmart"
+					showModal={showModal}
+					setModal={setShowModal}
+					funcOnClose={() => setShowModal(false)}
+				>
+
+					<PlanOncoSmartInfo />
+				</ModalContainer>
+			)}
 		</Primary>
 	)
 }
@@ -134,6 +154,7 @@ const Primary = styled.div`
     margin-top: 24px;
     position: relative;
     width: fit-content;
+    margin-bottom: 8px;
   }
   .check-1 {
     height: 24px;
@@ -277,6 +298,11 @@ const Primary = styled.div`
     display: flex;
     justify-content: center;
     width: fit-content;
+    &:hover {
+
+background-color: #f2f2f2;
+
+}
   }
   .comp-button-1 {
     background-color: #ffffff;
@@ -286,7 +312,16 @@ const Primary = styled.div`
     height: 36px;
     padding: 8px;
     position: relative;
+    cursor: pointer;
+    //styleName: Body/Body Small - Montserrat Medium;
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 17px;
+    letter-spacing: 0px;
+    text-align: left;
   }
+
 
   .flex-row-2 {
     align-items: flex-start;

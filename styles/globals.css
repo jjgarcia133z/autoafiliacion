@@ -109,6 +109,22 @@ p {
 *::-webkit-scrollbar-thumb:hover {
   background: var(--primary-blue-primary-blue-100);
 }
+iframe::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+iframe::-webkit-scrollbar-track {
+  background: var(--neutral-background-neutral-sand-200);
+}
+
+iframe::-webkit-scrollbar-thumb {
+  background: var(--neutral-gray-colors-neutral-medium-light-grey);
+  border-radius: 0.5rem;
+}
+
+iframe::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-blue-primary-blue-100);
+}
 
 
 

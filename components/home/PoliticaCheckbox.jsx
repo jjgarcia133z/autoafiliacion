@@ -1,36 +1,66 @@
+/**
+ * @file PoliticaCheckbox.jsx
+ * @description Checkbox de politica de privacidad.
+ * @componentNumber CMP07
+ *
+ */
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import ModalContainer from '../common/ModalContainer'
+import PoliticaDePrivacidad from '../common/PoliticaDePrivacidad'
 import { Check } from '../icons/Icons'
-const CMP07 = () => {
-	const [checked, setChecked] = useState(false)
+const PoliticaCheckbox = ({ value, state }) => {
+	const [showModal, setShowModal] = useState(false)
+	const funcOnClose = () => {
+		setShowModal(false)
+	}
 	const handleChange = (e) => {
-		console.log(e.target.checked)
-		setChecked(e.target.checked)
+		state(e.target.checked)
+	}
+	const aceptHandler = () => {
+		state(true)
+		setShowModal(false)
+	}
+	const openNewTab = () => {
+		const version = '6_1'
+		const pdfUrl = `https://medismart.net/wp-content/uploads/2021/12/TERMINOS-Y-CONDICIONES-MEDISMART-PLAN-DE-MEDICINA-PREPAGADA-REV-${version}.pdf`
+		window.open(pdfUrl)
 	}
 	return (
-		<Politica checked={checked}>
+		<Politica checked={value}>
 			<label htmlFor="ckpoli">
 				<input
 					type="checkbox"
 					name=""
 					id="ckpoli"
 					hidden
-					value={checked}
+					value={value}
 					onChange={(e) => handleChange(e)}
 				/>
-				{checked && (<Check />)}
+				{value && <Check />}
 			</label>
 			<div>
 				<p>
           Al marcar esta casilla y hacer clic en &quot;Continuar&quot;, acepto
           la
 				</p>
-				<button>política de privacidad.</button>
+				<button onClick={() => openNewTab()}>política de privacidad.</button>
 			</div>
+
+			{showModal && (
+				<ModalContainer
+					title="Política de privacidad"
+					showModal={showModal}
+					setModal={setShowModal}
+					funcOnClose={funcOnClose}
+				>
+					<PoliticaDePrivacidad acept={aceptHandler} />
+				</ModalContainer>
+			)}
 		</Politica>
 	)
 }
-export default CMP07
+export default PoliticaCheckbox
 
 const Politica = styled.div`
   display: flex;
@@ -45,17 +75,16 @@ const Politica = styled.div`
     border: 1px solid var(--primary-blue-primary-blue-200);
     border-radius: 2px;
     position: relative;
-    & > i{
-        display: flex;
-        position: absolute;
-        color: var(--secundary-accent-secundary-accent-main-500);
-        font-size: 18px;
-        font-weight: 600;
-        width: 100%;
-        height: 100%;
-        align-items: center;
-        justify-content: center;
-        
+    & > i {
+      display: flex;
+      position: absolute;
+      color: var(--secundary-accent-secundary-accent-main-500);
+      font-size: 18px;
+      font-weight: 600;
+      width: 100%;
+      height: 100%;
+      align-items: center;
+      justify-content: center;
     }
   }
   & > div {
