@@ -8,7 +8,6 @@ import vector1 from '@/assets/img/vector-1.svg'
 import vector2 from '@/assets/img/vector-2.svg'
 import vector from '@/assets/img/vector.svg'
 import ModalContainer from '../common/ModalContainer'
-import Bienvenida from '../modalContents/Bienvenida'
 import PlanOncoSmartInfo from '../modalContents/PlanOncoSmartInfo'
 
 function Boton({ seleccionado, onClick, setModal, modal }) {

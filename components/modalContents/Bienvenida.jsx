@@ -6,7 +6,7 @@
 import React from 'react'
 import welcome from '@/assets/img/welcome.png'
 import styled from 'styled-components'
-import CMP08 from '../home/CMP08'
+import Button from '../common/Button'
 import { useDispatch } from 'react-redux'
 import { setWelcomeModal } from '@/store/slices/configSlice'
 const Bienvenida = () => {
@@ -24,7 +24,7 @@ const Bienvenida = () => {
 				<img src={welcome.src} alt="welcome" />
 			</div>
 			<div>
-				<CMP08
+				<Button
 					text="Empecemos"
 					style="primaryLarge"
 					onClickHandle={funcOnClose}

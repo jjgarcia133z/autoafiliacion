@@ -1,9 +1,13 @@
+/**
+ * @file Button.jsx
+ * @description Botón de formulario.
+ * @componentNumber CMP08 and CMP010
+ */
+
 import React from 'react'
 import styled from 'styled-components'
-import Loading from '../common/Loading'
-
-// import IconLefCaret from '../../assets/img/icons/icon-outlines-28@2x.png'
-const CMP08 = ({
+import Loading from './Loading'
+const Button = ({
 	text,
 	style = 'primary',
 	Icon = false,
@@ -30,7 +34,7 @@ const CMP08 = ({
 	)
 }
 
-export default CMP08
+export default Button
 
 const Btn = styled.button`
   display: flex;

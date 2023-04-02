@@ -16,12 +16,13 @@ const RowGroup = () => {
 			<div>
 				<div>
 					<p>Propietario</p>
+					<p>Monto</p>
 				</div>
 				<RowBeneficiario
 					isOwnPlan={true}
 					name={planMedismart.nombre}
 					benficiario={'Propietario'}
-					typePlan="Propietario"
+					typePlan="Propietario"					
 				/>
 			</div>
 			<div>
@@ -34,7 +35,7 @@ const RowGroup = () => {
 						isOwnPlan={false}
 						name={beneficiario.nombre}
 						benficiario={beneficiario.parentesco}
-						typePlan={'Persona'}
+						typePlan={'Persona'}						
 					/>
 				))}
 			</div>
@@ -48,7 +49,7 @@ const RowGroup = () => {
 						isOwnPlan={false}
 						name={mascota.nombre}
 						benficiario={mascota.tipoMascota}
-						typePlan={'Mascota'}
+						typePlan={'Mascota'}						
 					/>
 				))}
 			</div>
@@ -62,7 +63,7 @@ const RowGroup = () => {
 						isOwnPlan={false}
 						name={productosAdicionale.nombre}
 						typePlan={'Producto'}
-						benficiario={productosAdicionale.beneficiario}
+						benficiario={productosAdicionale.beneficiario}						
 					/>
 				))}
 			</div>
@@ -88,12 +89,15 @@ const RowGroupContainer = styled.div`
     width: 100%;
     height: 100%;
     & > div:first-of-type {
-      display: flex;
+      display: grid;
+      grid-template-columns: 3fr 1fr 230px;
+      grid-template-rows: 1fr;
       justify-content: flex-start;
+      flex-direction: row;
       align-items: center;
       width: 100%;
       height: 100%;
-      padding: 16px 0%;
+      padding: 16px 48px 16px 0;
       text-align: left;
       & p {
         font-family: Montserrat;
@@ -103,8 +107,12 @@ const RowGroupContainer = styled.div`
         letter-spacing: 0px;
         text-align: left;
         width: 100%;
-
       }
+	  & p:nth-of-type(2) {
+		text-align: right;
+		padding-right: 24px;
+
+	  }
     }
   }
 `

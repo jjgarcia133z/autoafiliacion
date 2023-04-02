@@ -1,11 +1,17 @@
+/**
+ * @file Cupon.jsx
+ * @description Cupon de descuento.
+ * @componentNumber CMP023
+ */
+
 import React from 'react'
 import styled from 'styled-components'
 import cuponBackground from '@/assets/img/cuponBackGround.png'
 import { HiOutlineReceiptTax } from 'react-icons/hi'
 
-const CMP023 = () => {
+const Cupon = () => {
 	return (
-		<Cupon background={cuponBackground}>
+		<CuponContainer background={cuponBackground}>
 			<div>
 				<span>
 					<HiOutlineReceiptTax />
@@ -21,13 +27,13 @@ const CMP023 = () => {
 				</span>
 				<button>Aplicar</button>
 			</div>
-		</Cupon>
+		</CuponContainer>
 	)
 }
 
-export default CMP023
+export default Cupon
 
-const Cupon = styled.div`
+const CuponContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: 121px;

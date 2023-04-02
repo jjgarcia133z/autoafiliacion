@@ -20,21 +20,14 @@ const StepButton = ({
 	first = false,
 	last = false,
 	url = '/error',
+	onCLick= null
 }) => {
-	const router = useRouter()
-	const dispatch = useDispatch()
 	const [stepCurrentState, setStepCurrentState] = useState(stepStatus)
-	const {goTo, updateStepStatus} = usePage()
-
 	const handleClick = () => {
-		if (stepCurrentState === state.disable) return //if the step is disabled, do nothing
-
-		goTo(url, () => {
-			dispatch(setCurrentIndex(index)) //set the current index
-			updateStepStatus(url) //set the current step as active
-		})
-
-    
+		console.log('click')
+		if (onCLick) {
+			onCLick()
+		}
 	}
 
 	useEffect(() => {
@@ -57,7 +50,7 @@ const StepButton = ({
           stepCurrentState == state.successActive ? (
 							<FiCheck />
 						) : (
-							index
+							index + 1
 						)}
 				</span>
 			</div>
@@ -124,6 +117,9 @@ const StepperBar = styled.div`
       ${(props) =>
 		props.step === 'disable' &&
         'background: var(--neutral-gray-colors-neutral-white);'}
+      ${(props) =>
+		props.step === 'activeUnselected' &&
+        'background: linear-gradient(-45deg,var(--secundary-accent-secundary-accent-900) 0%,var(--secundary-accent-secundary-accent-200) 100%);'}
       ${(props) =>
 		props.step === 'success' &&
         'background: linear-gradient(-45deg,var(--secundary-accent-secundary-accent-900) 0%,var(--secundary-accent-secundary-accent-200) 100%);'}

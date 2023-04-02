@@ -1,3 +1,8 @@
+/**
+ * @file: BotonSalir.jsx
+ * @description: Boton de salir de la pagina de afiliacion.
+ * @componentNumber: Select
+ */
 import React from 'react'
 import styled from 'styled-components'
 import { FiChevronLeft as IconLeft } from 'react-icons/fi'

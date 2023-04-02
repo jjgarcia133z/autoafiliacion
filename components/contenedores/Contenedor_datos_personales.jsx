@@ -6,13 +6,13 @@
 import React from 'react'
 import styled from 'styled-components'
 import CMP011_5 from '../common/CMP011_5'
-import CMP038 from '../common/CMP038'
+import Select from '../common/Select'
 import CMP044 from '../common/CMP044'
 import CMP020 from '../home/CMP020'
-import Input from '../home/Input'
-import CMP040 from '../home/CMP040'
+import Input from '../common/Input'
+import CMP040 from '../common/TextArea'
 import PoliticaCheckbox from '../home/PoliticaCheckbox'
-import CMP08 from '../home/CMP08'
+import Button from '../common/Button'
 import ImagePortada2 from '@/assets/img/PortadaAfiliacion_medismart2.png'
 import { setCurrentIndex, setStatusReady } from '@/store/slices/configSlice'
 import { useDispatch } from 'react-redux'
@@ -24,19 +24,15 @@ const Contenedor_datos_personales = () => {
 	const dispatch = useDispatch()
 	const { goTo, updateStepStatus } = usePage()
 	const handleClickLast = () => {
-		let url = '/'
+		const url = '/'
 		goTo(url, () => {
 			dispatch(setCurrentIndex(1))
 			updateStepStatus(url) //set the current step as active
 		})
 	}
 	const handleClickNext = () => {
-		let url = '/beneficiarios'
-		goTo(url, () => {
-			dispatch(setCurrentIndex(3))
-			updateStepStatus(url) //set the current step as active
-			dispatch(setStatusReady(url))
-		})
+		const url = '/beneficiarios'
+		updateStepStatus(2, url, false)
 	}
 	const options = [
 		{ value: '1', label: 'Cedula de nacional' },
@@ -155,7 +151,7 @@ const Contenedor_datos_personales = () => {
 			</div>
 
 			<Row>
-				<CMP038
+				<Select
 					type="text"
 					mandatory={true}
 					label="Tipo de indentificación"
@@ -176,7 +172,7 @@ const Contenedor_datos_personales = () => {
 				/>
 			</Row>
 			<Row>
-				<CMP038
+				<Select
 					type="text"
 					mandatory={false}
 					label="Género"
@@ -221,20 +217,20 @@ const Contenedor_datos_personales = () => {
 				<h2>Datos de residencia</h2>
 			</Row>
 			<Row>
-				<CMP038
+				<Select
 					type="text"
 					mandatory={false}
 					label="Provincia"
 					placeholder="Seleccioná la provincia"
 					options={provinciasCostarica}
 				/>
-				<CMP038
+				<Select
 					type="text"
 					mandatory={false}
 					label="Cantón"
 					placeholder="Seleccioná el cantón"
 				/>
-				<CMP038
+				<Select
 					type="text"
 					mandatory={false}
 					label="Distrito"
@@ -257,13 +253,13 @@ const Contenedor_datos_personales = () => {
 				<PoliticaCheckbox value={politicaStatus} state={setPoliticaStatus} />
 			</Row>
 			<Row>
-				<CMP08
+				<Button
 					text="Atrás"
 					disabled={false}
 					style="secondaryLarge"
 					onClickHandle={handleClickLast}
 				/>
-				<CMP08
+				<Button
 					disabled={!politicaStatus}
 					text="Continuar"
 					style="primaryLarge"
@@ -285,7 +281,7 @@ const Row = styled.div`
 const Container = styled.div`
   width: 100%;
   height: 100%;
-  padding: 32px;
+  padding: 48px 32px 32px 32px;
   background-color: var(--neutral-background-neutral-olive-100);
   & > span:nth-child(1) {
     position: absolute;

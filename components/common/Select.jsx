@@ -1,78 +1,40 @@
 /**
- * @file Input.jsx
- * @description Input de formulario.
- * @componentNumber CMP037
+ * @file: Select.jsx
+ * @description: Select component.
+ * @componentNumber: CMP038
  */
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
-import { BsCheckCircle as Success, BsXCircle as Fail } from 'react-icons/bs'
-
-const Input = ({
+const Select = ({
 	mandatory = false,
 	state = 'none',
-	type = 'text',
 	label = 'label',
 	placeholder = '',
 	helperText = 'helper text',
-	value = '',
-	setValue = null,
-	Icon = null,
-	iconAction = null,
-	validation = null,
+	options= []
 }) => {
-	const [stateInput, setStateInput] = useState('none')
-	const handleChange = (e) => {
-		if (setValue) {
-			setValue(e.target.value)
-			if (e.target.value.length > 0) {
-				validation(e.target.value)
-			} else {
-				setStateInput('none')
-			}
-		}
-	}
-	const handleIconAction = (e) => {
-		console.log('Click')
-		if (iconAction) {
-			iconAction(e)
-		}
-	}
-
 	return (
-		<InputContainer mandatory={mandatory} state={state} iconAction={iconAction}>
+		<SelectContainer mandatory={mandatory} state={state}>
 			<label htmlFor="">
 				<span>{label}</span>
-				<input
-					type={type}
-					placeholder={placeholder}
-					onChange={(e) => handleChange(e)}
-					value={value}
-				/>
-
-				{state == 'success' && !Icon && (
-					<i>
-						<Success />
-					</i>
-				)}
-				{state == 'fail' && !Icon && (
-					<i>
-						<Fail />
-					</i>
-				)}
-				{Icon && (
-					<div onClick={(e) => handleIconAction(e)}>
-						<Icon />
-					</div>
-				)}
+				<select  defaultValue={0}>
+					<option value="0" disabled>{placeholder}</option>
+					{options.map((item, index) => (
+						<option key={index} value={item.value}>
+							{item.label}
+						</option>
+					))}
+				</select>
 			</label>
-			{state == 'success' || (state == 'fail' && <span>{helperText}</span>)}
-		</InputContainer>
+			{state == 'success' ||
+        (state == 'fail' && <span>{helperText}</span>)}
+		</SelectContainer>
 	)
 }
 
-export default Input
+export default Select
 
-const InputContainer = styled.div`
+const SelectContainer = styled.div`
   position: relative;
   & > label {
     position: relative;
@@ -97,11 +59,11 @@ const InputContainer = styled.div`
       top: 4px;
       right: 7px;
       width: fit-content;
+      height: 100%;
       color: var(--alert-error);
-      user-select: none;
     }
-    & > input {
-      position: relative;
+    & > select {
+      background-color: var(--neutral-gray-colors-neutral-white);
       width: 100%;
       border: none;
       background: transparent;
@@ -120,7 +82,6 @@ const InputContainer = styled.div`
       text-align: left;
       padding: 8px 0;
       color: var(--primary-blue-primary-blue-400);
-
       &::placeholder {
         color: var(--neutral-gray-colors-neutral-gray-900);
       }
@@ -128,12 +89,14 @@ const InputContainer = styled.div`
         outline: none;
       }
     }
-    & > span:nth-child(1) {
+    & > span {
       font-family: Montserrat;
       font-size: 20px;
       font-weight: 500;
       line-height: 19px;
       letter-spacing: 0px;
+      text-align: left;
+
       text-align: left;
       color: var(--primary-blue-primary-blue-900);
       margin-bottom: 14px;
@@ -169,30 +132,10 @@ const InputContainer = styled.div`
     border-radius: 50%;
     color: ${(props) =>
 		props.state == 'success' ? 'var(--alert-success)' : 'var(--alert-error)'};
-    background-color: ${(props) =>
-		props.state == 'success' || props.state == 'fail' &&'transparent'};
     pointer-events: none;
     & > svg {
       width: 16px;
       height: 16px;
-    }
-  }
-  & > label > div {
-    position: absolute;
-    top: 75%;
-    right: 0;
-    transform: translateY(-50%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    width: 16px;
-    height: 16px;
-    z-index: 10;
-    &:hover {
-      ${(props) => props.iconAction && 'cursor: pointer;'}
     }
   }
 `

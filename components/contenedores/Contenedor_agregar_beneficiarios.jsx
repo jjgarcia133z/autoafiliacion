@@ -6,12 +6,12 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import CMP011_5 from '../common/CMP011_5'
-import CMP038 from '../common/CMP038'
+import Select from '../common/Select'
 import CMP044 from '../common/CMP044'
 import CMP020 from '../home/CMP020'
-import Input from '../home/Input'
-import CMP040 from '../home/CMP040'
-import CMP08 from '../home/CMP08'
+import Input from '../common/Input'
+import CMP040 from '../common/TextArea'
+import Button from '../common/Button'
 import { setCurrentIndex } from '@/store/slices/configSlice'
 import { useDispatch } from 'react-redux'
 import usePage from '@/hooks/usePage'
@@ -20,8 +20,8 @@ const Contenedor_agregar_beneficiarios = () => {
 	const dispatch = useDispatch()
 	const { goTo } = usePage()
 	const handleClickCancel = () => {
-		goTo('/datos-personales', () => {
-			dispatch(setCurrentIndex(2))
+		goTo('/beneficiarios', () => {
+			dispatch(setCurrentIndex(4))
 		})
 	}
 	const handleClickAdd = () => {
@@ -52,7 +52,7 @@ const Contenedor_agregar_beneficiarios = () => {
 				/>
 			</Row>
 			<Row>
-				<CMP038
+				<Select
 					type="text"
 					mandatory={false}
 					label="Género"
@@ -103,19 +103,19 @@ const Contenedor_agregar_beneficiarios = () => {
 				<h2>Datos de residencia</h2>
 			</Row>
 			<Row>
-				<CMP038
+				<Select
 					type="text"
 					mandatory={false}
 					label="Provincia"
 					placeholder="Seleccioná la provincia"
 				/>
-				<CMP038
+				<Select
 					type="text"
 					mandatory={false}
 					label="Cantón"
 					placeholder="Seleccioná el cantón"
 				/>
-				<CMP038
+				<Select
 					type="text"
 					mandatory={false}
 					label="Distrito"
@@ -135,13 +135,13 @@ const Contenedor_agregar_beneficiarios = () => {
 				<CMP020 />
 			</Row>
 			<Row>
-				<CMP08
+				<Button
 					text="Cancelar"
 					disabled={false}
 					style="secondaryLarge"
 					onClickHandle={handleClickCancel}
 				/>
-				<CMP08
+				<Button
 					text="Agregar"
 					Icon={Plus}
 					style="primaryLarge"
@@ -163,7 +163,7 @@ const Row = styled.div`
 const Container = styled.div`
   width: 100%;
   height: 100%;
-  padding: 32px;
+  padding: 48px 32px 32px 32px;
   & > div:first-of-type {
     margin-bottom: 32px;
   }

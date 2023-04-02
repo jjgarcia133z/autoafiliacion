@@ -5,19 +5,25 @@
  */
 import React from 'react'
 import styled from 'styled-components'
-import CMP038 from '../common/CMP038'
+import Select from '../common/Select'
 import CMP044 from '../common/CMP044'
-import Input from '../home/Input'
-import CMP08 from '../home/CMP08'
+import Input from '../common/Input'
+import Button from '../common/Button'
 import { Plus } from '../icons/Icons'
 import { useDispatch } from 'react-redux'
 import usePage from '@/hooks/usePage'
 import { setCurrentIndex } from '@/store/slices/configSlice'
+import Calendario from '../common/Calendario'
 
 const Contenedor_agregar_mascota = () => {
 	const dispatch = useDispatch()
 	const { goTo } = usePage()
 	const handleClickAdd = () => {
+		goTo('/beneficiarios', () => {
+			dispatch(setCurrentIndex(3))
+		})
+	}
+	const handleClickCancel = () => {
 		goTo('/beneficiarios', () => {
 			dispatch(setCurrentIndex(3))
 		})
@@ -62,12 +68,11 @@ const Contenedor_agregar_mascota = () => {
 			
 			</Row>
 			<Row>
-				<Input
-					type="text"
+				<Calendario type="text"
 					mandatory={true}
 					label="Fecha de nacimiento"
 					placeholder="Ingresá la fecha de nacimiento"
-				/>
+					 />
 				<Input
 					type="text"
 					mandatory={true}
@@ -76,7 +81,7 @@ const Contenedor_agregar_mascota = () => {
 				/>
 			</Row>
 			<Row>
-				<CMP038
+				<Select
 					type="text"
 					mandatory={true}
 					label="Sexo"
@@ -86,8 +91,8 @@ const Contenedor_agregar_mascota = () => {
 			</Row>	
 			
 			<Row>
-				<CMP08 text="Cancelar" style='secondaryLarge' />
-				<CMP08 text="Agregar" style='primaryLarge' Icon={Plus} onClickHandle={handleClickAdd} />
+				<Button text="Cancelar" style='secondaryLarge' onClickHandle={handleClickCancel} />
+				<Button text="Agregar" style='primaryLarge' Icon={Plus} onClickHandle={handleClickAdd} />
 			</Row>
 		</Container>
 	)
@@ -104,7 +109,7 @@ const Row = styled.div`
 const Container = styled.div`
   width: 100%;
   height: 100%;
-  padding: 32px;
+  padding: 48px 32px 32px 32px;
   & > div:first-of-type {
     margin-bottom: 32px;
   }

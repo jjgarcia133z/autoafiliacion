@@ -5,10 +5,15 @@
  */
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import Input from '../home/Input'
+import Input from './Input'
 import { ChevronLeft, ChevronRight } from '../icons/Icons'
 import { Calendar } from '../icons/Icons'
-const Calendario = () => {
+const Calendario = (
+	mandatory = false,
+	state = 'none',
+	type = 'text',
+	label = 'label'
+) => {
 	const [locale, setLocale] = useState('es')
 	const [yearSelected, setCurrentYear] = useState(new Date().getFullYear()) // 2023
 	const [monthSelected, setCurrentMonth] = useState(new Date().getMonth()) // 05

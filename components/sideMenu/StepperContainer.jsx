@@ -8,9 +8,14 @@ import styled from 'styled-components'
 import StepButton from './StepButton'
 import { state } from '@/constants/constants'
 import { useSelector } from 'react-redux'
-
+import usePage from '@/hooks/usePage'
 const CMP03 = () => {
-	const steps = useSelector((state) => state.config.steps)
+	const { steps, currentIndex } = useSelector((state) => state.config)
+	const { updateStepStatus, goTo } = usePage()
+	const handleClick = (index, url) => {
+		console.log('click2')
+		updateStepStatus(index, url , true)
+	}
 	return (
 		<StepperBar>
 			{steps.map((step, index) => {
@@ -19,12 +24,13 @@ const CMP03 = () => {
 				return (
 					<StepButton
 						key={index}
-						index={index + 1}
+						index={index}
 						stepStatus={step.status}
 						title={step.title}
 						first={isFirst}
 						last={isLast}
 						url={step.url}
+						onCLick={() => handleClick(index, step.url)}
 					/>
 				)
 			})}

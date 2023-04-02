@@ -1,14 +1,23 @@
+/**
+ * @file CMP022 - PlanesOptions.jsx
+ * @description Componente de radio buttons para seleccionar el plan.
+ * @componentNumber CMP022
+ */
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { GoCheck as Check } from 'react-icons/go'
 import { planState } from '@/constants/constants'
-const CMP022 = () => {
+import { useEffect } from 'react'
+const PlanesOptions = ({ defaultRadio = planState.mensual }) => {
 	const [selected, setSelected] = useState(1)
 	const handleRadioChange = (event) => {
 		setSelected(event.target.value)
 	}
+	useEffect(() => {
+		setSelected(defaultRadio)
+	}, [defaultRadio])
 	return (
-		<RadioButtonsContainer>
+		<PlanesOptionsContainer>
 			<div>
 				<LabelStyle
 					selected={selected === planState.mensual}
@@ -64,11 +73,11 @@ const CMP022 = () => {
 					<span>Plan Anual</span>
 				</LabelStyle>
 			</div>
-		</RadioButtonsContainer>
+		</PlanesOptionsContainer>
 	)
 }
 
-export default CMP022
+export default PlanesOptions
 const LabelStyle = styled.label`
   background-color: ${(props) =>
 		props.selected
@@ -76,6 +85,7 @@ const LabelStyle = styled.label`
 			: 'var(--white)'};
   color: ${(props) => (props.selected ? 'var(--white)' : 'var(--blue-500)')};
   height: 41px;
+  width: 170px;
   border-radius: 30px;
   padding: 9px 8px 9px 8px;
 
@@ -93,7 +103,7 @@ const LabelStyle = styled.label`
   text-align: left;
   transition: "background" 0.8s ease-in-out;
   & > span:first-of-type {
-    margin-right: 10px;
+    margin-right: 8px;
     border-radius: 50%;
     border: ${(props) => (props.selected ? 'none' : '1px solid black')};
     height: 23px;
@@ -112,12 +122,13 @@ const LabelStyle = styled.label`
   & > span:last-of-type {
     font-size: 16px;
     font-weight: 500;
+    width: 123px;
   }
   & > input {
     display: none;
   }
 `
-const RadioButtonsContainer = styled.div`
+const PlanesOptionsContainer = styled.div`
   display: flex;
   height: 57px;
   width: 697px;

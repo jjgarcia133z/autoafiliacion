@@ -1,19 +1,29 @@
+/**
+ * @file Tooltip.jsx
+ * @description Tooltip.
+ * @componentNumber CMP025
+ */
 import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import { position } from '@/constants/constants'
-import { selectTooltipPosition } from '@/utils/utils'
+import { selectTooltipPosition, selectIndicatorPosition } from '@/utils/utils'
 import { XElement } from '../icons/Icons'
 import indicator from '@/assets/img/icons/indicator.png'
-const CMP025 = ({
+const Tooltip = ({
 	tipPosition = position.topMid,
-	arrowPosition = position.bottomMid,
-	tooltipWidth = '205px',
+	indicatorPosition = position.bottomMid,
+	width = '205px',
 	separation = '12',
 	text = 'Acá podés ver el ahorro que tendrás al pasarte a otro periódo de pago a partir del trimestral.',
 	show = false,
+	arrowConerGap = 35,
+	indicatorrGap: indicatorGap = 0,
+	showClose = true,
 }) => {
+	console.log(indicator)
 	const ref = useRef(null)
 	const [tooltipMesure, setTooltipMesure] = useState(0)
+	const indicatorMesure = { width: 10, height: 9}
 	useEffect(() => {
 		setTooltipMesure((prev) => {
 			prev = {
@@ -31,28 +41,42 @@ const CMP025 = ({
 			show={show}
 			indicator={indicator.src}
 			ref={ref}
-			width={tooltipWidth}
+			width={width}
+			indicatorWidth={indicatorMesure.width}
+			indicatorHeight={indicatorMesure.height}
 			position={selectTooltipPosition(
 				tipPosition,
+				arrowConerGap,
 				tooltipMesure.height,
 				tooltipMesure.width,
 				tooltipMesure.parentHeight,
 				tooltipMesure.parentWidth,
-				separation
+				separation,
+				{},
+				arrowConerGap
 			)}
-			arrowPosition={arrowPosition}
+			indicatorPosition={selectIndicatorPosition(
+				tooltipMesure.width,
+				tooltipMesure.height,
+				indicatorPosition,
+				indicatorGap,
+				indicatorMesure.width,
+				indicatorMesure.height
+
+			)}
+			arrowConerGap={arrowConerGap}
 		>
-			<div>
-				{text}
-			</div>
-			<button>
-				<XElement />
-			</button>
+			<div>{text}</div>
+			{showClose && (
+				<button>
+					<XElement />
+				</button>
+			)}
 		</TootipContainer>
 	)
 }
 
-export default CMP025
+export default Tooltip
 
 const TootipContainer = styled.div`
   position: absolute;
@@ -62,9 +86,8 @@ const TootipContainer = styled.div`
   width: ${(props) => props.width};
   ${(props) => props.position}
   border-radius: 10px;
-  padding: 16px;
-
-  //styleName: Body/Body Small - Montserrat Medium;
+  padding: 16px 16px 32px 16px;
+  box-shadow: var(--tooltip-shadow);
   font-family: Montserrat;
   font-size: 14px;
   font-weight: 500;
@@ -73,20 +96,17 @@ const TootipContainer = styled.div`
   text-align: left;
   color: var(--neutral-gray-colors-neutral-white);
   text-transform: initial;
+  animation: fadeIn 0.3s ease-in-out;
   &::after {
     content: "";
     position: absolute;
-    width: 10px;
-    height: 9px;
+    width: ${(props) => props.indicatorWidth}px;
+	height: ${(props) => props.indicatorHeight}px;
     margin-right: 10px;
     bottom: -9px;
-    left: calc(50% - 5px);
     background-size: 100% 100%;
     background-image: url(${(props) => props.indicator});
-    ${(props) =>
-		selectTooltipPosition(props.arrowPosition, 10, 0, 0, 0, 0, {
-			margin: 10,
-		})};
+    ${(props) => props.indicatorPosition}
   }
 
   & > button {
@@ -112,4 +132,13 @@ const TootipContainer = styled.div`
       font-size: 22px;
     }
   }
+
+  @keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
 `

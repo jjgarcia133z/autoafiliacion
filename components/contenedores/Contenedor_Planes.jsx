@@ -6,26 +6,15 @@
 import React from 'react'
 import styled from 'styled-components'
 import CMP06 from '../home/CMP06'
-import { state } from '@/constants/constants'
 import ImagePortada from '@/assets/img/PortadaAfiliacion_medismart.png'
-import { useDispatch } from 'react-redux'
-import { setCurrentIndex, setStatusReady } from '@/store/slices/configSlice'
-import CMP08 from '../home/CMP08'
-import Calendario from '../common/Calendario'
+import Button from '../common/Button'
 
 import usePage from '@/hooks/usePage'
 const Contenedor_Planes = () => {
-	// const [show, setShow] = useState(false)
-	// const { pages, currentIndex } = useSelector((state) => state.config)
-	const dispatch = useDispatch()
 	const { goTo, updateStepStatus } = usePage()
 	const handleClick = () => {
-		let url = '/datos-personales'
-		goTo(url, () => {
-			dispatch(setCurrentIndex(2))
-			updateStepStatus(url) //set the current step as active
-			dispatch(setStatusReady(url))
-		})
+		const url = '/datos-personales'
+		updateStepStatus(1,url, false)
 	}
 	return (
 		<Container portada={ImagePortada}>
@@ -38,12 +27,9 @@ const Contenedor_Planes = () => {
 				</p>
 			</article>
 			<div>
-				<Row>
-					<Calendario />
-				</Row>
 				<CMP06 />
 				<Row>
-					<CMP08
+					<Button
 						text="Continuar"
 						style="primaryLarge"
 						onClickHandle={handleClick}
@@ -65,7 +51,7 @@ const Row = styled.div`
 const Container = styled.div`
   width: 100%;
   height: 100%;
-  padding: 32px;
+  padding: 48px 32px 32px 32px;
   margin-bottom: 32px;
   & > span:nth-child(1) {
     position: absolute;

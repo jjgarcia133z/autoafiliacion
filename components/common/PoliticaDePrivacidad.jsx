@@ -7,7 +7,7 @@ import { setWelcomeModal } from '@/store/slices/configSlice'
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
-import CMP08 from '../home/CMP08'
+import Button from './Button'
 const PoliticaDePrivacidad = ({acept}) => {
 	const iframeUrl = 'https://medismart.net/wp-content/uploads/2021/12/TERMINOS-Y-CONDICIONES-MEDISMART-PLAN-DE-MEDICINA-PREPAGADA-REV-6_1.pdf'
 	// const iframeUrl = '/politica.html'
@@ -29,7 +29,7 @@ const PoliticaDePrivacidad = ({acept}) => {
 					WebkitScrollbarThumbBorderRadius: '0.5rem',
 				}}
 			/>
-			<CMP08 text="Aceptar la política de privacidad" style="primaryLarge" onClickHandle={acept} />
+			<Button text="Aceptar la política de privacidad" style="primaryLarge" onClickHandle={acept} />
 		</IframeContainer>
 	)
 }

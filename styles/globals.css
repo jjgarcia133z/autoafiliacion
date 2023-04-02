@@ -46,10 +46,15 @@
   --neutral-gray-colors-neutral-white: #fff;
   --special-colors-special-contrast: #dcae70;
   --transparent-white: rgba(255, 255, 255, 0.9);
-  --primary-blue-primary-blue-900-transparent:  rgba(17, 33, 69, 0.7);
+  --primary-blue-primary-blue-900-transparent: rgba(17, 33, 69, 0.7);
   --center-shadow: 0px 0px 4px rgba(192, 200, 214, 0.25);
+  --tooltip-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   --leftbottom-shadow: 4px 4px 4px rgba(192, 200, 214, 0.25);
-  --gradient-plan: linear-gradient(116.34deg, rgb(45, 72, 117) 3.13%, rgb(0, 175, 161) 100%)
+  --gradient-plan: linear-gradient(
+    116.34deg,
+    rgb(45, 72, 117) 3.13%,
+    rgb(0, 175, 161) 100%
+  );
 }
 
 * {
@@ -126,23 +131,23 @@ iframe::-webkit-scrollbar-thumb:hover {
   background: var(--primary-blue-primary-blue-100);
 }
 
-
-
 @font-face {
-  font-family: 'medismart-icons';
-  src:  url('../assets/fonts/MedismartIcons/medismart.eot');
-  src:  url('../assets/fonts/MedismartIcons/medismart.eot') format('embedded-opentype'),
-    url('../assets/fonts/MedismartIcons/medismart.ttf') format('truetype'),
-    url('../assets/fonts/MedismartIcons/medismart.woff') format('woff'),
-    url('../assets/fonts/MedismartIcons/medismart.svg') format('svg');
+  font-family: "medismart-icons";
+  src: url("../assets/fonts/MedismartIcons/medismart.eot");
+  src: url("../assets/fonts/MedismartIcons/medismart.eot")
+      format("embedded-opentype"),
+    url("../assets/fonts/MedismartIcons/medismart.ttf") format("truetype"),
+    url("../assets/fonts/MedismartIcons/medismart.woff") format("woff"),
+    url("../assets/fonts/MedismartIcons/medismart.svg") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: block;
 }
 
-[class^="icon-"], [class*=" icon-"] {
+[class^="icon-"],
+[class*=" icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: 'medismart-icons' !important;
+  font-family: "medismart-icons" !important;
   speak: never;
   font-style: normal;
   font-weight: normal;
@@ -154,7 +159,6 @@ iframe::-webkit-scrollbar-thumb:hover {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
 
 /* *[class^="icon-"]:before, *[class*=" icon-"]:before {
   font-size: 24px;
@@ -247,5 +251,3 @@ iframe::-webkit-scrollbar-thumb:hover {
 .icon-pet:before {
   content: "\e918";
 }
-
-

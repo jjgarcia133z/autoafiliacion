@@ -8,7 +8,6 @@ import styled from 'styled-components'
 import { Check } from '../icons/Icons'
 import onco from '@/assets/img/onco.png'
 const PlanOncoSmartInfo = () => {
-	const funcOnClose = () => {}
 	return (
 		<OncoSmart>
 			<ul>

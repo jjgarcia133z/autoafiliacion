@@ -1,7 +1,12 @@
+/**
+ * @file TotalAhorroTag
+ * @description Componente de etiqueta de total de ahorro.
+ * @componentNumber CMP039
+ */
 import React from 'react'
 import styled from 'styled-components'
 
-const CMP039 = () => {
+const TotalAhorroTag = () => {
 	return (
 		<TootipContainer>
 			<span>Total de ahorro</span>
@@ -11,7 +16,7 @@ const CMP039 = () => {
 	)
 }
 
-export default CMP039
+export default TotalAhorroTag
 
 const TootipContainer = styled.div`
   height: 35px;
@@ -21,7 +26,7 @@ const TootipContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 4px 4px 4px 8px;
+  padding: 4px 4px 4px 12px;
   //styleName: Body/Body Small - Montserrat Medium;
   font-family: Montserrat;
   font-size: 14px;

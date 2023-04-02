@@ -7,7 +7,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import CMP044 from '../common/CMP044'
-import CMP08 from '../home/CMP08'
+import Button from '../common/Button'
 import CMP010 from '../home/CMP010'
 import ImagePortada2 from '@/assets/img/PortadaAfiliacion_medismart2.png'
 import { setCurrentIndex } from '@/store/slices/configSlice'
@@ -18,26 +18,25 @@ import RowBeneficiario from '../RowBeneficiario'
 
 const Contenedor_beneficiarios = () => {
 	const dispatch = useDispatch()
-	const { goTo } = usePage()
+	const { goTo, updateStepStatus } = usePage()
 	const handleClickLast = () => {
-		goTo('/', () => {
+		const url = '/'
+		goTo(url, () => {
 			dispatch(setCurrentIndex(1))
 		})
 	}
 	const handleClickNext = () => {
-		goTo('/agregar-beneficiarios', () => {
+		const url = '/resumen'
+		goTo(url, () => {
 			dispatch(setCurrentIndex(3))
+			updateStepStatus(3, url, false)
 		})
 	}
 	const agregarBeneficiarioHandler = () => {
-		goTo('/agregar-beneficiarios', () => {
-			dispatch(setCurrentIndex(3))
-		})
+		goTo('/agregar-beneficiarios')
 	}
 	const agregarMascotaHandler = () => {
-		goTo('/agregar-mascota', () => {
-			dispatch(setCurrentIndex(3))
-		})
+		goTo('/agregar-mascota')
 	}
 
 	return (
@@ -56,7 +55,7 @@ const Contenedor_beneficiarios = () => {
 				/>
 				<AgregarBeneficiarioCard
 					description="Afiliá a tu perro o gato y aprovechá beneficios para cuidar de su salud."
-					title="Mascotas"
+					title="Mascota"
 					price="13.26"
 					type="mascota"
 					forType="por cada una"
@@ -67,7 +66,7 @@ const Contenedor_beneficiarios = () => {
 				<RowBeneficiario show={true} maxWidth="918px" name="Pablito" benficiario="hijo"  />
 			</Row>
 			<Row>
-				<CMP08
+				<Button
 					text="Atrás"
 					disabled={false}
 					style="secondaryLarge"
@@ -94,7 +93,7 @@ const Row = styled.div`
 const Container = styled.div`
   width: 100%;
   height: 100%;
-  padding: 32px;
+  padding: 48px 32px 32px 32px;
   background-color: var(--neutral-background-neutral-olive-100);
   & > span:nth-child(1) {
     position: absolute;

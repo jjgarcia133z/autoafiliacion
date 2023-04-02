@@ -1,35 +1,87 @@
-import React from 'react'
+/**
+ * @file Input.jsx
+ * @description Input de formulario.
+ * @componentNumber CMP037
+ */
+import React, { useState } from 'react'
 import styled from 'styled-components'
-const CMP038 = ({
+import { BsCheckCircle as Success, BsXCircle as Fail } from 'react-icons/bs'
+
+const Input = ({
 	mandatory = false,
 	state = 'none',
+	type = 'text',
 	label = 'label',
 	placeholder = '',
 	helperText = 'helper text',
-	options= []
+	value = '',
+	setValue = null,
+	Icon = null,
+	TootTip = null,
+	iconAction = null,
+	iconOnHover = null,
+	validation = null,
+	tooltipProps = {},
 }) => {
+	const [stateInput, setStateInput] = useState('none')
+	const handleChange = (e) => {
+		if (setValue) {
+			setValue(e.target.value)
+			if (e.target.value.length > 0) {
+				validation(e.target.value)
+			} else {
+				setStateInput('none')
+			}
+		}
+	}
+	const handleIconAction = (e) => {
+		if (iconAction) {
+			iconAction(e)
+		}
+	}
+	const handleIconOnHover = (e) => {
+		if (iconOnHover) {
+			iconOnHover(e)
+		}
+	}
+
 	return (
-		<SelectContainer mandatory={mandatory} state={state}>
+		<InputContainer mandatory={mandatory} state={state} iconAction={iconAction} iconOnHover={iconOnHover}>
+			
 			<label htmlFor="">
 				<span>{label}</span>
-				<select  defaultValue={0}>
-					<option value="0" disabled>{placeholder}</option>
-					{options.map((item, index) => (
-						<option key={index} value={item.value}>
-							{item.label}
-						</option>
-					))}
-				</select>
+				<input
+					type={type}
+					placeholder={placeholder}
+					onChange={(e) => handleChange(e)}
+					value={value}
+				/>
+
+				{state == 'success' && !Icon && (
+					<i>
+						<Success />
+					</i>
+				)}
+				{state == 'fail' && !Icon && (
+					<i>
+						<Fail />
+					</i>
+				)}
+				{Icon && (
+					<div onClick={(e) => handleIconAction(e)} onMouseLeave={(e)=>handleIconOnHover(e)} onMouseEnter={(e)=>handleIconOnHover(e)}>
+						<Icon />
+						{TootTip && <TootTip {...tooltipProps} />}
+					</div>
+				)}
 			</label>
-			{state == 'success' ||
-        (state == 'fail' && <span>{helperText}</span>)}
-		</SelectContainer>
+			{state == 'success' || (state == 'fail' && <span>{helperText}</span>)}
+		</InputContainer>
 	)
 }
 
-export default CMP038
+export default Input
 
-const SelectContainer = styled.div`
+const InputContainer = styled.div`
   position: relative;
   & > label {
     position: relative;
@@ -54,11 +106,11 @@ const SelectContainer = styled.div`
       top: 4px;
       right: 7px;
       width: fit-content;
-      height: 100%;
       color: var(--alert-error);
+      user-select: none;
     }
-    & > select {
-      background-color: var(--neutral-gray-colors-neutral-white);
+    & > input {
+      position: relative;
       width: 100%;
       border: none;
       background: transparent;
@@ -77,6 +129,7 @@ const SelectContainer = styled.div`
       text-align: left;
       padding: 8px 0;
       color: var(--primary-blue-primary-blue-400);
+
       &::placeholder {
         color: var(--neutral-gray-colors-neutral-gray-900);
       }
@@ -84,14 +137,12 @@ const SelectContainer = styled.div`
         outline: none;
       }
     }
-    & > span {
+    & > span:nth-child(1) {
       font-family: Montserrat;
       font-size: 20px;
       font-weight: 500;
       line-height: 19px;
       letter-spacing: 0px;
-      text-align: left;
-
       text-align: left;
       color: var(--primary-blue-primary-blue-900);
       margin-bottom: 14px;
@@ -127,10 +178,31 @@ const SelectContainer = styled.div`
     border-radius: 50%;
     color: ${(props) =>
 		props.state == 'success' ? 'var(--alert-success)' : 'var(--alert-error)'};
+    background-color: ${(props) =>
+		props.state == 'success' || (props.state == 'fail' && 'transparent')};
     pointer-events: none;
     & > svg {
       width: 16px;
       height: 16px;
+    }
+  }
+  & > label > div {
+    position: absolute;
+    top: 75%;
+    right: 0;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    z-index: 10;
+    &:hover {
+      ${(props) => props.iconAction && 'cursor: pointer;'}
+      ${(props) => props.iconOnHover && 'cursor: pointer;'}
     }
   }
 `

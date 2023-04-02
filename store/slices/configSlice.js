@@ -5,7 +5,7 @@ export const config = createSlice({
 	initialState: {
 		welcomeModal: true,
 		privacyPolicy: false,
-		currentIndex: 1,
+		currentIndex: 0,
 		steps: [
 			{
 				title: 'Tipo Plan',
@@ -45,39 +45,20 @@ export const config = createSlice({
 			},
 		],
 
-		pages: [
-			{
-				id: 1,
-				url: '/',
-			},
-			{
-				id: 2,
-				url: '/datos-personales',
-			},
-			{
-				id: 3,
-				url: '/beneficiarios',
-			},
-			{
-				id: 4,
-				url: '/agregar-beneficiario',
-			},
-			{
-				id: 5,
-				url: '/agregar-mascota',
-			},
-		],
 	},
 	reducers: {
 		setCurrentIndex: (state, action) => {
 			state.currentIndex = action.payload
 		},
 		setStepsStatus: (state, action) => {
-			state.steps = action.payload
+			console.log(action.payload)
+			const { index, status } = action.payload
+			state.steps[index].status = status
 		},
 		setStatusReady: (state, action) => {
-			const step = state.steps.find((step) => step.url === action.payload)
-			step.ready = true
+			const index = action.payload
+			state.steps[index].ready = true
+
 		},
 		setWelcomeModal: (state, action) => {
 			state.welcomeModal = action.payload

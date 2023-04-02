@@ -1,7 +1,12 @@
+/**
+ * @File: TextArea.jsx
+ * @Description: Text area de formulario.
+ * @ComponentNumber: CMP040
+ */
 import React from 'react'
 import styled from 'styled-components'
 import { BsCheckCircle as Success, BsXCircle as Fail } from 'react-icons/bs'
-const CMP040 = ({
+const TextArea = ({
 	mandatory = false,
 	state = 'none',
 	type = 'text',
@@ -25,7 +30,7 @@ const CMP040 = ({
 	)
 }
 
-export default CMP040
+export default TextArea
 
 const SelectContainer = styled.div`
 width: 100%;
