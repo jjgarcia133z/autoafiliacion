@@ -14,13 +14,12 @@ const Tooltip = ({
 	indicatorPosition = position.bottomMid,
 	width = '205px',
 	separation = '12',
-	text = 'Acá podés ver el ahorro que tendrás al pasarte a otro periódo de pago a partir del trimestral.',
+	text = 'Tooltip',
 	show = false,
 	arrowConerGap = 35,
 	indicatorrGap: indicatorGap = 0,
 	showClose = true,
 }) => {
-	console.log(indicator)
 	const ref = useRef(null)
 	const [tooltipMesure, setTooltipMesure] = useState(0)
 	const indicatorMesure = { width: 10, height: 9}
