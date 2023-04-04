@@ -138,6 +138,7 @@ const InputContainer = styled.div`
       }
     }
     & > span:nth-child(1) {
+      
       font-family: Montserrat;
       font-size: 20px;
       font-weight: 500;
@@ -149,6 +150,7 @@ const InputContainer = styled.div`
     }
   }
   & > span {
+    position: absolute;
     //styleName: Body/Body Small - Montserrat Regular;
     font-family: Montserrat;
     font-size: 14px;

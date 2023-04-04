@@ -66,6 +66,7 @@ const SelectContainer = styled.div`
       background-color: var(--neutral-gray-colors-neutral-white);
       width: 100%;
       border: none;
+      appearance: none;
       background: transparent;
       border-bottom: ${(props) =>
 		props.state == 'success'

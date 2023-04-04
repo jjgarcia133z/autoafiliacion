@@ -1,6 +1,6 @@
 /**
- * @file Contenedor_datos_personales.jsx
- * @description Contenedor de datos personales.
+ * @file Contenedor_agregar_tarjeta.jsx
+ * @description Contenedor de la pantalla de agregar tarjeta.
  * @componentNumber CMP011
  */
 import React from 'react'
@@ -13,7 +13,7 @@ import ImagePortada2 from '@/assets/img/PortadaAfiliacion_medismart2.png'
 import { setCurrentIndex, setStatusReady } from '@/store/slices/configSlice'
 import { useDispatch } from 'react-redux'
 import usePage from '@/hooks/usePage'
-import { Calendar, PlusCircle, Plus } from '../icons/Icons'
+import { Calendar, Exclamation, Plus } from '../icons/Icons'
 import Tooltip from '../common/Tooltip'
 import { position } from '@/constants/constants'
 
@@ -79,6 +79,19 @@ const Contenedor_agregar_tarjeta = () => {
 					state="none"
 					Icon={Calendar}
 					Value=""
+					
+				/>
+			</Row>
+			<Row>
+				<Input
+					type="text"
+					mandatory={true}
+					label="Codigo CVV"
+					placeholder="CVV"
+					helperText="Ingresá el código de seguridad"
+					state="none"
+					Icon={Exclamation}
+					value=""
 					TootTip={Tooltip}
 					tooltipProps={{
 						show:showTooltip,
@@ -91,18 +104,6 @@ const Contenedor_agregar_tarjeta = () => {
 						indicatorPosition:position.leftMid,
 					}}
 					iconAction={showTooltipHandler}
-				/>
-			</Row>
-			<Row>
-				<Input
-					type="text"
-					mandatory={true}
-					label="Codigo CVV"
-					placeholder="MM/AA"
-					helperText="Ingresá el código de seguridad"
-					state="none"
-					Icon={PlusCircle}
-					value=""
 				/>
 			</Row>
 			<Row>

@@ -16,6 +16,8 @@ import CardImage from '@/assets/img/Section-CreditCard.png'
 import Image from 'next/image'
 import Tooltip from '../common/Tooltip'
 import { position } from '@/constants/constants'
+import ModalContainer from '../common/ModalContainer'
+import PagoRealizado from '../modalContents/PagoRealizado'
 
 const Contenedor_metodo_pago = () => {
 	const dispatch = useDispatch()
@@ -33,7 +35,7 @@ const Contenedor_metodo_pago = () => {
 			updateStepStatus(3, url, false)
 		})
 	}
-  
+
 	const addCreditCard = () => {
 		goTo('/agregar-tarjeta')
 	}
@@ -70,6 +72,17 @@ const Contenedor_metodo_pago = () => {
 				<Button text="Atrás" disabled={false} style="secondaryLarge" />
 				<Button disabled={true} text="Realizar pago" style="primaryLarge" />
 			</Row>
+
+			{false && (
+				<ModalContainer
+					title="El pago fue realizado con éxito"
+					showModal={true}
+					setModal={() => console.log('cerrar')}
+					funcOnClose={null}
+				>
+					<PagoRealizado email="email@dominio.com" />
+				</ModalContainer>
+			)}
 		</Container>
 	)
 }
@@ -83,7 +96,6 @@ const CardContainer = styled.div`
   width: 410px;
   height: 222px;
   border-radius: 8px;
-
   & > span {
     position: absolute;
     display: flex;

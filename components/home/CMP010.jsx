@@ -70,6 +70,10 @@ const Btn = styled.button`
     background: var(${(props) => props.style.varDisableDColor});
     color: var(${(props) => props.style.varTextDisabledColor});
   }
+  &:disabled:active {
+    background: var(${(props) => props.style.varDisableDColor});
+    color: var(${(props) => props.style.varTextDisabledColor});
+  }
   &:active {
     background: var(${(props) => props.style.varPressColor});
     color: var(${(props) => props.style.varTextPressColor});

@@ -81,11 +81,10 @@ const TootipContainer = styled.div`
   position: absolute;
   display: ${(props) => (props.show ? 'flex' : 'none')};
   background-color: var(--primary-blue-primary-blue-900);
-  border-radius: 10px;
   width: ${(props) => props.width};
   ${(props) => props.position}
   border-radius: 10px;
-  padding: 16px 16px 32px 16px;
+  padding: 16px 16px 16px 16px;
   box-shadow: var(--tooltip-shadow);
   font-family: Montserrat;
   font-size: 14px;
@@ -95,7 +94,7 @@ const TootipContainer = styled.div`
   text-align: left;
   color: var(--neutral-gray-colors-neutral-white);
   text-transform: initial;
-  animation: fadeIn 0.3s ease-in-out;
+  animation: fadeIn 1s ease-in-out;
   &::after {
     content: "";
     position: absolute;

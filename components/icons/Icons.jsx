@@ -46,6 +46,9 @@ const Calendar = () => {
 const Plus = () => {
 	return <i className="icon-plus"></i>
 }
+const Exclamation = () => {
+	return <i className="icon-exclamation-circle"></i>
+}
 
 
 export {
@@ -64,4 +67,5 @@ export {
 	ChevronLeft,
 	Calendar,
 	Plus,
+	Exclamation
 }

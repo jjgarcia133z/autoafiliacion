@@ -15,6 +15,8 @@ import { useDispatch } from 'react-redux'
 import usePage from '@/hooks/usePage'
 import AgregarBeneficiarioCard from '../common/AgregarBeneficiarioCard'
 import RowBeneficiario from '../RowBeneficiario'
+import ModalContainer from '../common/ModalContainer'
+import ValidarCuenta from '../modalContents/ValidarCuenta'
 
 const Contenedor_beneficiarios = () => {
 	const dispatch = useDispatch()
@@ -78,6 +80,16 @@ const Contenedor_beneficiarios = () => {
 					onClickHandle={handleClickNext}
 				/>
 			</Row>
+			{true && (
+				<ModalContainer
+					title="Necesitamos validar tu cuenta"
+					showModal={true}
+					setModal={() => console.log('cerrar')}
+					funcOnClose={null}
+				>
+					<ValidarCuenta email="email@dominio.com" />
+				</ModalContainer>
+			)}
 		</Container>
 	)
 }
