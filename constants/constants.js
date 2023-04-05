@@ -212,6 +212,16 @@ const districtCostarica = [
 	{ value: '2', label: 'Zarcero' },
 	{ value: '2', label: 'Valverde Vega' },
 ]
+
+const regex = { // for email, phone, etc
+	//phone example: +506 71144994 or 7114 4994 or 71144994
+	phone: /^(\+?506)?\s?(\d{4})\s?(\d{4})$/,
+	email: /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/,
+	identification: /^\d{9}$/,
+}
+
+	
+	
 export {
 	state,
 	stateCss,
@@ -222,5 +232,6 @@ export {
 	generos,
 	provinciasCostarica,
 	cantonesCostarica,
-	districtCostarica
+	districtCostarica,
+	regex
 }
