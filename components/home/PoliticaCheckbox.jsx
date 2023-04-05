@@ -9,7 +9,7 @@ import styled from 'styled-components'
 import ModalContainer from '../common/ModalContainer'
 import PoliticaDePrivacidad from '../common/PoliticaDePrivacidad'
 import { Check } from '../icons/Icons'
-const PoliticaCheckbox = ({ value, state }) => {
+const PoliticaCheckbox = ({ value, state, onHandleChange }) => {
 	const [showModal, setShowModal] = useState(false)
 	const funcOnClose = () => {
 		setShowModal(false)

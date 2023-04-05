@@ -17,6 +17,7 @@ const Select = ({
 }) => {
 	const handleChange = (e) => {
 		if (onHandleChange) {
+			console.log(e.target.value)
 			onHandleChange(e)
 		}
 	}

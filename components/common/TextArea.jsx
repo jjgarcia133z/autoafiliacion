@@ -13,12 +13,20 @@ const TextArea = ({
 	label = 'label',
 	placeholder = '',
 	helperText = 'helper text',
+	value = '',
+	setValue = null,
 }) => {
+	const handleChange = (e) => {
+		if (setValue) {
+			setValue(e.target.value)
+		}
+	}
+  
 	return (
 		<SelectContainer mandatory={mandatory} state={state}>
 			<label htmlFor="">
 				<span>{label}</span>
-				<textarea type={type} name="" id="" placeholder={placeholder}/>
+				<textarea type={type} name="" id="" placeholder={placeholder} value={value} onChange={handleChange}/>
 				<i>
 					{state == 'success' && <Success />}
 					{state == 'fail' && <Fail />}

@@ -4,6 +4,7 @@ export const afiliacionSlice = createSlice({
 	name: 'afiliacion',
 	initialState: {
 		tipoPlan: 1,
+		politicadePrivacidad: false,
 		propietario: {
 			tipoIdentificacion: '',
 			numeroIdentificacion: '',
@@ -95,10 +96,17 @@ export const afiliacionSlice = createSlice({
 		setTipoPlan: (state, action) => {
 			state.tipoPlan = action.payload
 		},
+		setPropietarioInfo: (state, action) => {
+			state.propietario = action.payload
+		},
+		setPoliticaDePrivacidad: (state, action) => {
+			state.politicadePrivacidad = action.payload
+		},
+
 	},
 })
 
-export const { setCurrentIndex, setWelcomeModal, setTipoPlan } =
+export const { setCurrentIndex, setWelcomeModal, setTipoPlan, setPropietarioInfo, setPoliticaDePrivacidad } =
   afiliacionSlice.actions
 
 export default afiliacionSlice.reducer

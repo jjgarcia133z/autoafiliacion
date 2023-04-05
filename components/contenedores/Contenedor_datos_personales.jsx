@@ -15,6 +15,10 @@ import PoliticaCheckbox from '../home/PoliticaCheckbox'
 import Button from '../common/Button'
 import ImagePortada2 from '@/assets/img/PortadaAfiliacion_medismart2.png'
 import { setCurrentIndex, setStatusReady } from '@/store/slices/configSlice'
+import {
+	setPropietarioInfo,
+	setPoliticaDePrivacidad,
+} from '@/store/slices/afiliacionSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import usePage from '@/hooks/usePage'
 import useFetch from '@/hooks/UseFetch'
@@ -70,8 +74,24 @@ const Contenedor_datos_personales = () => {
 	}
 	const handleClickNext = () => {
 		const url = '/beneficiarios'
-		const result = setPropietario()
-		console.log(inputsStatus)
+		let result = true //setPropietario()
+		const propietarioJson = {
+			tipoIdentificacion: identificacionSelected,
+			numeroIdentificacion: numeroDeIdentificacion,
+			genero: generoSeleccionado,
+			nombre: nombre,
+			apellido1: apellido1,
+			apellido2: apellido2,
+			correo: correo,
+			telefono1: telefono1,
+			telefono2: telefono2,
+			provincia: provinciaSeleccionada,
+			canton: cantonSeleccionado,
+			distrito: distritoSeleccionado,
+			direccion: direccion,
+		}
+		console.log(propietarioJson)
+		dispatch(setPropietarioInfo(propietarioJson))
 		if (result) {
 			updateStepStatus(2, url, false)
 		}
@@ -154,17 +174,23 @@ const Contenedor_datos_personales = () => {
 	}
 	const handleSearchCedula = async ({ target }) => {
 		try {
+			console.log(
+				'onChange',
+				identificacionSelected,
+				target.value,
+				numeroDeIdentificacion
+			)
 			let value = target.value
-			if (identificacionSelected != 1) return
-			if (numeroDeIdentificacion === value) return
 
-			const cedula = cleanCedula(value)
-			const isValidCedula = validateCedula(cedula)
-			if (!isValidCedula) {
-				console.log('Formato de cédula inválido')
-				return
-			}
-			const records = await searchCedula(cedula)
+			//validate value has 9 digits
+			if (value.length !== 9) return
+			//validate value is a number
+			if (isNaN(value)) return
+
+			//validate value isnt equal to number of identificacion
+			if (target.value === numeroDeIdentificacion) return
+
+			const records = await searchCedula(value)
 			if (records && records.length > 0) {
 				const data = records[0]
 				switch (data.genero) {
@@ -184,7 +210,7 @@ const Contenedor_datos_personales = () => {
 					data.genero = 'Sin especificar'
 					break
 				}
-				setNumeroDeIdentificacion(data.cedula)
+				setNumeroDeIdentificacion(value)
 				setGeneroSeleccionado(data.genero)
 				setNombre(data.nombre)
 				setApellido1(data.apellido1)
@@ -201,7 +227,6 @@ const Contenedor_datos_personales = () => {
 			} else {
 				console.log('Cédula no encontrada')
 			}
-			SetIdentificacionSelected(cedula)
 		} catch (error) {
 			console.error(error)
 		}
@@ -225,6 +250,9 @@ const Contenedor_datos_personales = () => {
 		const { records } = await result.json()
 		return records
 	}
+	const onPoliticaChange = (e) => {
+		setPoliticaStatus(e.target.checked)
+	}
 	useEffect(() => {
 		handleSearchCedula({ target: { value: numeroDeIdentificacion } })
 	}, [identificacionSelected])
@@ -242,6 +270,25 @@ const Contenedor_datos_personales = () => {
 		setDistritoSeleccionado(propietario.distrito)
 		setDireccion(propietario.direccion)
 	}, [propietario])
+	useEffect(() => {
+		setNombre(propietario.nombre)
+		setApellido1(propietario.apellido1)
+		setApellido2(propietario.apellido2)
+		setGeneroSeleccionado(propietario.genero)
+		setCorreo(propietario.correo)
+		setTelefono1(propietario.telefono1)
+		setTelefono2(propietario.telefono2)
+		setProvinciaSeleccionada(propietario.provincia)
+		setCantonSeleccionado(propietario.canton)
+		setDistritoSeleccionado(propietario.distrito)
+		setDireccion(propietario.direccion)
+		SetIdentificacionSelected(propietario.tipoIdentificacion)
+		setNumeroDeIdentificacion(propietario.numeroIdentificacion)
+		setPoliticaDePrivacidad(propietario.politicaDePrivacidad)
+	}, [propietario])
+	useEffect(() => {
+		setPoliticaDePrivacidad(politicaStatus)
+	}, [politicaStatus])
 	return (
 		<Container portada={ImagePortada2}>
 			<span></span>
@@ -255,7 +302,6 @@ const Contenedor_datos_personales = () => {
 					mandatory={true}
 					label="Tipo de indentificación"
 					placeholder="Seleccioná tipo de identificación"
-					state={inputsStatus.tipoIdentificacion}
 					value={identificacionSelected}
 					helperText="Identificacion incorrecta"
 					onHandleChange={handleIdentificacionChange}
@@ -361,6 +407,8 @@ const Contenedor_datos_personales = () => {
 			<Row>
 				<CMP040
 					label="Dirección exacta"
+					value={direccion}
+					setValue={setDireccion}
 					placeholder="Ingresá tu dirección de domicilio"
 				/>
 			</Row>
@@ -371,7 +419,7 @@ const Contenedor_datos_personales = () => {
 				<CMP020 />
 			</Row>
 			<Row>
-				<PoliticaCheckbox value={politicaStatus} state={setPoliticaStatus} />
+				<PoliticaCheckbox value={politicaStatus} state={setPoliticaStatus} onHandleChange={onPoliticaChange} />
 			</Row>
 			<Row>
 				<Button
