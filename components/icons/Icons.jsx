@@ -49,6 +49,12 @@ const Plus = () => {
 const Exclamation = () => {
 	return <i className="icon-exclamation-circle"></i>
 }
+const Mobile = () => {
+	return <i className="icon-device-mobile"></i>
+}
+const Mail = () => {
+	return <i className="icon-mail"></i>
+}
 
 
 export {
@@ -67,5 +73,7 @@ export {
 	ChevronLeft,
 	Calendar,
 	Plus,
-	Exclamation
+	Exclamation,
+	Mobile,
+	Mail
 }

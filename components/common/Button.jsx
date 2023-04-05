@@ -14,6 +14,7 @@ const Button = ({
 	disabled = false,
 	onClickHandle = null,
 	isLoading = false,
+	tabIndex
 }) => {
 	const handleClick = () => {
 		if (onClickHandle) {
@@ -22,6 +23,7 @@ const Button = ({
 	}
 	return (
 		<Btn
+			tabIndex = {tabIndex}
 			style={BtnStyles[style]}
 			disabled={disabled}
 			onClick={() => handleClick()}
@@ -114,6 +116,50 @@ const BtnStyles = {
 		varTextFocusColor: '--neutral-gray-colors-neutral-white',
 		varTextPressColor: '--neutral-gray-colors-neutral-white',
 		varBackgroundColor: '--primary-green-primary-green-main-500',
+		varHoverColor: '--primary-green-primary-green-300',
+		varFocusColor: '--primary-green-primary-green-800',
+		varPressColor: '--primary-green-primary-green-800',
+		varDisableDColor: '--primary-green-primary-green-100',
+		varBorderColor: '--neutral-gray-colors-neutral-medium-grey',
+		varPadding: '8px 48px 8px 48px',
+		varHeight: '48px',
+		font: {
+			fontFamily: 'Montserrat',
+			fontSize: '16px',
+			fontWeight: 500,
+			lineHeight: '19px',
+			letterSpacing: '0px',
+			textAlign: 'left',
+		},
+	},
+	primaryLargeSelect: {
+		varTextColor: '--primary-blue-primary-blue-900',
+		varTextDisabledColor: '--primary-blue-primary-blue-900',
+		varTextFocusColor: '--primary-blue-primary-blue-900',
+		varTextPressColor: '--primary-blue-primary-blue-900',
+		varBackgroundColor: '--primary-green-primary-green-main-500',
+		varHoverColor: '--primary-green-primary-green-main-500',
+		varFocusColor: '--primary-green-primary-green-main-500',
+		varPressColor: '--primary-green-primary-green-main-500',
+		varDisableDColor: '--primary-green-primary-green-main-500',
+		varBorderColor: '--neutral-gray-colors-neutral-medium-grey',
+		varPadding: '8px 48px 8px 48px',
+		varHeight: '48px',
+		font: {
+			fontFamily: 'Montserrat',
+			fontSize: '16px',
+			fontWeight: 500,
+			lineHeight: '19px',
+			letterSpacing: '0px',
+			textAlign: 'left',
+		},
+	},
+	primaryLargeDisable: {
+		varTextColor: '--primary-green-primary-green-700',
+		varTextDisabledColor: '--primary-green-primary-green-700',
+		varTextFocusColor: '--neutral-gray-colors-neutral-white',
+		varTextPressColor: '--neutral-gray-colors-neutral-white',
+		varBackgroundColor: '--primary-green-primary-green-100',
 		varHoverColor: '--primary-green-primary-green-300',
 		varFocusColor: '--primary-green-primary-green-800',
 		varPressColor: '--primary-green-primary-green-800',

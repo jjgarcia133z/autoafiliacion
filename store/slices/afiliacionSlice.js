@@ -3,17 +3,17 @@ import { createSlice } from '@reduxjs/toolkit'
 export const afiliacionSlice = createSlice({
 	name: 'afiliacion',
 	initialState: {
-		tipoPlan: 'mensual',
-		planMedismart: {
+		tipoPlan: 1,
+		propietario: {
 			tipoIdentificacion: '',
 			numeroIdentificacion: '',
 			genero: '',
-			nombre: 'Marcel Esquivel castro',
-			primerApellido: '',
-			segundoApellido: '',
+			nombre: '',
+			apellido1: '',
+			apellido2: '',
 			correo: '',
-			telefono: '',
-			otroTelefono: '',
+			telefono1: '',
+			telefono2: '',
 			provincia: '',
 			canton: '',
 			distrito: '',
@@ -24,13 +24,13 @@ export const afiliacionSlice = createSlice({
 				tipoIdentificacion: '',
 				numeroIdentificacion: '',
 				genero: '',
-				parentesco: 'hijo',
-				nombre: 'test beneficiario 1',
-				primerApellido: '',
-				segundoApellido: '',
+				parentesco: '',
+				nombre: '',
+				apellido1: '',
+				apellido2: '',
 				correo: '',
-				telefono: '',
-				otroTelefono: '',
+				telefono1: '',
+				telefono2: '',
 				provincia: '',
 				canton: '',
 				distrito: '',
@@ -82,7 +82,6 @@ export const afiliacionSlice = createSlice({
 				nombre: 'test producto 2',
 				beneficiario: 'test beneficiario 2',
 			},
-
 		],
 		cupon: '',
 	},
@@ -93,9 +92,13 @@ export const afiliacionSlice = createSlice({
 		setWelcomeModal: (state, action) => {
 			state.welcomeModal = action.payload
 		},
+		setTipoPlan: (state, action) => {
+			state.tipoPlan = action.payload
+		},
 	},
 })
 
-export const { setCurrentIndex, setWelcomeModal } = afiliacionSlice.actions
+export const { setCurrentIndex, setWelcomeModal, setTipoPlan } =
+  afiliacionSlice.actions
 
 export default afiliacionSlice.reducer

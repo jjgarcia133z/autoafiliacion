@@ -51,7 +51,6 @@ export const config = createSlice({
 			state.currentIndex = action.payload
 		},
 		setStepsStatus: (state, action) => {
-			console.log(action.payload)
 			const { index, status } = action.payload
 			state.steps[index].status = status
 		},

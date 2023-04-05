@@ -4,7 +4,7 @@
  * @componentNumber CMP012_5
  */
 
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import CMP044 from '../common/CMP044'
 import Button from '../common/Button'
@@ -20,6 +20,7 @@ import ValidarCuenta from '../modalContents/ValidarCuenta'
 
 const Contenedor_beneficiarios = () => {
 	const dispatch = useDispatch()
+	const [showModal, setShowModal] = useState(false)
 	const { goTo, updateStepStatus } = usePage()
 	const handleClickLast = () => {
 		const url = '/'
@@ -27,12 +28,8 @@ const Contenedor_beneficiarios = () => {
 			dispatch(setCurrentIndex(1))
 		})
 	}
-	const handleClickNext = () => {
-		const url = '/resumen'
-		goTo(url, () => {
-			dispatch(setCurrentIndex(3))
-			updateStepStatus(3, url, false)
-		})
+	const handleModal = () => {
+		setShowModal(!showModal)
 	}
 	const agregarBeneficiarioHandler = () => {
 		goTo('/agregar-beneficiarios')
@@ -77,15 +74,15 @@ const Contenedor_beneficiarios = () => {
 				<CMP010
 					text="Continuar"
 					style="primaryLarge"
-					onClickHandle={handleClickNext}
+					onClickHandle={handleModal}
 				/>
 			</Row>
-			{true && (
+			{showModal && (
 				<ModalContainer
 					title="Necesitamos validar tu cuenta"
 					showModal={true}
 					setModal={() => console.log('cerrar')}
-					funcOnClose={null}
+					funcOnClose={handleModal}					
 				>
 					<ValidarCuenta email="email@dominio.com" />
 				</ModalContainer>

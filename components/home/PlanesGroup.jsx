@@ -1,101 +1,75 @@
-import React, { useState } from 'react'
+/**
+ * @file PlanesGroup.jsx
+ * @description Componente que muestra los planes de la empresa
+ * @componentNumber CMP06
+ *
+ */
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import line15 from '@/assets/img/line-15-4@2x.png'
-import line10 from '@/assets/img/line-10-4@2x.png'
 import icono from '@/assets/img/icon-outlines-29@2x.png'
+import PlanButton from './PlanButton'
+import { useSelector, useDispatch } from 'react-redux'
+import { setTipoPlan } from '@/store/slices/afiliacionSlice'
 
 const planes = [
-	{ nombre: 'Plan Mensual', precio_titular: 13.56, precio_adicional: 7.78 },
-	{ nombre: 'Plan Trimestral', precio_titular: 81.36, precio_adicional: 23.78 },
-	{ nombre: 'Plan Semestral', precio_titular: 94.4, precio_adicional: 35.78 },
-	{ nombre: 'Plan Anual', precio_titular: 162.75, precio_adicional: 54.43 },
+	{
+		nombre: 'Plan Mensual',
+		precio_titular: 13.56,
+		precio_adicional: 7.78,
+		codePlan: 0,
+	},
+	{
+		nombre: 'Plan Trimestral',
+		precio_titular: 81.36,
+		precio_adicional: 23.78,
+		codePlan: 1,
+	},
+	{
+		nombre: 'Plan Semestral',
+		precio_titular: 94.4,
+		precio_adicional: 35.78,
+		codePlan: 2,
+	},
+	{
+		nombre: 'Plan Anual',
+		precio_titular: 162.75,
+		precio_adicional: 54.43,
+		codePlan: 3,
+	},
 ]
-function Boton({
-	valor,
-	precio_titular,
-	precio_adicional,
-	seleccionado,
-	onClick,
-}) {
-	return (
-		<button onClick={onClick} className="plan-option">
-			<div className="frame-37361-3 frame-37361">
-				<div className={seleccionado ? 'frame-373s61-2' : 'frame-37361-2'}>
-					<div className="overlap-group-3">
-						<div className="fondo-2">
-							<div>
-								<div className={seleccionado ? 'fondo-3' : 'white'}></div>
-							</div>
-						</div>
-						<div className="plans-3 plans">
-							<div className="titular-3 titular">
-								<div className="text-4 headlinesh6">{valor}</div>
-								<div className="list-check-3 list-check">
-									<div
-										className={
-											seleccionado ? 'icono-de-notificacin-4' : 'white'
-										}
-									></div>
-								</div>
-							</div>
-							<img className="line-15-1" src={line15.src} alt="Line 15" />
-							<div className="contenido-1">
-								<div className="flex-row-1 overlineoverline-small-medium---montserrat">
-									<div className="desde-1 valign-text-middle">Desde</div>
-									<img className="line-10-1" src={line10.src} alt="Line 10" />
-									<div className="frame-37360-1">
-										<div className="text-9">${precio_titular} por titular</div>
-										<div className="text-9">
-                      ${precio_adicional} por adicional
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</button>
-	)
-}
 
-const CMP06 = ({ defaul = 0 }) => {
+const PlanesGroup = ({ defaul = 0 }) => {
 	const [seleccionado, setSeleccionado] = useState(null)
+	const dispatch = useDispatch()
+	const { tipoPlan } = useSelector((state) => state.afiliacion)
+
+	useEffect(() => {
+		dispatch(setTipoPlan(tipoPlan))
+		setSeleccionado(tipoPlan)
+	}, [defaul])
 
 	const handleClick = (valor) => {
-		if (valor === seleccionado) {
-			///	seleccionado=='icono-de-notificacin-4'
-			setSeleccionado(null)
-		} else {
-			///seleccionado==='icono-de-notificacin-4'
-			setSeleccionado(valor)
-		}
+		setSeleccionado(valor.codePlan)
+		dispatch(setTipoPlan(valor.codePlan))
 	}
-
 	return (
 		<Primary background={icono}>
 			<div className="plan-bar-options-1">
-				{planes.map((plan, index) => {
-					if (index === defaul && !seleccionado) {
-						handleClick(plan.nombre)
-					}
-					return (
-						<Boton
-							key={plan.nombre}
-							valor={plan.nombre}
-							precio_titular={plan.precio_titular}
-							precio_adicional={plan.precio_adicional}
-							seleccionado={seleccionado === plan.nombre}
-							onClick={() => handleClick(plan.nombre)}
-						/>
-					)
-				})}
+				{planes.map((plan) => (
+					<PlanButton
+						key={plan.nombre}
+						valor={plan.nombre}
+						precio_titular={plan.precio_titular}
+						precio_adicional={plan.precio_adicional}
+						seleccionado={seleccionado === plan.codePlan}
+						onClick={() => handleClick(plan)}
+					/>
+				))}
 			</div>
 		</Primary>
 	)
 }
-
-export default CMP06
+export default PlanesGroup
 const Primary = styled.div`
   display: flex;
   position: relative;

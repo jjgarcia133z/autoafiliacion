@@ -21,16 +21,23 @@ const Input = ({
 	iconAction = null,
 	iconOnHover = null,
 	validation = null,
+	onHandleChange = null,
 	tooltipProps = {},
+	disabled = false
 }) => {
 	const [stateInput, setStateInput] = useState('none')
 	const handleChange = (e) => {
 		if (setValue) {
 			setValue(e.target.value)
 			if (e.target.value.length > 0) {
-				validation(e.target.value)
+				if (validation) {
+					validation(e.target.value)
+				}
 			} else {
 				setStateInput('none')
+			}
+			if (onHandleChange) {
+				onHandleChange(e)
 			}
 		}
 	}
@@ -46,8 +53,12 @@ const Input = ({
 	}
 
 	return (
-		<InputContainer mandatory={mandatory} state={state} iconAction={iconAction} iconOnHover={iconOnHover}>
-			
+		<InputContainer
+			mandatory={mandatory}
+			state={state}
+			iconAction={iconAction}
+			iconOnHover={iconOnHover}
+		>
 			<label htmlFor="">
 				<span>{label}</span>
 				<input
@@ -55,6 +66,7 @@ const Input = ({
 					placeholder={placeholder}
 					onChange={(e) => handleChange(e)}
 					value={value}
+					disabled={disabled}
 				/>
 
 				{state == 'success' && !Icon && (
@@ -68,7 +80,11 @@ const Input = ({
 					</i>
 				)}
 				{Icon && (
-					<div onClick={(e) => handleIconAction(e)} onMouseLeave={(e)=>handleIconOnHover(e)} onMouseEnter={(e)=>handleIconOnHover(e)}>
+					<div
+						onClick={(e) => handleIconAction(e)}
+						onMouseLeave={(e) => handleIconOnHover(e)}
+						onMouseEnter={(e) => handleIconOnHover(e)}
+					>
 						<Icon />
 						{TootTip && <TootTip {...tooltipProps} />}
 					</div>
@@ -138,7 +154,6 @@ const InputContainer = styled.div`
       }
     }
     & > span:nth-child(1) {
-      
       font-family: Montserrat;
       font-size: 20px;
       font-weight: 500;

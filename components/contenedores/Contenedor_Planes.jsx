@@ -5,7 +5,7 @@
  */
 import React from 'react'
 import styled from 'styled-components'
-import CMP06 from '../home/CMP06'
+import PlanesGroup from '../home/PlanesGroup'
 import ImagePortada from '@/assets/img/PortadaAfiliacion_medismart.png'
 import Button from '../common/Button'
 
@@ -27,7 +27,7 @@ const Contenedor_Planes = () => {
 				</p>
 			</article>
 			<div>
-				<CMP06 />
+				<PlanesGroup />
 				<Row>
 					<Button
 						text="Continuar"

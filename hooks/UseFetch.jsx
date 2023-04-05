@@ -15,13 +15,12 @@ const useFetch = () => {
 		} finally {
 			setLoading(false)
 		}
+
+		return { data, loading, error }
 	}
 
     
 	return {
-		data,
-		loading,
-		error,
 		fetchData
 	}
 }

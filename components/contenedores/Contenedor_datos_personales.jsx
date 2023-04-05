@@ -3,7 +3,7 @@
  * @description Contenedor de datos personales.
  * @componentNumber CMP011
  */
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import CMP011_5 from '../common/CMP011_5'
 import Select from '../common/Select'
@@ -15,14 +15,52 @@ import PoliticaCheckbox from '../home/PoliticaCheckbox'
 import Button from '../common/Button'
 import ImagePortada2 from '@/assets/img/PortadaAfiliacion_medismart2.png'
 import { setCurrentIndex, setStatusReady } from '@/store/slices/configSlice'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import usePage from '@/hooks/usePage'
-import { state } from '@/constants/constants'
-
+import useFetch from '@/hooks/UseFetch'
+import {
+	tipoIdentificacion,
+	generos,
+	provinciasCostarica,
+	cantonesCostarica,
+	districtCostarica,
+} from '@/constants/constants'
 const Contenedor_datos_personales = () => {
-	const [politicaStatus, setPoliticaStatus] = React.useState(false)
+	const [politicaStatus, setPoliticaStatus] = useState(false)
 	const dispatch = useDispatch()
 	const { goTo, updateStepStatus } = usePage()
+	const { fetchData } = useFetch()
+	const [inputsStatus, setInputsStatus] = useState({
+		tipoIdentificacion: 'none',
+		numeroDeIdentificacion: 'none',
+		genero: 'none',
+		nombre: 'none',
+		apellido1: 'none',
+		apellido2: 'none',
+		correo: 'none',
+		telefono1: 'none',
+		telefono2: 'none',
+		provincia: 'none',
+		canton: 'none',
+		distrito: 'none',
+		direccion: 'none',
+	})
+	const [identificacionSelected, SetIdentificacionSelected] = useState(0)
+	const [generoSeleccionado, setGeneroSeleccionado] = useState(0)
+	const [provinciaSeleccionada, setProvinciaSeleccionada] = useState(0)
+	const [cantonSeleccionado, setCantonSeleccionado] = useState(0)
+	const [distritoSeleccionado, setDistritoSeleccionado] = useState(0)
+	const [numeroDeIdentificacion, setNumeroDeIdentificacion] = useState('')
+	const [nombre, setNombre] = useState('')
+	const [apellido1, setApellido1] = useState('')
+	const [apellido2, setApellido2] = useState('')
+	const [correo, setCorreo] = useState('')
+	const [telefono1, setTelefono1] = useState('')
+	const [telefono2, setTelefono2] = useState('')
+	const [direccion, setDireccion] = useState('')
+
+	const { propietario } = useSelector((state) => state.afiliacion)
+
 	const handleClickLast = () => {
 		const url = '/'
 		goTo(url, () => {
@@ -32,117 +70,178 @@ const Contenedor_datos_personales = () => {
 	}
 	const handleClickNext = () => {
 		const url = '/beneficiarios'
-		updateStepStatus(2, url, false)
+		const result = setPropietario()
+		console.log(inputsStatus)
+		if (result) {
+			updateStepStatus(2, url, false)
+		}
 	}
-	const options = [
-		{ value: '1', label: 'Cedula de nacional' },
-		{ value: '2', label: 'Cedula de extranjeria' },
-		{ value: '3', label: 'Pasaporte' },
-		{ value: '4', label: 'Tarjeta de identidad' },
-	]
-	const generos = [
-		{ value: '1', label: 'Masculino' },
-		{ value: '2', label: 'Femenino' },
-	]
-
-	const provinciasCostarica = [
-		{ value: '1', label: 'San José' },
-		{ value: '2', label: 'Alajuela' },
-		{ value: '3', label: 'Cartago' },
-		{ value: '4', label: 'Heredia' },
-		{ value: '5', label: 'Guanacaste' },
-		{ value: '6', label: 'Puntarenas' },
-		{ value: '7', label: 'Limón' },
-	]
-	const cantonesCostarica = [
-		{ value: '1', label: 'San José' },
-		{ value: '1', label: 'Escazu' },
-		{ value: '1', label: 'Desamparados' },
-		{ value: '1', label: 'Puriscal' },
-		{ value: '1', label: 'Tarrazu' },
-		{ value: '1', label: 'Aserrí' },
-		{ value: '1', label: 'Mora' },
-		{ value: '1', label: 'Goicoechea' },
-		{ value: '1', label: 'Santa Ana' },
-		{ value: '1', label: 'Alajuelita' },
-		{ value: '1', label: 'Vázquez de Coronado' },
-		{ value: '1', label: 'Acosta' },
-		{ value: '1', label: 'Tibás' },
-		{ value: '1', label: 'Moravia' },
-		{ value: '1', label: 'Montes de Oca' },
-		{ value: '1', label: 'Turrubares' },
-		{ value: '1', label: 'Dota' },
-		{ value: '1', label: 'Curridabat' },
-		{ value: '1', label: 'Pérez Zeledón' },
-		{ value: '1', label: 'León Cortés' },
-		{ value: '2', label: 'Alajuela' },
-		{ value: '2', label: 'San Ramón' },
-		{ value: '2', label: 'Grecia' },
-		{ value: '2', label: 'San Mateo' },
-		{ value: '2', label: 'Atenas' },
-		{ value: '2', label: 'Naranjo' },
-		{ value: '2', label: 'Palmares' },
-		{ value: '2', label: 'Poás' },
-		{ value: '2', label: 'Orotina' },
-		{ value: '2', label: 'San Carlos' },
-		{ value: '2', label: 'Zarcero' },
-		{ value: '2', label: 'Valverde Vega' },
-		{ value: '2', label: 'Upala' },
-		{ value: '2', label: 'Los Chiles' },
-		{ value: '2', label: 'Guatuso' },
-		{ value: '2', label: 'Río Cuarto' },
-		{ value: '3', label: 'Cartago' },
-		{ value: '3', label: 'Paraíso' },
-		{ value: '3', label: 'La Unión' },
-		{ value: '3', label: 'Jiménez' },
-		{ value: '3', label: 'Turrialba' },
-		{ value: '3', label: 'Alvarado' },
-		{ value: '3', label: 'Oreamuno' },
-		{ value: '3', label: 'El Guarco' },
-		{ value: '4', label: 'Heredia' },
-		{ value: '4', label: 'Barva' },
-		{ value: '4', label: 'Santo Domingo' },
-		{ value: '4', label: 'Santa Bárbara' },
-		{ value: '4', label: 'San Rafael' },
-		{ value: '4', label: 'San Isidro' },
-		{ value: '4', label: 'Belén' },
-		{ value: '4', label: 'Flores' },
-		{ value: '4', label: 'San Pablo' },
-		{ value: '4', label: 'Sarapiquí' },
-		{ value: '5', label: 'Liberia' },
-		{ value: '5', label: 'Nicoya' },
-		{ value: '5', label: 'Santa Cruz' },
-		{ value: '5', label: 'Bagaces' },
-		{ value: '5', label: 'Carrillo' },
-		{ value: '5', label: 'Cañas' },
-		{ value: '5', label: 'Abangares' },
-		{ value: '5', label: 'Tilarán' },
-		{ value: '5', label: 'Nandayure' },
-		{ value: '5', label: 'La Cruz' },
-		{ value: '5', label: 'Hojancha' },
-		{ value: '6', label: 'Puntarenas' },
-		{ value: '6', label: 'Esparza' },
-		{ value: '6', label: 'Buenos Aires' },
-		{ value: '6', label: 'Montes de Oro' },
-		{ value: '6', label: 'Osa' },
-		{ value: '6', label: 'Quepos' },
-		{ value: '6', label: 'Golfito' },
-		{ value: '6', label: 'Coto Brus' },
-		{ value: '6', label: 'Parrita' },
-		{ value: '6', label: 'Corredores' },
-		{ value: '6', label: 'Garabito' },
-		{ value: '7', label: 'Limón' },
-		{ value: '7', label: 'Pococí' },
-		{ value: '7', label: 'Siquirres' },
-		{ value: '7', label: 'Talamanca' },
-		{ value: '7', label: 'Matina' },
-		{ value: '7', label: 'Guácimo' },
-	]
+	const setPropietario = () => {
+		let errorsCount = 0
+		if (numeroDeIdentificacion.length === 9) {
+			setInputsStatus({ ...inputsStatus, numeroDeIdentificacion: 'fail' })
+			errorsCount++
+		}
+		if (generoSeleccionado === 0) {
+			setInputsStatus({ ...inputsStatus, genero: 'fail' })
+			errorsCount++
+		}
+		if (nombre === '') {
+			setInputsStatus({ ...inputsStatus, nombre: 'fail' })
+			errorsCount++
+		}
+		if (apellido1 === '') {
+			setInputsStatus({ ...inputsStatus, apellido1: 'fail' })
+			errorsCount++
+		}
+		if (apellido2 === '') {
+			setInputsStatus({ ...inputsStatus, apellido2: 'fail' })
+			errorsCount++
+		}
+		if (correo === '') {
+			setInputsStatus({ ...inputsStatus, correo: 'fail' })
+			errorsCount++
+		}
+		if (telefono1 === '') {
+			setInputsStatus({ ...inputsStatus, telefono1: 'fail' })
+			errorsCount++
+		}
+		if (provinciaSeleccionada === 0) {
+			setInputsStatus({ ...inputsStatus, provincia: 'fail' })
+			errorsCount++
+		}
+		if (cantonSeleccionado === 0) {
+			setInputsStatus({ ...inputsStatus, canton: 'fail' })
+			errorsCount++
+		}
+		if (distritoSeleccionado === 0) {
+			setInputsStatus({ ...inputsStatus, distrito: 'fail' })
+			errorsCount++
+		}
+		if (direccion === '') {
+			setInputsStatus({ ...inputsStatus, direccion: 'fail' })
+			errorsCount++
+		}
+		if (!politicaStatus) {
+			setInputsStatus({ ...inputsStatus, politica: 'fail' })
+			errorsCount++
+		}
+		if (errorsCount > 0) return false
+		const propietario = {
+			identificacion: numeroDeIdentificacion,
+			genero: generoSeleccionado,
+			nombre: nombre,
+			apellido1: apellido1,
+			apellido2: apellido2,
+			correo: correo,
+			telefono1: telefono1,
+			telefono2: telefono2,
+			provincia: provinciaSeleccionada,
+			canton: cantonSeleccionado,
+			distrito: distritoSeleccionado,
+			direccion: direccion,
+		}
+		dispatch(setPropietario(propietario))
+		return true
+	}
 
 	const getCantonByProvince = (province) => {
 		return cantones.filter((canton) => canton.value === province)
 	}
+	const handleIdentificacionChange = (e) => {
+		console.log(e.target.value)
+		SetIdentificacionSelected(e.target.value)
+	}
+	const handleSearchCedula = async ({ target }) => {
+		try {
+			let value = target.value
+			if (identificacionSelected != 1) return
+			if (numeroDeIdentificacion === value) return
 
+			const cedula = cleanCedula(value)
+			const isValidCedula = validateCedula(cedula)
+			if (!isValidCedula) {
+				console.log('Formato de cédula inválido')
+				return
+			}
+			const records = await searchCedula(cedula)
+			if (records && records.length > 0) {
+				const data = records[0]
+				switch (data.genero) {
+				case 'M':
+					data.genero = 'Masculino'
+					break
+				case 'F':
+					data.genero = 'Femenino'
+					break
+				case 'Femenino':
+					data.genero = 'Femenino'
+					break
+				case 'Masculino':
+					data.genero = 'Masculino'
+					break
+				default:
+					data.genero = 'Sin especificar'
+					break
+				}
+				setNumeroDeIdentificacion(data.cedula)
+				setGeneroSeleccionado(data.genero)
+				setNombre(data.nombre)
+				setApellido1(data.apellido1)
+				setApellido2(data.apellido2)
+				setCorreo(data.correo)
+				setTelefono1(data.telefono1)
+				setTelefono2(data.telefono2)
+				setProvinciaSeleccionada(data.provincia)
+				setCantonSeleccionado(data.canton)
+				setDistritoSeleccionado(data.distrito)
+				setDireccion(data.direccion)
+
+				console.log(data)
+			} else {
+				console.log('Cédula no encontrada')
+			}
+			SetIdentificacionSelected(cedula)
+		} catch (error) {
+			console.error(error)
+		}
+	}
+
+	const cleanCedula = (cedula) => {
+		// Remueve espacios y guiones medios
+		return cedula.replace(/[\s-]/g, '')
+	}
+
+	const validateCedula = (cedula) => {
+		// Expresión regular para validar que sean 9 dígitos numéricos
+		const cedulaRegex = /^[0-9]{9}$/
+		return cedulaRegex.test(cedula)
+	}
+
+	const searchCedula = async (cedula) => {
+		const result = await fetch(
+			`https://tse.medismart.info/api/persona/buscarCedula.php?user=sfconsult&password=8Rh8hcRFMyGmqimA&buscarCedula=${cedula}`
+		)
+		const { records } = await result.json()
+		return records
+	}
+	useEffect(() => {
+		handleSearchCedula({ target: { value: numeroDeIdentificacion } })
+	}, [identificacionSelected])
+	useEffect(() => {
+		setNumeroDeIdentificacion(propietario.identificacion)
+		setNombre(propietario.nombre)
+		setApellido1(propietario.apellido1)
+		setApellido2(propietario.apellido2)
+		setGeneroSeleccionado(propietario.genero)
+		setCorreo(propietario.correo)
+		setTelefono1(propietario.telefono1)
+		setTelefono2(propietario.telefono2)
+		setProvinciaSeleccionada(propietario.provincia)
+		setCantonSeleccionado(propietario.canton)
+		setDistritoSeleccionado(propietario.distrito)
+		setDireccion(propietario.direccion)
+	}, [propietario])
 	return (
 		<Container portada={ImagePortada2}>
 			<span></span>
@@ -156,9 +255,11 @@ const Contenedor_datos_personales = () => {
 					mandatory={true}
 					label="Tipo de indentificación"
 					placeholder="Seleccioná tipo de identificación"
-					state=""
+					state={inputsStatus.tipoIdentificacion}
+					value={identificacionSelected}
 					helperText="Identificacion incorrecta"
-					options={options}
+					onHandleChange={handleIdentificacionChange}
+					options={tipoIdentificacion}
 				/>
 			</Row>
 			<Row>
@@ -168,7 +269,10 @@ const Contenedor_datos_personales = () => {
 					label="Número de indentificación"
 					placeholder="ingresá tu identificación"
 					helperText="Identificacion incorrecta"
-					state="fail"
+					state={inputsStatus.numeroDeIdentificacion}
+					setValue={setNumeroDeIdentificacion}
+					value={numeroDeIdentificacion}
+					onHandleChange={handleSearchCedula}
 				/>
 			</Row>
 			<Row>
@@ -177,6 +281,9 @@ const Contenedor_datos_personales = () => {
 					mandatory={false}
 					label="Género"
 					placeholder="Seleccióna tipo de género"
+					value={generoSeleccionado}
+					state={inputsStatus.genero}
+					onHandleChange={(e) => setGeneroSeleccionado(e.target.value)}
 					options={generos}
 				/>
 			</Row>
@@ -186,18 +293,27 @@ const Contenedor_datos_personales = () => {
 					mandatory={true}
 					label="Nombre"
 					placeholder="Ingresá tu nombre"
+					value={nombre}
+					disabled={true}
+					state={inputsStatus.nombre}
 				/>
 				<Input
 					type="text"
 					mandatory={true}
 					label="Primer Apellido"
 					placeholder="Ingresá tu primer apellido"
+					value={apellido1}
+					disabled={true}
+					state={inputsStatus.apellido1}
 				/>
 				<Input
 					type="text"
 					mandatory={true}
 					label="Segundo Apellido"
 					placeholder="Ingresá tu primer apellido"
+					value={apellido2}
+					disabled={true}
+					state={inputsStatus.apellido2}
 				/>
 			</Row>
 			<Row>
@@ -206,6 +322,9 @@ const Contenedor_datos_personales = () => {
 					mandatory={true}
 					label="Correo electrónico"
 					placeholder="Ingresá tu correo electrónico"
+					value={correo}
+					setValue={setCorreo}
+					state={inputsStatus.correo}
 				/>
 			</Row>
 
@@ -229,12 +348,14 @@ const Contenedor_datos_personales = () => {
 					mandatory={false}
 					label="Cantón"
 					placeholder="Seleccioná el cantón"
+					options={cantonesCostarica}
 				/>
 				<Select
 					type="text"
 					mandatory={false}
 					label="Distrito"
 					placeholder="Seleccioná el distrito"
+					options={districtCostarica}
 				/>
 			</Row>
 			<Row>

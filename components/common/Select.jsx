@@ -11,13 +11,20 @@ const Select = ({
 	label = 'label',
 	placeholder = '',
 	helperText = 'helper text',
-	options= []
+	options= [],
+	onHandleChange = null,
+	value = 0
 }) => {
+	const handleChange = (e) => {
+		if (onHandleChange) {
+			onHandleChange(e)
+		}
+	}
 	return (
 		<SelectContainer mandatory={mandatory} state={state}>
 			<label htmlFor="">
 				<span>{label}</span>
-				<select  defaultValue={0}>
+				<select value={value} onChange={(e)=> handleChange(e)}>
 					<option value="0" disabled>{placeholder}</option>
 					{options.map((item, index) => (
 						<option key={index} value={item.value}>
