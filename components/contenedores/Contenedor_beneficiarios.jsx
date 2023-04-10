@@ -6,7 +6,7 @@
 
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import CMP044 from '../common/CMP044'
+import ContenedoresHeader from '../common/ContenedoresHeader'
 import Button from '../common/Button'
 import CMP010 from '../home/CMP010'
 import ImagePortada2 from '@/assets/img/PortadaAfiliacion_medismart2.png'
@@ -41,7 +41,7 @@ const Contenedor_beneficiarios = () => {
 	return (
 		<Container portada={ImagePortada2}>
 			<div>
-				<CMP044 title="¿Deseás agregar algún beneficiario?" />
+				<ContenedoresHeader title="¿Deseás agregar algún beneficiario?" />
 			</div>
 			<Row>
 				<AgregarBeneficiarioCard
@@ -63,6 +63,10 @@ const Contenedor_beneficiarios = () => {
 			</Row>
 			<Row>
 				<RowBeneficiario show={true} maxWidth="918px" name="Pablito" benficiario="hijo"  />
+		
+			</Row>
+			<Row>
+				<RowBeneficiario show={true} maxWidth="918px" name="Maria" benficiario="hija"  />
 			</Row>
 			<Row>
 				<Button
@@ -97,7 +101,7 @@ const Row = styled.div`
   flex-direction: row;
   gap: 34px;
   width: 100%;
-  margin-bottom: ${(props) => props.bottom || 32}px;
+  margin-bottom: ${(props) => props.bottom || 16}px;
 `
 const Container = styled.div`
   width: 100%;

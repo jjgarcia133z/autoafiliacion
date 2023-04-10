@@ -5,12 +5,12 @@
  */
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import CMP011_5 from '../common/CMP011_5'
+import FilterSelect from '../common/FilterSelect'
 import Select from '../common/Select'
-import CMP044 from '../common/CMP044'
-import CMP020 from '../home/CMP020'
+import ContenedoresHeader from '../common/ContenedoresHeader'
+import PlanOnco from '../home/PlanOnco'
 import Input from '../common/Input'
-import CMP040 from '../common/TextArea'
+import TextArea from '../common/TextArea'
 import Button from '../common/Button'
 import { setCurrentIndex } from '@/store/slices/configSlice'
 import { useDispatch } from 'react-redux'
@@ -32,7 +32,7 @@ const Contenedor_agregar_beneficiarios = () => {
 	return (
 		<Container>
 			<div>
-				<CMP044 title="Ingresá los datos del beneficiario" />
+				<ContenedoresHeader title="Ingresá los datos del beneficiario" />
 			</div>
 
 			<Row>
@@ -96,8 +96,8 @@ const Contenedor_agregar_beneficiarios = () => {
 			</Row>
 
 			<Row>
-				<CMP011_5 />
-				<CMP011_5 />
+				<FilterSelect />
+				<FilterSelect />
 			</Row>
 			<Row bottom={32}>
 				<h2>Datos de residencia</h2>
@@ -123,7 +123,7 @@ const Contenedor_agregar_beneficiarios = () => {
 				/>
 			</Row>
 			<Row>
-				<CMP040
+				<TextArea
 					label="Dirección exacta"
 					placeholder="Ingresá tu dirección de domicilio"
 				/>
@@ -132,7 +132,7 @@ const Contenedor_agregar_beneficiarios = () => {
 				<h2>Planes adicionales</h2>
 			</Row>
 			<Row>
-				<CMP020 />
+				<PlanOnco />
 			</Row>
 			<Row>
 				<Button

@@ -1,9 +1,23 @@
+/**
+ * @file FilterSelect.jsx
+ * @description Componente con el que se puede filtrar las opciones de un select
+ * @componentNumber CMP011_5
+ */
 import React, { useEffect, useRef, useState } from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { ChevronDown, Search } from '@/components/icons/Icons'
 import { useSelector } from 'react-redux'
 import Flag from '@/components/common/Flag'
-const CMP011_5 = ({ country = 'CR' }) => {
+const FilterSelect = ({
+	country = 'CR',
+	status = 'none',
+	regex = null,
+	value = { value: '' },
+	setValue = null,
+	block = false,
+	mandatory = false,
+	helperText = '',
+}) => {
 	const dropdownRef = useRef(null)
 	const [selectedCountry, setSelectedCountry] = useState({
 		codeArea: '+506',
@@ -11,7 +25,6 @@ const CMP011_5 = ({ country = 'CR' }) => {
 		name: 'Costa Rica',
 		src: 'https://flagcdn.com/w320/cr.png',
 	})
-	const [phone, setPhone] = useState('71144994')
 	const [showList, setShowList] = useState(false)
 	const [filterCountries, setFilterCountries] = useState([])
 	const [countryCodes, setCountryCodes] = useState([])
@@ -28,19 +41,25 @@ const CMP011_5 = ({ country = 'CR' }) => {
 	}
 
 	const handleChange = (e) => {
-		const { value } = e.target
-		setPhone(value)
+		const valueInput = e.target.value
+		setValue({ ...value, value: valueInput, status: 'none'})//
 	}
 
 	const handleBlur = (e) => {
-		const { value } = e.target
-		setPhone(formatPhoneNumber(value))
+		const valuePhone = e.target.value
+		setValue({
+			...value,
+			value: valuePhone,
+			status: 'none',
+		})
+		validateRegex(valuePhone)
 	}
 	const handleShowList = () => {
+		if (block) return
 		setShowList(!showList)
 	}
 	const handleSelectCountry = (country) => {
-		console.log(country)
+		setValue({ ...value, code: country.codeArea, })
 		setSelectedCountry(country)
 		setShowList(false)
 	}
@@ -52,6 +71,28 @@ const CMP011_5 = ({ country = 'CR' }) => {
 		})
 		setFilterCountries(filteredCountries)
 	}
+	const validateRegex = (valuePhone) => {
+		if (regex) {
+			if (regex.test(valuePhone.trim())) {
+				setValue({
+					...value,
+					value: formatPhoneNumber(valuePhone),
+					status: 'success',
+				})
+			} else {
+				setValue({
+					...value,
+					value: formatPhoneNumber(valuePhone),
+					status: 'fail',
+				})
+			}
+		}
+	}
+	const removeSpaces = (e) => {
+		const { value } = e.target
+		const newValue = value.replace(/\s/g, '')
+		setValue({ ...value, value: newValue, status: 'none' })
+	}
 	useEffect(() => {
 		setCountryCodes(flagData)
 	}, [flagData])
@@ -62,6 +103,7 @@ const CMP011_5 = ({ country = 'CR' }) => {
 		)
 		setSelectedCountry(countrySelected)
 		setFilterCountries(countryCodes)
+		setValue({ ...value, code: '+506' }) 
 	}, [countryCodes])
 	useEffect(() => {
 		// Manejador de eventos de clic global
@@ -82,7 +124,13 @@ const CMP011_5 = ({ country = 'CR' }) => {
 	return (
 		<>
 			{selectedCountry && (
-				<SelectFilter showList={showList} ref={dropdownRef}>
+				<SelectFilter
+					block={block}
+					showList={showList}
+					ref={dropdownRef}
+					status={status}
+					mandatory={mandatory}
+				>
 					{selectedCountry && (
 						<div>
 							<span>Número de celular</span>
@@ -93,15 +141,15 @@ const CMP011_5 = ({ country = 'CR' }) => {
 										width={40 * 0.7}
 										src={selectedCountry.src}
 									/>
-									<ChevronDown />
+									{!block && <ChevronDown />}
 								</span>
 								<span>{selectedCountry.codeArea}</span>
 								<input
 									type="text"
 									onChange={handleChange}
 									onBlur={handleBlur}
-									maxLength={8}
-									value={phone}
+									value={value.value}
+									onFocus={removeSpaces}
 								/>
 							</div>
 						</div>
@@ -142,19 +190,20 @@ const CMP011_5 = ({ country = 'CR' }) => {
 							))}
 						</ul>
 					</div>
+					{status == 'success' ||
+            (status == 'fail' && <span>{helperText}</span>)}
 				</SelectFilter>
 			)}
 		</>
 	)
 }
 
-export default CMP011_5
+export default FilterSelect
 
 const SelectFilter = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  border: 1px solid var(--neutral-gray-colors-neutral-gray-300);
   max-width: 287px;
   font-family: Montserrat;
   font-size: 16px;
@@ -164,13 +213,21 @@ const SelectFilter = styled.div`
   text-align: left;
   position: relative;
   & > span {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    padding: 8px 16px;
-    cursor: pointer;
+    position: absolute;
+    //styleName: Body/Body Small - Montserrat Regular;
+    font-family: Montserrat;
+    font-size: 13px; //14px original
+    font-weight: 400;
+    line-height: 15px; //17px original
+    letter-spacing: 0px;
+    text-align: left;
+    top: 85px;
+    color: ${(props) =>
+		props.status == 'success'
+			? 'var(--alert-success)'
+			: props.status == 'fail'
+				? 'var(--alert-error)'
+				: 'var(--neutral-gray-colors-neutral-gray-900)'};
   }
 
   & > div:nth-child(1) {
@@ -180,6 +237,17 @@ const SelectFilter = styled.div`
     justify-content: center;
     gap: 14px;
     border-bottom: 1px solid var(--primary-blue-primary-blue-200);
+    ${(props) =>
+		props.status === 'fail' &&
+      css`
+        border-bottom: 1px solid var(--alert-error);
+      `}
+    ${(props) =>
+		props.status === 'success' &&
+      css`
+        border-bottom: 1px solid var(--alert-success);
+      `}
+    
     & > span {
       position: relative;
       display: flex;
@@ -194,6 +262,18 @@ const SelectFilter = styled.div`
       letter-spacing: 0px;
       text-align: left;
       color: var(--neutral-gray-colors-neutral-gray-500);
+      &::after {
+        ${(props) =>
+		props.mandatory &&
+          css`
+            content: "*";
+            position: absolute;
+            justify-content: center;
+            top: 4px;
+            right: 7px;
+            color: var(--alert-error);
+          `}
+      }
     }
     & > div {
       display: flex;
@@ -207,15 +287,17 @@ const SelectFilter = styled.div`
         align-items: center;
         gap: 8px;
         padding-left: 8px;
-
         cursor: pointer;
+        ${(props) =>
+		props.block &&
+          css`
+            cursor: not-allowed;
+            margin-right: 10px;
+          `}
+
         & > i {
           font-size: 20px;
           color: var(--neutral-gray-colors-neutral-gray-500);
-        }
-        & > img {
-          box-shadow: 0px 1px 2px 0px #1018280f;
-          box-shadow: 0px 1px 3px 0px #1018281a;
         }
       }
     }
@@ -231,6 +313,11 @@ const SelectFilter = styled.div`
       padding: 8px 0;
       background: transparent;
       color: var(--neutral-gray-colors-neutral-gray-500);
+      ${(props) =>
+		props.status === 'fail' &&
+        css`
+          color: var(--alert-error);
+        `}
     }
   }
   & > div:nth-child(2) {

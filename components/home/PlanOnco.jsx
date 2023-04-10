@@ -80,8 +80,13 @@ function Boton({ seleccionado, onClick, setModal, modal }) {
 		</div>
 	)
 }
+/**
+ * @file PlanOnco.jsx
+ * @description Componente que contiene la información del plan oncosmart
+ * @ComponentNumber CMP020
+ */
 
-const CMP020 = () => {
+const PlanOnco = () => {
 	const [seleccionado, setSeleccionado] = useState(null)
 	const [showModal, setShowModal] = useState(false)
 
@@ -118,7 +123,7 @@ const CMP020 = () => {
 	)
 }
 
-export default CMP020
+export default PlanOnco
 
 const Primary = styled.div`
   .aditional-plan {

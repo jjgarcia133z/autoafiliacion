@@ -6,7 +6,7 @@
 
 import React from 'react'
 import styled from 'styled-components'
-import CMP044 from '../common/CMP044'
+import ContenedoresHeader from '../common/ContenedoresHeader'
 import ImagePortada from '@/assets/img/PortadaAfiliacion_medismart3.png'
 import { setCurrentIndex } from '@/store/slices/configSlice'
 import { useDispatch } from 'react-redux'
@@ -38,7 +38,7 @@ const Contenedor_resumen = () => {
 		<Container portada={ImagePortada}>
 			<span></span>
 			<div>
-				<CMP044 title="Resumen del pedido" />
+				<ContenedoresHeader title="Resumen del pedido" />
 			</div>
 			<h2>Plan Medismart</h2>
 			<Row>

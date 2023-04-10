@@ -5,12 +5,12 @@
  */
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import CMP011_5 from '../common/CMP011_5'
+import FilterSelect from '../common/FilterSelect'
 import Select from '../common/Select'
-import CMP044 from '../common/CMP044'
-import CMP020 from '../home/CMP020'
+import ContenedoresHeader from '../common/ContenedoresHeader'
+import PlanOnco from '../home/PlanOnco'
 import Input from '../common/Input'
-import CMP040 from '../common/TextArea'
+import TextArea from '../common/TextArea'
 import PoliticaCheckbox from '../home/PoliticaCheckbox'
 import Button from '../common/Button'
 import ImagePortada2 from '@/assets/img/PortadaAfiliacion_medismart2.png'
@@ -23,48 +23,91 @@ import { useDispatch, useSelector } from 'react-redux'
 import usePage from '@/hooks/usePage'
 import useFetch from '@/hooks/UseFetch'
 import {
-	tipoIdentificacion,
+	tipoIdentificaciones,
 	generos,
 	provinciasCostarica,
 	cantonesCostarica,
 	districtCostarica,
+	regex,
 } from '@/constants/constants'
 const Contenedor_datos_personales = () => {
-	const [politicaStatus, setPoliticaStatus] = useState(false)
 	const dispatch = useDispatch()
 	const { goTo, updateStepStatus } = usePage()
 	const { fetchData } = useFetch()
-	const [inputsStatus, setInputsStatus] = useState({
-		tipoIdentificacion: 'none',
-		numeroDeIdentificacion: 'none',
-		genero: 'none',
-		nombre: 'none',
-		apellido1: 'none',
-		apellido2: 'none',
-		correo: 'none',
-		telefono1: 'none',
-		telefono2: 'none',
-		provincia: 'none',
-		canton: 'none',
-		distrito: 'none',
-		direccion: 'none',
-	})
-	const [identificacionSelected, SetIdentificacionSelected] = useState(0)
-	const [generoSeleccionado, setGeneroSeleccionado] = useState(0)
-	const [provinciaSeleccionada, setProvinciaSeleccionada] = useState(0)
-	const [cantonSeleccionado, setCantonSeleccionado] = useState(0)
-	const [distritoSeleccionado, setDistritoSeleccionado] = useState(0)
-	const [numeroDeIdentificacion, setNumeroDeIdentificacion] = useState('')
-	const [nombre, setNombre] = useState('')
-	const [apellido1, setApellido1] = useState('')
-	const [apellido2, setApellido2] = useState('')
-	const [correo, setCorreo] = useState('')
-	const [telefono1, setTelefono1] = useState('')
-	const [telefono2, setTelefono2] = useState('')
-	const [direccion, setDireccion] = useState('')
-
 	const { propietario } = useSelector((state) => state.afiliacion)
 
+	const [isInputDisabled, setIsInputDisabled] = useState(false)
+
+	const [tipoIdentificacion, setTipoIdentificacion] = useState({
+		value: 0,
+		status: '',
+		regex: regex.onlyNumbers,
+	}) //estado del tipo de identificacion
+	const [numeroIdentificacion, setNumeroIdentificacion] = useState({
+		value: '',
+		status: '',
+		regex: regex.identification,
+	}) //estado del numero de identificacion
+	const [genero, setGenero] = useState({
+		value: 0,
+		status: '',
+		regex: regex.onlyNumbers,
+	}) //estado del genero
+	const [nombre, setNombre] = useState({
+		value: '',
+		status: '',
+		regex: regex.names,
+	}) //estado del nombre
+	const [apellido1, setApellido1] = useState({
+		value: '',
+		status: '',
+		regex: regex.names,
+	}) //estado del primer apellido
+	const [apellido2, setApellido2] = useState({
+		value: '',
+		status: '',
+		regex: regex.names,
+	}) //estado del segundo apellido
+	const [correoElectronico, setCorreoElectronico] = useState({
+		value: '',
+		status: '',
+		regex: regex.email,
+	}) //estado del correo electronico
+	const [telefono1, setTelefono1] = useState({
+		value: '',
+		status: '',
+		code: '',
+		regex: regex.phone,
+	}) //estado del telefono
+	const [telefono2, setTelefono2] = useState({
+		value: '',
+		code: '',
+		status: '',
+		regex: regex.phone,
+	}) //estado del telefono
+	const [provincia, setProvincia] = useState({
+		value: 0,
+		status: '',
+		regex: regex.onlyNumbers,
+	}) //estado de la provincia
+	const [canton, setCanton] = useState({
+		value: 0,
+		status: '',
+		regex: regex.onlyNumbers,
+	}) //estado del canton
+	const [distrito, setDistrito] = useState({
+		value: 0,
+		status: '',
+		regex: regex.onlyNumbers,
+	}) //estado del distrito
+	const [direccionExacta, setDireccionExacta] = useState({
+		value: '',
+		status: '',
+		regex: regex.address,
+	}) //estado de la direccion exacta
+	const [politicaStatus, setPoliticaStatus] = useState(false) //estado de la politica de privacidad
+	const [cantonOptions, setCantonOptions] = useState([]) //estado de los cantones
+	const [distritoOptions, setDistritoOptions] = useState([]) //estado de los distritos
 	const handleClickLast = () => {
 		const url = '/'
 		goTo(url, () => {
@@ -72,228 +115,137 @@ const Contenedor_datos_personales = () => {
 			updateStepStatus(url) //set the current step as active
 		})
 	}
+
 	const handleClickNext = () => {
 		const url = '/beneficiarios'
-		let result = true //setPropietario()
-		const propietarioJson = {
-			tipoIdentificacion: identificacionSelected,
-			numeroIdentificacion: numeroDeIdentificacion,
-			genero: generoSeleccionado,
-			nombre: nombre,
-			apellido1: apellido1,
-			apellido2: apellido2,
-			correo: correo,
-			telefono1: telefono1,
-			telefono2: telefono2,
-			provincia: provinciaSeleccionada,
-			canton: cantonSeleccionado,
-			distrito: distritoSeleccionado,
-			direccion: direccion,
-		}
-		console.log(propietarioJson)
-		dispatch(setPropietarioInfo(propietarioJson))
-		if (result) {
-			updateStepStatus(2, url, false)
+		let data = validateData()
+		if (data) {
+			dispatch(setPropietarioInfo(data))
+			console.log(data)
+			// goTo(url, () => {
+			// 	dispatch(setCurrentIndex(3))
+			// 	updateStepStatus(url) //set the current step as active
+			// })
+		} else {
+			console.log('error')
 		}
 	}
-	const setPropietario = () => {
-		let errorsCount = 0
-		if (numeroDeIdentificacion.length === 9) {
-			setInputsStatus({ ...inputsStatus, numeroDeIdentificacion: 'fail' })
-			errorsCount++
+	const validateData = () => {
+		const inputs = {
+			numeroIdentificacion,
+			nombre,
+			apellido1,
+			apellido2,
+			correoElectronico,
+			telefono1,
+			telefono2,
+			direccionExacta,
 		}
-		if (generoSeleccionado === 0) {
-			setInputsStatus({ ...inputsStatus, genero: 'fail' })
-			errorsCount++
+		const selects = {
+			tipoIdentificacion,
+			genero,
+			provincia,
+			canton,
+			distrito,
 		}
-		if (nombre === '') {
-			setInputsStatus({ ...inputsStatus, nombre: 'fail' })
-			errorsCount++
-		}
-		if (apellido1 === '') {
-			setInputsStatus({ ...inputsStatus, apellido1: 'fail' })
-			errorsCount++
-		}
-		if (apellido2 === '') {
-			setInputsStatus({ ...inputsStatus, apellido2: 'fail' })
-			errorsCount++
-		}
-		if (correo === '') {
-			setInputsStatus({ ...inputsStatus, correo: 'fail' })
-			errorsCount++
-		}
-		if (telefono1 === '') {
-			setInputsStatus({ ...inputsStatus, telefono1: 'fail' })
-			errorsCount++
-		}
-		if (provinciaSeleccionada === 0) {
-			setInputsStatus({ ...inputsStatus, provincia: 'fail' })
-			errorsCount++
-		}
-		if (cantonSeleccionado === 0) {
-			setInputsStatus({ ...inputsStatus, canton: 'fail' })
-			errorsCount++
-		}
-		if (distritoSeleccionado === 0) {
-			setInputsStatus({ ...inputsStatus, distrito: 'fail' })
-			errorsCount++
-		}
-		if (direccion === '') {
-			setInputsStatus({ ...inputsStatus, direccion: 'fail' })
-			errorsCount++
-		}
-		if (!politicaStatus) {
-			setInputsStatus({ ...inputsStatus, politica: 'fail' })
-			errorsCount++
-		}
-		if (errorsCount > 0) return false
-		const propietario = {
-			identificacion: numeroDeIdentificacion,
-			genero: generoSeleccionado,
-			nombre: nombre,
-			apellido1: apellido1,
-			apellido2: apellido2,
-			correo: correo,
-			telefono1: telefono1,
-			telefono2: telefono2,
-			provincia: provinciaSeleccionada,
-			canton: cantonSeleccionado,
-			distrito: distritoSeleccionado,
-			direccion: direccion,
-		}
-		dispatch(setPropietario(propietario))
-		return true
-	}
-
-	const getCantonByProvince = (province) => {
-		return cantones.filter((canton) => canton.value === province)
-	}
-	const handleIdentificacionChange = (e) => {
-		console.log(e.target.value)
-		SetIdentificacionSelected(e.target.value)
-	}
-	const handleSearchCedula = async ({ target }) => {
-		try {
-			console.log(
-				'onChange',
-				identificacionSelected,
-				target.value,
-				numeroDeIdentificacion
-			)
-			let value = target.value
-
-			//validate value has 9 digits
-			if (value.length !== 9) return
-			//validate value is a number
-			if (isNaN(value)) return
-
-			//validate value isnt equal to number of identificacion
-			if (target.value === numeroDeIdentificacion) return
-
-			const records = await searchCedula(value)
-			if (records && records.length > 0) {
-				const data = records[0]
-				switch (data.genero) {
-				case 'M':
-					data.genero = 'Masculino'
-					break
-				case 'F':
-					data.genero = 'Femenino'
-					break
-				case 'Femenino':
-					data.genero = 'Femenino'
-					break
-				case 'Masculino':
-					data.genero = 'Masculino'
-					break
-				default:
-					data.genero = 'Sin especificar'
-					break
-				}
-				setNumeroDeIdentificacion(value)
-				setGeneroSeleccionado(data.genero)
-				setNombre(data.nombre)
-				setApellido1(data.apellido1)
-				setApellido2(data.apellido2)
-				setCorreo(data.correo)
-				setTelefono1(data.telefono1)
-				setTelefono2(data.telefono2)
-				setProvinciaSeleccionada(data.provincia)
-				setCantonSeleccionado(data.canton)
-				setDistritoSeleccionado(data.distrito)
-				setDireccion(data.direccion)
-
-				console.log(data)
-			} else {
-				console.log('Cédula no encontrada')
-			}
-		} catch (error) {
-			console.error(error)
-		}
-	}
-
-	const cleanCedula = (cedula) => {
-		// Remueve espacios y guiones medios
-		return cedula.replace(/[\s-]/g, '')
-	}
-
-	const validateCedula = (cedula) => {
-		// Expresión regular para validar que sean 9 dígitos numéricos
-		const cedulaRegex = /^[0-9]{9}$/
-		return cedulaRegex.test(cedula)
-	}
-
-	const searchCedula = async (cedula) => {
-		const result = await fetch(
-			`https://tse.medismart.info/api/persona/buscarCedula.php?user=sfconsult&password=8Rh8hcRFMyGmqimA&buscarCedula=${cedula}`
+		//iterar sobre los estados de los inputs y verifica que todos esten success o none
+		const isValidInputs = Object.values(inputs).every(
+			(input) => input.status === 'success'
 		)
-		const { records } = await result.json()
-		return records
+		const isValidSelects = Object.values(selects).every(
+			(select) => select.status === 'success'
+		)
+		if (isValidInputs && isValidSelects) {
+			return {
+				tipoIdentificacion: tipoIdentificacion.value,
+				numeroIdentificacion: numeroIdentificacion.value,
+				genero: genero.value,
+				nombre: nombre.value,
+				apellido1: apellido1.value,
+				apellido2: apellido2.value,
+				correo: correoElectronico.value,
+				telefono1: telefono1.value.replace(' ', ''),
+				telefono2: telefono2.value.replace(' ', ''),
+				phoneCode1: telefono1.code.replace('+', ''),
+				phoneCode2: telefono2.code.replace('+', ''),
+				canton: canton.value,
+				distrito: distrito.value,
+				direccion: direccionExacta.value,
+			}
+		} else {
+			return false
+		}
 	}
-	const onPoliticaChange = (e) => {
-		setPoliticaStatus(e.target.checked)
+	const handleProviceChange = ({ target }) => {
+		setProvincia({ value: target.value, status: 'success' })
+		const cantonOptions = cantonesCostarica.filter(
+			(canton) => canton.id === Number(target.value)
+		)
+		setCantonOptions(cantonOptions)
+		setCanton({ value: 0, status: 'none' })
+		setDistrito({ value: 0, status: 'none' })
+	}
+	const handleCantonChange = ({ target }) => {
+		setCanton({ value: target.value, status: 'success' })
+		const distritoOptions = districtCostarica.filter(
+			(distrito) => distrito.id === Number(provincia.value + target.value)
+		)
+		setDistritoOptions(distritoOptions)
+		setDistrito({ value: 0, status: 'none' })
+	}
+	const searchIdentification = async (e) => {
+		const { value } = e.target
+		console.log({
+			tipo: tipoIdentificacion.value,
+			test: regex.identification.test(value),
+		})
+		if (Number(tipoIdentificacion.value) !== 1) return
+		console.log('pass test')
+		if (regex.identification.test(value) === false) return
+		console.log('pass test 2')
+		const { response: {records} , error } = await fetchData(
+			`https://tse.medismart.info/api/persona/buscarCedula.php?user=sfconsult&password=8Rh8hcRFMyGmqimA&buscarCedula=${value}`
+		)
+		console.log({ info: records, value: value })
+		if (!error) {
+			const { nombre, apellido1, apellido2 } = records[0]
+			setNombre({ ...nombre, value: nombre, status: 'success' })
+			setApellido1({ ...apellido1, value: apellido1, status: 'success' })
+			setApellido2({ ...apellido2, value: apellido2, status: 'success' })
+			let genero = records[0].genero
+			if (genero.toLowerCase() === 'femenino' || genero.toLowerCase() === 'f') {
+				setGenero({ ...genero, value: 2, status: 'success' })
+			} else if (
+				genero.toLowerCase() === 'masculino' ||
+        genero.toLowerCase() === 'm'
+			) {
+				setGenero({ ...genero, value: 1, status: 'success' })
+			} else {
+				setGenero({ ...genero, value: 0, status: 'fail' })
+			}
+		}
 	}
 	useEffect(() => {
-		handleSearchCedula({ target: { value: numeroDeIdentificacion } })
-	}, [identificacionSelected])
-	useEffect(() => {
-		setNumeroDeIdentificacion(propietario.identificacion)
-		setNombre(propietario.nombre)
-		setApellido1(propietario.apellido1)
-		setApellido2(propietario.apellido2)
-		setGeneroSeleccionado(propietario.genero)
-		setCorreo(propietario.correo)
-		setTelefono1(propietario.telefono1)
-		setTelefono2(propietario.telefono2)
-		setProvinciaSeleccionada(propietario.provincia)
-		setCantonSeleccionado(propietario.canton)
-		setDistritoSeleccionado(propietario.distrito)
-		setDireccion(propietario.direccion)
-	}, [propietario])
-	useEffect(() => {
-		setNombre(propietario.nombre)
-		setApellido1(propietario.apellido1)
-		setApellido2(propietario.apellido2)
-		setGeneroSeleccionado(propietario.genero)
-		setCorreo(propietario.correo)
-		setTelefono1(propietario.telefono1)
-		setTelefono2(propietario.telefono2)
-		setProvinciaSeleccionada(propietario.provincia)
-		setCantonSeleccionado(propietario.canton)
-		setDistritoSeleccionado(propietario.distrito)
-		setDireccion(propietario.direccion)
-		SetIdentificacionSelected(propietario.tipoIdentificacion)
-		setNumeroDeIdentificacion(propietario.numeroIdentificacion)
-		setPoliticaDePrivacidad(propietario.politicaDePrivacidad)
-	}, [propietario])
-	useEffect(() => {
-		setPoliticaDePrivacidad(politicaStatus)
-	}, [politicaStatus])
+		dispatch(
+			setPropietarioInfo({
+				...propietario,
+				tipoIdentificacion: tipoIdentificacion.value,
+			})
+		)
+		if (tipoIdentificacion.value == 1 || tipoIdentificacion.value == 0) {
+			setNombre({ ...nombre, value: '', status: 'none' })
+			setApellido1({ ...apellido1, value: '', status: 'none' })
+			setApellido2({ ...apellido2, value: '', status: 'none' })
+			setIsInputDisabled(true)
+		} else {
+			setIsInputDisabled(false)
+		}
+	}, [tipoIdentificacion])
 	return (
 		<Container portada={ImagePortada2}>
 			<span></span>
 			<div>
-				<CMP044 title="Ingresá tus datos personales" />
+				<ContenedoresHeader title="Ingresá tus datos personales" />
 			</div>
 
 			<Row>
@@ -302,23 +254,26 @@ const Contenedor_datos_personales = () => {
 					mandatory={true}
 					label="Tipo de indentificación"
 					placeholder="Seleccioná tipo de identificación"
-					value={identificacionSelected}
 					helperText="Identificacion incorrecta"
-					onHandleChange={handleIdentificacionChange}
-					options={tipoIdentificacion}
+					options={tipoIdentificaciones}
+					value={tipoIdentificacion}
+					status={tipoIdentificacion.status}
+					setState={setTipoIdentificacion}
 				/>
 			</Row>
 			<Row>
 				<Input
 					type="text"
+					disabled={tipoIdentificacion.value === 0}
 					mandatory={true}
 					label="Número de indentificación"
 					placeholder="ingresá tu identificación"
 					helperText="Identificacion incorrecta"
-					state={inputsStatus.numeroDeIdentificacion}
-					setValue={setNumeroDeIdentificacion}
-					value={numeroDeIdentificacion}
-					onHandleChange={handleSearchCedula}
+					onHandleChange={searchIdentification}
+					value={numeroIdentificacion}
+					setValue={setNumeroIdentificacion}
+					status={numeroIdentificacion.status}
+					regex={regex.identification}
 				/>
 			</Row>
 			<Row>
@@ -327,10 +282,10 @@ const Contenedor_datos_personales = () => {
 					mandatory={false}
 					label="Género"
 					placeholder="Seleccióna tipo de género"
-					value={generoSeleccionado}
-					state={inputsStatus.genero}
-					onHandleChange={(e) => setGeneroSeleccionado(e.target.value)}
 					options={generos}
+					value={genero}
+					status={genero.status}
+					setState={setGenero}
 				/>
 			</Row>
 			<Row>
@@ -339,44 +294,69 @@ const Contenedor_datos_personales = () => {
 					mandatory={true}
 					label="Nombre"
 					placeholder="Ingresá tu nombre"
+					disabled={isInputDisabled}
+					helperText="El nombre no puede estar vacío y debe contener solo letras"
 					value={nombre}
-					disabled={true}
-					state={inputsStatus.nombre}
+					setValue={setNombre}
+					status={nombre.status}
+					regex={regex.names}
 				/>
 				<Input
 					type="text"
 					mandatory={true}
 					label="Primer Apellido"
 					placeholder="Ingresá tu primer apellido"
+					helperText="El apellido debe contener solo letras y no debe contener espacios en blanco"
+					disabled={isInputDisabled}
 					value={apellido1}
-					disabled={true}
-					state={inputsStatus.apellido1}
+					setValue={setApellido1}
+					status={apellido1.status}
+					regex={regex.names}
 				/>
 				<Input
 					type="text"
 					mandatory={true}
 					label="Segundo Apellido"
 					placeholder="Ingresá tu primer apellido"
+					helperText="El apellido debe contener solo letras y no debe contener espacios en blanco"
+					disabled={isInputDisabled}
 					value={apellido2}
-					disabled={true}
-					state={inputsStatus.apellido2}
+					setValue={setApellido2}
+					status={apellido2.status}
+					regex={regex.names}
 				/>
 			</Row>
 			<Row>
 				<Input
-					type="text"
+					type="email"
 					mandatory={true}
 					label="Correo electrónico"
 					placeholder="Ingresá tu correo electrónico"
-					value={correo}
-					setValue={setCorreo}
-					state={inputsStatus.correo}
+					helperText="Correo electrónico incorrecto"
+					value={correoElectronico}
+					setValue={setCorreoElectronico}
+					status={correoElectronico.status}
+					regex={regex.email}
 				/>
 			</Row>
 
 			<Row>
-				<CMP011_5 />
-				<CMP011_5 />
+				<FilterSelect
+					mandatory={true}
+					block={true}
+					status={telefono1.status}
+					regex={regex.phone}
+					setValue={setTelefono1}
+					value={telefono1}
+					helperText="El formato del teléfono no es correcto."
+				/>
+				<FilterSelect
+					status={telefono2.status}
+					regex={regex.phone}
+					setValue={setTelefono2}
+					value={telefono2}
+					helperText="El formato del teléfono no es correcto."
+				/>
 			</Row>
 			<Row bottom={32}>
 				<h2>Datos de residencia</h2>
@@ -384,42 +364,56 @@ const Contenedor_datos_personales = () => {
 			<Row>
 				<Select
 					type="text"
-					mandatory={false}
+					mandatory={true}
 					label="Provincia"
 					placeholder="Seleccioná la provincia"
 					options={provinciasCostarica}
+					value={provincia}
+					status={provincia.status}
+					setState={setProvincia}
+					onHandleChange={handleProviceChange}
 				/>
 				<Select
 					type="text"
-					mandatory={false}
+					mandatory={true}
 					label="Cantón"
 					placeholder="Seleccioná el cantón"
-					options={cantonesCostarica}
+					options={cantonOptions}
+					value={canton}
+					status={canton.status}
+					setState={setCanton}
+					onHandleChange={handleCantonChange}
 				/>
 				<Select
 					type="text"
-					mandatory={false}
+					mandatory={true}
 					label="Distrito"
 					placeholder="Seleccioná el distrito"
-					options={districtCostarica}
+					options={distritoOptions}
+					value={distrito}
+					status={distrito.status}
+					setState={setDistrito}
 				/>
 			</Row>
 			<Row>
-				<CMP040
+				<TextArea
 					label="Dirección exacta"
-					value={direccion}
-					setValue={setDireccion}
 					placeholder="Ingresá tu dirección de domicilio"
+					helperText="La dirección no puede estar vacía"
+					value={direccionExacta}
+					setValue={setDireccionExacta}
+					status={direccionExacta.status}
+					regex={regex.address}
 				/>
 			</Row>
 			<Row bottom={32}>
 				<h2>Planes adicionales</h2>
 			</Row>
 			<Row>
-				<CMP020 />
+				<PlanOnco />
 			</Row>
 			<Row>
-				<PoliticaCheckbox value={politicaStatus} state={setPoliticaStatus} onHandleChange={onPoliticaChange} />
+				<PoliticaCheckbox value={politicaStatus} state={setPoliticaStatus} />
 			</Row>
 			<Row>
 				<Button
@@ -438,8 +432,8 @@ const Contenedor_datos_personales = () => {
 		</Container>
 	)
 }
-
-export default Contenedor_datos_personales
+const datos_personales = React.memo(Contenedor_datos_personales)
+export default datos_personales
 const Row = styled.div`
   display: flex;
   flex-direction: row;

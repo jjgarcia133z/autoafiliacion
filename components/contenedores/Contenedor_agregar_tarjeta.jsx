@@ -6,7 +6,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import Select from '../common/Select'
-import CMP044 from '../common/CMP044'
+import ContenedoresHeader from '../common/ContenedoresHeader'
 import Input from '../common/Input'
 import Button from '../common/Button'
 import ImagePortada2 from '@/assets/img/PortadaAfiliacion_medismart2.png'
@@ -45,7 +45,7 @@ const Contenedor_agregar_tarjeta = () => {
 		<Container portada={ImagePortada2}>
 			<span></span>
 			<div>
-				<CMP044 title="Ingresá los datos de la tarjeta" />
+				<ContenedoresHeader title="Ingresá los datos de la tarjeta" />
 			</div>
 
 			<Row>

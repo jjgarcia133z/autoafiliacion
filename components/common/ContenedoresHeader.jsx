@@ -1,11 +1,16 @@
+/**
+ * @file ContenedoresHeader.jsx
+ * @description ContenedoresHeader component.
+ * @componentNumber CMP044
+ */
 import React from 'react'
 import styled from 'styled-components'
 
-const CMP044 = ({ title = 'title' }) => {
+const ContenedoresHeader = ({ title = 'title' }) => {
 	return <Title>{title}</Title>
 }
 
-export default CMP044
+export default ContenedoresHeader
 
 const Title = styled.h1`
   //styleName: Headlines/H3 - Radley Font Bold;

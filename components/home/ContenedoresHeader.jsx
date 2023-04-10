@@ -1,9 +1,14 @@
+/**
+ * @file ContenedoresHeader.jsx
+ * @description ContenedoresHeader component.
+ * @componentNumber CMP044
+ */
 import React from 'react'
 import styled from 'styled-components'
 
 
 // import IconLefCaret from '../../assets/img/icons/icon-outlines-28@2x.png'
-const CMP044 = () => {
+const ContenedoresHeader = () => {
 	return (
 		<Primary>
 			<div className="text-area">
@@ -15,7 +20,7 @@ const CMP044 = () => {
 	)
 }
 
-export default CMP044
+export default ContenedoresHeader
 
 const Primary = styled.div`
  .ingres-tus-datos-personales {

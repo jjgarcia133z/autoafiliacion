@@ -3,7 +3,7 @@
  * @description: Select component.
  * @componentNumber: CMP038
  */
-import React from 'react'
+import React, { useState, useMemo } from 'react'
 import styled from 'styled-components'
 const Select = ({
 	mandatory = false,
@@ -11,36 +11,43 @@ const Select = ({
 	label = 'label',
 	placeholder = '',
 	helperText = 'helper text',
-	options= [],
+	options = [],
 	onHandleChange = null,
-	value = 0
+	value = { value: 0},
+	setState = null
 }) => {
-	const handleChange = (e) => {
+
+	const handleChange =useMemo(()=> (e) => {
+		if (setState) {
+			setState({...value, value: e.target.value , status: 'success'})
+		}
 		if (onHandleChange) {
-			console.log(e.target.value)
 			onHandleChange(e)
 		}
-	}
+	})
+
+	const selectOptions = options.map((item, index) => (
+		<option key={index} value={item.value}>
+			{item.label}
+		</option>
+	))
 	return (
 		<SelectContainer mandatory={mandatory} state={state}>
-			<label htmlFor="">
+			<label>
 				<span>{label}</span>
-				<select value={value} onChange={(e)=> handleChange(e)}>
-					<option value="0" disabled>{placeholder}</option>
-					{options.map((item, index) => (
-						<option key={index} value={item.value}>
-							{item.label}
-						</option>
-					))}
+				<select value={value.value} onChange={handleChange}>
+					<option value="0" disabled>
+						{placeholder}
+					</option>
+					{selectOptions}
 				</select>
 			</label>
-			{state == 'success' ||
-        (state == 'fail' && <span>{helperText}</span>)}
+			{(state === 'success' || state === 'fail') && <span>{helperText}</span>}
 		</SelectContainer>
 	)
 }
-
-export default Select
+const SelectToMemo = React.memo(Select)
+export default SelectToMemo
 
 const SelectContainer = styled.div`
   position: relative;

@@ -1,39 +1,60 @@
 /**
  * @File: TextArea.jsx
  * @Description: Text area de formulario.
- * @ComponentNumber: CMP040
+ * @ComponentNumber: TextArea
  */
 import React from 'react'
 import styled from 'styled-components'
 import { BsCheckCircle as Success, BsXCircle as Fail } from 'react-icons/bs'
 const TextArea = ({
 	mandatory = false,
-	state = 'none',
+	status = 'none',
 	type = 'text',
 	label = 'label',
 	placeholder = '',
 	helperText = 'helper text',
-	value = '',
+	value = { value: '' },
 	setValue = null,
+	regex = null,
+	onHandleChange = null,
 }) => {
 	const handleChange = (e) => {
 		if (setValue) {
-			setValue(e.target.value)
+			setValue({ ...value, value: e.target.value, status: 'none'})
+		}
+		if (onHandleChange) {
+			onHandleChange(e)
 		}
 	}
-  
+	const validateRegex = ({ target }) => {
+		if (regex) {
+			if (regex.test(target.value)) {
+				setValue({ ...value, status: 'success' })
+			} else {
+				setValue({ ...value, status: 'fail' })
+			}
+		}
+	}
+
 	return (
-		<SelectContainer mandatory={mandatory} state={state}>
+		<SelectContainer mandatory={mandatory} status={status}>
 			<label htmlFor="">
 				<span>{label}</span>
-				<textarea type={type} name="" id="" placeholder={placeholder} value={value} onChange={handleChange}/>
+				<textarea
+					type={type}
+					name=""
+					id=""
+					placeholder={placeholder}
+					value={value.value}
+					onChange={handleChange}
+					onBlur={validateRegex}
+				/>
 				<i>
-					{state == 'success' && <Success />}
-					{state == 'fail' && <Fail />}
+					{status == 'success' && <Success />}
+					{status == 'fail' && <Fail />}
 				</i>
 			</label>
-			{state == 'success' ||
-        (state == 'fail' && <span>{helperText}</span>)}
+			{status == 'success' || (status == 'fail' && <span>{helperText}</span>)}
 		</SelectContainer>
 	)
 }
@@ -41,7 +62,7 @@ const TextArea = ({
 export default TextArea
 
 const SelectContainer = styled.div`
-width: 100%;
+  width: 100%;
   position: relative;
   & > label {
     position: relative;
@@ -76,10 +97,10 @@ width: 100%;
       border-width: 0;
       resize: none;
       background: transparent;
-      border-bottom: ${(props) =>      
-		props.state == 'success'
+      border-bottom: ${(props) =>
+		props.status == 'success'
 			? '1px solid var(--alert-success)'
-			: props.state == 'fail'
+			: props.status == 'fail'
 				? '1px solid var(--alert-error)'
 				: '1px solid var(--primary-blue-primary-blue-200)'};
       /* padding: 0 16px; */
@@ -120,9 +141,9 @@ width: 100%;
     letter-spacing: 0px;
     text-align: left;
     color: ${(props) =>
-		props.state == 'success'
+		props.status == 'success'
 			? 'var(--alert-success)'
-			: props.state == 'fail'
+			: props.status == 'fail'
 				? 'var(--alert-error)'
 				: 'var(--neutral-gray-colors-neutral-gray-900)'};
     margin-bottom: 16px;
@@ -140,9 +161,9 @@ width: 100%;
     height: 24px;
     border-radius: 50%;
     color: ${(props) =>
-		props.state == 'success' ? 'var(--alert-success)' : 'var(--alert-error)'};
+		props.status == 'success' ? 'var(--alert-success)' : 'var(--alert-error)'};
     background-color: ${(props) =>
-		props.state == 'success' || props.state == 'fail'
+		props.status == 'success' || props.status == 'fail'
 			? 'transparent'
 			: 'transparent'};
     pointer-events: none;

@@ -15,6 +15,8 @@ export const afiliacionSlice = createSlice({
 			correo: '',
 			telefono1: '',
 			telefono2: '',
+			phoneCode1: '',
+			phoneCode2: '',
 			provincia: '',
 			canton: '',
 			distrito: '',

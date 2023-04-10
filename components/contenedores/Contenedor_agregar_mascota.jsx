@@ -6,7 +6,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import Select from '../common/Select'
-import CMP044 from '../common/CMP044'
+import ContenedoresHeader from '../common/ContenedoresHeader'
 import Input from '../common/Input'
 import Button from '../common/Button'
 import { Plus } from '../icons/Icons'
@@ -31,7 +31,7 @@ const Contenedor_agregar_mascota = () => {
 	return (
 		<Container>
 			<div>
-				<CMP044 title="Ingresá los datos de la mascota" />
+				<ContenedoresHeader title="Ingresá los datos de la mascota" />
 			</div>
 
 			<Row>
@@ -75,7 +75,7 @@ const Contenedor_agregar_mascota = () => {
 					 />
 				<Input
 					type="text"
-					mandatory={true}
+					mandatory={false}
 					label="Edad"
 					placeholder=""
 				/>

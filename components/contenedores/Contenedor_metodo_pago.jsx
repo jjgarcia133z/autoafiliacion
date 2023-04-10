@@ -5,7 +5,7 @@
  */
 import React from 'react'
 import styled from 'styled-components'
-import CMP044 from '../common/CMP044'
+import ContenedoresHeader from '../common/ContenedoresHeader'
 import ImagePortada from '@/assets/img/PortadaAfiliacion_medismart3.png'
 import { setCurrentIndex } from '@/store/slices/configSlice'
 import { useDispatch } from 'react-redux'
@@ -42,7 +42,7 @@ const Contenedor_metodo_pago = () => {
 	return (
 		<Container portada={ImagePortada}>
 			<div>
-				<CMP044 title="Método de pago" />
+				<ContenedoresHeader title="Método de pago" />
 			</div>
 			<Row bottom={217}>
 				<CardContainer>

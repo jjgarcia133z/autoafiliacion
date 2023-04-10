@@ -3,59 +3,60 @@
  * @description Input de formulario.
  * @componentNumber CMP037
  */
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 import styled from 'styled-components'
 import { BsCheckCircle as Success, BsXCircle as Fail } from 'react-icons/bs'
 
 const Input = ({
 	mandatory = false,
-	state = 'none',
+	status = 'none',
 	type = 'text',
 	label = 'label',
 	placeholder = '',
 	helperText = 'helper text',
-	value = '',
+	value = { value: '' },
 	setValue = null,
 	Icon = null,
 	TootTip = null,
 	iconAction = null,
 	iconOnHover = null,
-	validation = null,
+	regex = null,
 	onHandleChange = null,
 	tooltipProps = {},
-	disabled = false
+	disabled = false,
 }) => {
-	const [stateInput, setStateInput] = useState('none')
-	const handleChange = (e) => {
+	const handleChange = useMemo(() => (e) => {
 		if (setValue) {
-			setValue(e.target.value)
-			if (e.target.value.length > 0) {
-				if (validation) {
-					validation(e.target.value)
-				}
-			} else {
-				setStateInput('none')
-			}
-			if (onHandleChange) {
-				onHandleChange(e)
-			}
+			setValue({ ...value, value: e.target.value, status: 'none'})
 		}
-	}
+		if (onHandleChange) {
+			onHandleChange(e)
+		}
+	})
 	const handleIconAction = (e) => {
 		if (iconAction) {
 			iconAction(e)
 		}
+
 	}
 	const handleIconOnHover = (e) => {
 		if (iconOnHover) {
 			iconOnHover(e)
 		}
 	}
-
+	const validateRegex = ({target}) => {
+		if (regex) {
+			if (regex.test(target.value.trim())) {
+				setValue({ ...value, status: 'success' })
+			} else {
+				setValue({ ...value, status: 'fail' })
+			}
+		}
+	}
 	return (
 		<InputContainer
 			mandatory={mandatory}
-			state={state}
+			status={status}
 			iconAction={iconAction}
 			iconOnHover={iconOnHover}
 		>
@@ -65,16 +66,17 @@ const Input = ({
 					type={type}
 					placeholder={placeholder}
 					onChange={(e) => handleChange(e)}
-					value={value}
+					onBlur={(e) => validateRegex(e)}
+					value={value.value}
 					disabled={disabled}
 				/>
 
-				{state == 'success' && !Icon && (
+				{status == 'success' && !Icon && (
 					<i>
 						<Success />
 					</i>
 				)}
-				{state == 'fail' && !Icon && (
+				{status == 'fail' && !Icon && (
 					<i>
 						<Fail />
 					</i>
@@ -90,12 +92,14 @@ const Input = ({
 					</div>
 				)}
 			</label>
-			{state == 'success' || (state == 'fail' && <span>{helperText}</span>)}
+			{status == 'success' || (status == 'fail' && <span>{helperText}</span>)}
 		</InputContainer>
 	)
 }
-
-export default Input
+const inputToMemo = React.memo(Input)
+// export default Input
+export default inputToMemo
+// export default Input
 
 const InputContainer = styled.div`
   position: relative;
@@ -131,9 +135,9 @@ const InputContainer = styled.div`
       border: none;
       background: transparent;
       border-bottom: ${(props) =>
-		props.state == 'success'
+		props.status == 'success'
 			? '1px solid var(--alert-success)'
-			: props.state == 'fail'
+			: props.status == 'fail'
 				? '1px solid var(--alert-error)'
 				: '1px solid var(--primary-blue-primary-blue-200)'};
       /* padding: 0 16px; */
@@ -152,6 +156,11 @@ const InputContainer = styled.div`
       &:focus-visible {
         outline: none;
       }
+      &:disabled {
+        color: var(--primary-blue-primary-blue-100);
+        border-bottom: 1px solid #ccc;
+        font-weight: 300;
+      }
     }
     & > span:nth-child(1) {
       font-family: Montserrat;
@@ -168,18 +177,18 @@ const InputContainer = styled.div`
     position: absolute;
     //styleName: Body/Body Small - Montserrat Regular;
     font-family: Montserrat;
-    font-size: 14px;
+    font-size: 13px; //14px original
     font-weight: 400;
-    line-height: 17px;
+    line-height: 15px; //17px original
     letter-spacing: 0px;
     text-align: left;
+    top: 75px;
     color: ${(props) =>
-		props.state == 'success'
+		props.status == 'success'
 			? 'var(--alert-success)'
-			: props.state == 'fail'
+			: props.status == 'fail'
 				? 'var(--alert-error)'
 				: 'var(--neutral-gray-colors-neutral-gray-900)'};
-    margin-bottom: 16px;
   }
 
   & > label > i {
@@ -194,9 +203,9 @@ const InputContainer = styled.div`
     height: 24px;
     border-radius: 50%;
     color: ${(props) =>
-		props.state == 'success' ? 'var(--alert-success)' : 'var(--alert-error)'};
+		props.status == 'success' ? 'var(--alert-success)' : 'var(--alert-error)'};
     background-color: ${(props) =>
-		props.state == 'success' || (props.state == 'fail' && 'transparent')};
+		props.status == 'success' || (props.status == 'fail' && 'transparent')};
     pointer-events: none;
     & > svg {
       width: 16px;
