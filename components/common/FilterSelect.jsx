@@ -42,7 +42,7 @@ const FilterSelect = ({
 
 	const handleChange = (e) => {
 		const valueInput = e.target.value
-		setValue({ ...value, value: valueInput, status: 'none'})//
+		setValue({ ...value, value: valueInput, code: selectedCountry.codeArea, status: 'none'})//
 	}
 
 	const handleBlur = (e) => {
@@ -103,7 +103,7 @@ const FilterSelect = ({
 		)
 		setSelectedCountry(countrySelected)
 		setFilterCountries(countryCodes)
-		setValue({ ...value, code: '+506' }) 
+		
 	}, [countryCodes])
 	useEffect(() => {
 		// Manejador de eventos de clic global
@@ -121,6 +121,9 @@ const FilterSelect = ({
 			document.removeEventListener('mousedown', handleClickOutside)
 		}
 	}, [showList])
+	useEffect(() => {
+		setValue({ ...value, code: '+506' }) 
+	}, [])
 	return (
 		<>
 			{selectedCountry && (

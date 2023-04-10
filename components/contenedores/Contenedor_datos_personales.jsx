@@ -76,12 +76,12 @@ const Contenedor_datos_personales = () => {
 	const [telefono1, setTelefono1] = useState({
 		value: '',
 		status: '',
-		code: '',
+		code: '+506',
 		regex: regex.phone,
 	}) //estado del telefono
 	const [telefono2, setTelefono2] = useState({
 		value: '',
-		code: '',
+		code: '+506',
 		status: '',
 		regex: regex.phone,
 	}) //estado del telefono
@@ -155,6 +155,7 @@ const Contenedor_datos_personales = () => {
 		const isValidSelects = Object.values(selects).every(
 			(select) => select.status === 'success'
 		)
+		console.log(isValidInputs, isValidSelects)
 		if (isValidInputs && isValidSelects) {
 			return {
 				tipoIdentificacion: tipoIdentificacion.value,
@@ -166,8 +167,8 @@ const Contenedor_datos_personales = () => {
 				correo: correoElectronico.value,
 				telefono1: telefono1.value.replace(' ', ''),
 				telefono2: telefono2.value.replace(' ', ''),
-				phoneCode1: telefono1.code.replace('+', ''),
-				phoneCode2: telefono2.code.replace('+', ''),
+				phoneCode1: telefono1.code,
+				phoneCode2: telefono2.code,
 				canton: canton.value,
 				distrito: distrito.value,
 				direccion: direccionExacta.value,
@@ -195,36 +196,39 @@ const Contenedor_datos_personales = () => {
 	}
 	const searchIdentification = async (e) => {
 		const { value } = e.target
-		console.log({
-			tipo: tipoIdentificacion.value,
-			test: regex.identification.test(value),
-		})
-		if (Number(tipoIdentificacion.value) !== 1) return
-		console.log('pass test')
-		if (regex.identification.test(value) === false) return
-		console.log('pass test 2')
-		const { response: {records} , error } = await fetchData(
-			`https://tse.medismart.info/api/persona/buscarCedula.php?user=sfconsult&password=8Rh8hcRFMyGmqimA&buscarCedula=${value}`
-		)
-		console.log({ info: records, value: value })
-		if (!error) {
-			const { nombre, apellido1, apellido2 } = records[0]
+		const tipoIdentificacionValue = Number(tipoIdentificacion.value)
+		const isTipoIdentificacionOne = tipoIdentificacionValue === 1
+
+		if (!isTipoIdentificacionOne || !regex.identification.test(value)) {
+			return
+		}
+
+		const url = `https://tse.medismart.info/api/persona/buscarCedula.php?user=sfconsult&password=8Rh8hcRFMyGmqimA&buscarCedula=${value}`
+
+		try {
+			const response = await fetch(url)
+			const { records } = await response.json()
+			const { nombre, apellido1, apellido2, genero } = records[0]
+
 			setNombre({ ...nombre, value: nombre, status: 'success' })
 			setApellido1({ ...apellido1, value: apellido1, status: 'success' })
 			setApellido2({ ...apellido2, value: apellido2, status: 'success' })
-			let genero = records[0].genero
+
 			if (genero.toLowerCase() === 'femenino' || genero.toLowerCase() === 'f') {
-				setGenero({ ...genero, value: 2, status: 'success' })
+				setGenero({ ...genero, value: 'F', status: 'success' })
 			} else if (
 				genero.toLowerCase() === 'masculino' ||
         genero.toLowerCase() === 'm'
 			) {
-				setGenero({ ...genero, value: 1, status: 'success' })
+				setGenero({ ...genero, value: 'M', status: 'success' })
 			} else {
 				setGenero({ ...genero, value: 0, status: 'fail' })
 			}
+		} catch (error) {
+			console.error(error)
 		}
 	}
+
 	useEffect(() => {
 		dispatch(
 			setPropietarioInfo({
