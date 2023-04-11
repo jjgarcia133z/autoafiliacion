@@ -24,11 +24,12 @@ const RowBeneficiario = ({
 	price = '13.00',
 	show = true,
 	maxWidth = '100%',
+	bottom= 16
 }) => {
 	return (
 		<>
 			{show && (
-				<Row maxWidth={maxWidth}>
+				<Row maxWidth={maxWidth} bottom={bottom}>
 					<div>
 						<span>
 							{typePlan === 'Propietario' ? (
@@ -77,7 +78,7 @@ const RowBeneficiario = ({
 				</Row>
 			)}
 			{!show && (
-				<RowEmpty maxWidth={maxWidth}>
+				<RowEmpty bottom={bottom} maxWidth={maxWidth}>
 					<p>Aún no has agregado ningún beneficiario</p>
 				</RowEmpty>
 			)}
@@ -97,7 +98,7 @@ const RowEmpty = styled.article`
   max-width: ${(props) => props.maxWidth};
   border-radius: 10px;
   padding: 16px 24px 16px 24px;
-  margin-bottom: 16px;
+  margin-bottom: ${(props) => props.bottom || 16}px;
   & > p {
     font-family: Montserrat;
     font-size: 16px;
@@ -119,7 +120,7 @@ const Row = styled.article`
   max-width: ${(props) => props.maxWidth};
   border-radius: 10px;
   padding: 16px 24px 16px 24px;
-  margin-bottom: 16px;
+  margin-bottom: ${(props) => props.bottom || 16}px;
   & div:nth-child(1) {
     grid-area: name;
     display: flex;

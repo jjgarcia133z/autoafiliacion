@@ -22,34 +22,46 @@ const Input = ({
 	iconOnHover = null,
 	regex = null,
 	onHandleChange = null,
+	onHandleFocus = null,
+	onHandleBlur = null,
 	tooltipProps = {},
 	disabled = false,
 }) => {
 	const handleChange = useMemo(() => (e) => {
 		if (setValue) {
-			setValue({ ...value, value: e.target.value, status: 'none'})
+			setValue({ ...value, value: e.target.value, status: 'none' })
 		}
 		if (onHandleChange) {
 			onHandleChange(e)
 		}
 	})
+	const handleBlur = (e) => {
+		validateRegex(e)
+		if (onHandleBlur) {
+			onHandleBlur(e)
+		}
+	}
+
 	const handleIconAction = (e) => {
 		if (iconAction) {
 			iconAction(e)
 		}
-
 	}
 	const handleIconOnHover = (e) => {
 		if (iconOnHover) {
 			iconOnHover(e)
 		}
 	}
-	const validateRegex = ({target}) => {
+	const validateRegex = ({ target }) => {
 		if (regex) {
 			if (regex.test(target.value.trim())) {
 				setValue({ ...value, status: 'success' })
 			} else {
-				setValue({ ...value, status: 'fail' })
+				if (!mandatory && target.value === '') {
+					setValue({ ...value, status: 'N/A' })
+				} else {
+					setValue({ ...value, status: 'fail' })
+				}
 			}
 		}
 	}
@@ -66,7 +78,7 @@ const Input = ({
 					type={type}
 					placeholder={placeholder}
 					onChange={(e) => handleChange(e)}
-					onBlur={(e) => validateRegex(e)}
+					onBlur={(e) => handleBlur(e)}
 					value={value.value}
 					disabled={disabled}
 				/>
@@ -203,7 +215,9 @@ const InputContainer = styled.div`
     height: 24px;
     border-radius: 50%;
     color: ${(props) =>
-		props.status == 'success' ? 'var(--alert-success)' : 'var(--alert-error)'};
+		props.status == 'success'
+			? 'var(--alert-success)'
+			: 'var(--alert-error)'};
     background-color: ${(props) =>
 		props.status == 'success' || (props.status == 'fail' && 'transparent')};
     pointer-events: none;

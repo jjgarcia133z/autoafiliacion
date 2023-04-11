@@ -12,7 +12,7 @@ import storageSession from 'reduxjs-toolkit-persist/lib/storage/session'
 const persistConfig = {
 	key: 'root',
 	storage: storageSession,
-	blacklist: ['afiliacion'],
+	// blacklist: ['afiliacion'],
 }
 const reducers = combineReducers({
 	config: config,

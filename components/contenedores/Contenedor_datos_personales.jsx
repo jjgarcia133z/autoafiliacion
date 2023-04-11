@@ -41,41 +41,49 @@ const Contenedor_datos_personales = () => {
 	const [tipoIdentificacion, setTipoIdentificacion] = useState({
 		value: 0,
 		status: '',
+		mandatory: true,
 		regex: regex.onlyNumbers,
 	}) //estado del tipo de identificacion
 	const [numeroIdentificacion, setNumeroIdentificacion] = useState({
 		value: '',
 		status: '',
+		mandatory: true,
 		regex: regex.identification,
 	}) //estado del numero de identificacion
 	const [genero, setGenero] = useState({
 		value: 0,
 		status: '',
+		mandatory: true,
 		regex: regex.onlyNumbers,
 	}) //estado del genero
 	const [nombre, setNombre] = useState({
 		value: '',
 		status: '',
+		mandatory: true,
 		regex: regex.names,
 	}) //estado del nombre
 	const [apellido1, setApellido1] = useState({
 		value: '',
 		status: '',
+		mandatory: true,
 		regex: regex.names,
 	}) //estado del primer apellido
 	const [apellido2, setApellido2] = useState({
 		value: '',
 		status: '',
+		mandatory: true,
 		regex: regex.names,
 	}) //estado del segundo apellido
 	const [correoElectronico, setCorreoElectronico] = useState({
 		value: '',
 		status: '',
+		mandatory: true,
 		regex: regex.email,
 	}) //estado del correo electronico
 	const [telefono1, setTelefono1] = useState({
 		value: '',
 		status: '',
+		mandatory: true,
 		code: '+506',
 		regex: regex.phone,
 	}) //estado del telefono
@@ -83,26 +91,31 @@ const Contenedor_datos_personales = () => {
 		value: '',
 		code: '+506',
 		status: '',
+		mandatory: false,
 		regex: regex.phone,
 	}) //estado del telefono
 	const [provincia, setProvincia] = useState({
 		value: 0,
 		status: '',
+		mandatory: true,
 		regex: regex.onlyNumbers,
 	}) //estado de la provincia
 	const [canton, setCanton] = useState({
 		value: 0,
 		status: '',
+		mandatory: true,
 		regex: regex.onlyNumbers,
 	}) //estado del canton
 	const [distrito, setDistrito] = useState({
 		value: 0,
 		status: '',
+		mandatory: true,
 		regex: regex.onlyNumbers,
 	}) //estado del distrito
 	const [direccionExacta, setDireccionExacta] = useState({
 		value: '',
 		status: '',
+		mandatory: false,
 		regex: regex.address,
 	}) //estado de la direccion exacta
 	const [politicaStatus, setPoliticaStatus] = useState(false) //estado de la politica de privacidad
@@ -118,19 +131,126 @@ const Contenedor_datos_personales = () => {
 
 	const handleClickNext = () => {
 		const url = '/beneficiarios'
+		validateData(true)
 		let data = validateData()
 		if (data) {
-			dispatch(setPropietarioInfo(data))
-			console.log(data)
-			// goTo(url, () => {
-			// 	dispatch(setCurrentIndex(3))
-			// 	updateStepStatus(url) //set the current step as active
-			// })
+			console.log({ info: data })
+			dispatch(setPropietarioInfo({ ...data }))
+			goTo(url, () => {
+				dispatch(setCurrentIndex(3))
+				updateStepStatus(url) //set the current step as active
+			})
 		} else {
 			console.log('error')
 		}
 	}
-	const validateData = () => {
+	const validateData = (init = false) => {
+		if (init) {
+			//testear si el estado de los inputs y selects es success o none and setearlos
+			setTipoIdentificacion({
+				...tipoIdentificacion,
+				status: regex.onlyNumbers.test(tipoIdentificacion.value)
+					? 'success'
+					: tipoIdentificacion.mandatory
+						? 'fail'
+						: 'N/A',
+			})
+			setNumeroIdentificacion({
+				...numeroIdentificacion,
+				status: regex.identification.test(numeroIdentificacion.value)
+					? 'success'
+					: numeroIdentificacion.mandatory
+						? 'fail'
+						: 'N/A',
+			})
+			setNombre({
+				...nombre,
+				status: regex.names.test(nombre.value)
+					? 'success'
+					: nombre.mandatory
+						? 'fail'
+						: 'N/A',
+			})
+			setApellido1({
+				...apellido1,
+				status: regex.names.test(apellido1.value)
+					? 'success'
+					: apellido1.mandatory
+						? 'fail'
+						: 'N/A',
+			})
+			setApellido2({
+				...apellido2,
+				status: regex.names.test(apellido2.value)
+					? 'success'
+					: apellido2.mandatory
+						? 'fail'
+						: 'N/A',
+			})
+			setCorreoElectronico({
+				...correoElectronico,
+				status: regex.email.test(correoElectronico.value)
+					? 'success'
+					: correoElectronico.mandatory
+						? 'fail'
+						: 'N/A',
+			})
+			setTelefono1({
+				...telefono1,
+				status: regex.phone.test(telefono1.value)
+					? 'success'
+					: telefono1.mandatory
+						? 'fail'
+						: 'N/A',
+			})
+			setTelefono2({
+				...telefono2,
+				status: regex.phone.test(telefono2.value)
+					? 'success'
+					: telefono2.mandatory
+						? 'fail'
+						: 'N/A',
+			})
+			setDireccionExacta({
+				...direccionExacta,
+				status: regex.address.test(direccionExacta.value)
+					? 'success'
+					: direccionExacta.mandatory
+						? 'fail'
+						: 'N/A',
+			})
+			setGenero({
+				...genero,
+				status:
+          genero.value != 0 ? 'success' : genero.mandatory ? 'fail' : 'N/A',
+			})
+			setProvincia({
+				...provincia,
+				status:
+          provincia.value != 0 || provincia.value !=  undefined
+          	? 'success'
+          	: provincia.mandatory
+          		? 'fail'
+          		: 'N/A',
+			})
+			setCanton({
+				...canton,
+				status:
+          canton.value != 0 || canton.value != undefined ? 'success' : canton.mandatory ? 'fail' : 'N/A',
+			})
+			setDistrito({
+				...distrito,
+				status:
+          distrito.value != 0 || distrito.value != undefined
+          	? 'success'
+          	: distrito.mandatory
+          		? 'fail'
+          		: 'N/A',
+			})
+
+			return
+		}
+		if (telefono2.value === '') setTelefono2({ ...telefono2, status: 'N/A' })
 		const inputs = {
 			numeroIdentificacion,
 			nombre,
@@ -148,12 +268,14 @@ const Contenedor_datos_personales = () => {
 			canton,
 			distrito,
 		}
+
+		console.log({ inputs, selects })
 		//iterar sobre los estados de los inputs y verifica que todos esten success o none
 		const isValidInputs = Object.values(inputs).every(
-			(input) => input.status === 'success'
+			(input) => input.status === 'success' || input.status === 'N/A'
 		)
 		const isValidSelects = Object.values(selects).every(
-			(select) => select.status === 'success'
+			(select) => select.status === 'success' || select.status === 'N/A'
 		)
 		console.log(isValidInputs, isValidSelects)
 		if (isValidInputs && isValidSelects) {
@@ -169,6 +291,7 @@ const Contenedor_datos_personales = () => {
 				telefono2: telefono2.value.replace(' ', ''),
 				phoneCode1: telefono1.code,
 				phoneCode2: telefono2.code,
+				provincia: provincia.value,
 				canton: canton.value,
 				distrito: distrito.value,
 				direccion: direccionExacta.value,
@@ -198,10 +321,14 @@ const Contenedor_datos_personales = () => {
 		const { value } = e.target
 		const tipoIdentificacionValue = Number(tipoIdentificacion.value)
 		const isTipoIdentificacionOne = tipoIdentificacionValue === 1
-
-		if (!isTipoIdentificacionOne || !regex.identification.test(value)) {
+		const isSameLastValue = value === numeroIdentificacion.value
+		if (
+			!isTipoIdentificacionOne ||
+      isSameLastValue ||
+      !regex.identification.test(value)
+		)
 			return
-		}
+		console.log({ isTipoIdentificacionOne, isSameLastValue })
 
 		const url = `https://tse.medismart.info/api/persona/buscarCedula.php?user=sfconsult&password=8Rh8hcRFMyGmqimA&buscarCedula=${value}`
 
@@ -209,7 +336,7 @@ const Contenedor_datos_personales = () => {
 			const response = await fetch(url)
 			const { records } = await response.json()
 			const { nombre, apellido1, apellido2, genero } = records[0]
-
+			console.log('FETCH')
 			setNombre({ ...nombre, value: nombre, status: 'success' })
 			setApellido1({ ...apellido1, value: apellido1, status: 'success' })
 			setApellido2({ ...apellido2, value: apellido2, status: 'success' })
@@ -230,21 +357,78 @@ const Contenedor_datos_personales = () => {
 	}
 
 	useEffect(() => {
-		dispatch(
-			setPropietarioInfo({
-				...propietario,
-				tipoIdentificacion: tipoIdentificacion.value,
-			})
-		)
+		// dispatch(
+		// 	setPropietarioInfo({
+		// 		...propietario,
+		// 		tipoIdentificacion: tipoIdentificacion.value,
+		// 	})
+		// )
 		if (tipoIdentificacion.value == 1 || tipoIdentificacion.value == 0) {
-			setNombre({ ...nombre, value: '', status: 'none' })
-			setApellido1({ ...apellido1, value: '', status: 'none' })
-			setApellido2({ ...apellido2, value: '', status: 'none' })
+			// setNombre({ ...nombre, value: '', status: 'none' })
+			// setApellido1({ ...apellido1, value: '', status: 'none' })
+			// setApellido2({ ...apellido2, value: '', status: 'none' })
 			setIsInputDisabled(true)
 		} else {
 			setIsInputDisabled(false)
 		}
 	}, [tipoIdentificacion])
+	useEffect(() => {
+		//set all state using the propietario info
+		setTipoIdentificacion({
+			...tipoIdentificacion,
+			value: propietario.tipoIdentificacion,
+		})
+		setNumeroIdentificacion({
+			...numeroIdentificacion,
+			value: propietario.numeroIdentificacion,
+		})
+		setGenero({ ...genero, value: propietario.genero })
+		setNombre({ ...nombre, value: propietario.nombre })
+		setTipoIdentificacion({
+			...tipoIdentificacion,
+			value: propietario.tipoIdentificacion,
+		})
+		setApellido1({
+			...apellido1,
+			value: propietario.apellido1,
+		})
+		setApellido2({
+			...apellido2,
+			value: propietario.apellido2,
+		})
+		setCorreoElectronico({
+			...correoElectronico,
+			value: propietario.correo,
+		})
+		setTelefono1({
+			...telefono1,
+			value: propietario.telefono1,
+		})
+		setTelefono2({
+			...telefono2,
+			value: propietario.telefono2,
+		})
+		setProvincia({
+			...provincia,
+			value: propietario.provincia,
+		})
+		setCanton({ ...canton, value: propietario.canton, status: 'success' })
+		setDistrito({
+			...distrito,
+			value: propietario.distrito,
+		})
+		setDireccionExacta({
+			...direccionExacta,
+			value: propietario.direccion,
+		})
+		if (
+			propietario.tipoIdentificacion > 0 ||
+      propietario.tipoIdentificacion == ''
+		) {
+			console.log({ propietario })
+		}
+	}, [])
+
 	return (
 		<Container portada={ImagePortada2}>
 			<span></span>
@@ -274,6 +458,7 @@ const Contenedor_datos_personales = () => {
 					placeholder="ingresá tu identificación"
 					helperText="Identificacion incorrecta"
 					onHandleChange={searchIdentification}
+					onHandleBlur={searchIdentification}
 					value={numeroIdentificacion}
 					setValue={setNumeroIdentificacion}
 					status={numeroIdentificacion.status}
@@ -282,7 +467,6 @@ const Contenedor_datos_personales = () => {
 			</Row>
 			<Row>
 				<Select
-					type="text"
 					mandatory={false}
 					label="Género"
 					placeholder="Seleccióna tipo de género"
@@ -290,6 +474,7 @@ const Contenedor_datos_personales = () => {
 					value={genero}
 					status={genero.status}
 					setState={setGenero}
+					regex={regex.names}
 				/>
 			</Row>
 			<Row>

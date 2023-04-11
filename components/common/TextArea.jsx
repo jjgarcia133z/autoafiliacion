@@ -20,7 +20,7 @@ const TextArea = ({
 }) => {
 	const handleChange = (e) => {
 		if (setValue) {
-			setValue({ ...value, value: e.target.value, status: 'none'})
+			setValue({ ...value, value: e.target.value, status: 'none' })
 		}
 		if (onHandleChange) {
 			onHandleChange(e)
@@ -31,7 +31,11 @@ const TextArea = ({
 			if (regex.test(target.value)) {
 				setValue({ ...value, status: 'success' })
 			} else {
-				setValue({ ...value, status: 'fail' })
+				if (!mandatory && target.value === '') {
+					setValue({ ...value, status: 'N/A' })
+				} else {
+					setValue({ ...value, status: 'fail' })
+				}
 			}
 		}
 	}
@@ -161,7 +165,9 @@ const SelectContainer = styled.div`
     height: 24px;
     border-radius: 50%;
     color: ${(props) =>
-		props.status == 'success' ? 'var(--alert-success)' : 'var(--alert-error)'};
+		props.status == 'success'
+			? 'var(--alert-success)'
+			: 'var(--alert-error)'};
     background-color: ${(props) =>
 		props.status == 'success' || props.status == 'fail'
 			? 'transparent'

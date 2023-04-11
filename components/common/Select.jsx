@@ -7,10 +7,10 @@ import React, { useState, useMemo } from 'react'
 import styled from 'styled-components'
 const Select = ({
 	mandatory = false,
-	state = 'none',
+	status = 'none',
 	label = 'label',
 	placeholder = '',
-	helperText = 'helper text',
+	helperText = 'Datos incorrectos',
 	options = [],
 	onHandleChange = null,
 	value = { value: 0},
@@ -32,17 +32,17 @@ const Select = ({
 		</option>
 	))
 	return (
-		<SelectContainer mandatory={mandatory} state={state}>
+		<SelectContainer mandatory={mandatory} status={status}>
 			<label>
 				<span>{label}</span>
 				<select value={value.value} onChange={handleChange}>
-					<option value="0" disabled>
+					<option value={0} disabled>
 						{placeholder}
 					</option>
 					{selectOptions}
 				</select>
 			</label>
-			{(state === 'success' || state === 'fail') && <span>{helperText}</span>}
+			{(status === 'fail') && <span>{helperText}</span>}
 		</SelectContainer>
 	)
 }
@@ -84,9 +84,9 @@ const SelectContainer = styled.div`
       appearance: none;
       background: transparent;
       border-bottom: ${(props) =>
-		props.state == 'success'
+		props.status == 'success'
 			? '1px solid var(--alert-success)'
-			: props.state == 'fail'
+			: props.status == 'fail'
 				? '1px solid var(--alert-error)'
 				: '1px solid var(--primary-blue-primary-blue-200)'};
       /* padding: 0 16px; */
@@ -127,9 +127,9 @@ const SelectContainer = styled.div`
     letter-spacing: 0px;
     text-align: left;
     color: ${(props) =>
-		props.state == 'success'
+		props.status == 'success'
 			? 'var(--alert-success)'
-			: props.state == 'fail'
+			: props.status == 'fail'
 				? 'var(--alert-error)'
 				: 'var(--neutral-gray-colors-neutral-gray-900)'};
     margin-bottom: 16px;
@@ -147,7 +147,7 @@ const SelectContainer = styled.div`
     height: 24px;
     border-radius: 50%;
     color: ${(props) =>
-		props.state == 'success' ? 'var(--alert-success)' : 'var(--alert-error)'};
+		props.status == 'success' ? 'var(--alert-success)' : 'var(--alert-error)'};
     pointer-events: none;
     & > svg {
       width: 16px;

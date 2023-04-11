@@ -80,11 +80,20 @@ const FilterSelect = ({
 					status: 'success',
 				})
 			} else {
-				setValue({
-					...value,
-					value: formatPhoneNumber(valuePhone),
-					status: 'fail',
-				})
+				if(!mandatory && valuePhone.trim() === ''){
+					setValue({
+						...value,
+						value: formatPhoneNumber(valuePhone),
+						status: 'N/A',
+					})
+				}else{
+					setValue({
+						...value,
+						value: formatPhoneNumber(valuePhone),
+						status: 'fail',
+					})
+				}
+				
 			}
 		}
 	}

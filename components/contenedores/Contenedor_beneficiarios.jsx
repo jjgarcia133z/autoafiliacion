@@ -11,7 +11,7 @@ import Button from '../common/Button'
 import CMP010 from '../home/CMP010'
 import ImagePortada2 from '@/assets/img/PortadaAfiliacion_medismart2.png'
 import { setCurrentIndex } from '@/store/slices/configSlice'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import usePage from '@/hooks/usePage'
 import AgregarBeneficiarioCard from '../common/AgregarBeneficiarioCard'
 import RowBeneficiario from '../RowBeneficiario'
@@ -22,6 +22,8 @@ const Contenedor_beneficiarios = () => {
 	const dispatch = useDispatch()
 	const [showModal, setShowModal] = useState(false)
 	const { goTo, updateStepStatus } = usePage()
+	const { propietario, beneficiarios, mascotas, productosAdicionales } =
+    useSelector((state) => state.afiliacion)
 	const handleClickLast = () => {
 		const url = '/'
 		goTo(url, () => {
@@ -43,6 +45,7 @@ const Contenedor_beneficiarios = () => {
 			<div>
 				<ContenedoresHeader title="¿Deseás agregar algún beneficiario?" />
 			</div>
+
 			<Row>
 				<AgregarBeneficiarioCard
 					description="Afiliá un amigo o familiar, para que tenga tus mismos beneficios"
@@ -61,14 +64,30 @@ const Contenedor_beneficiarios = () => {
 					func={agregarMascotaHandler}
 				/>
 			</Row>
-			<Row>
-				<RowBeneficiario show={true} maxWidth="918px" name="Pablito" benficiario="hijo"  />
-		
+			<Row top={48} bottom={26}>
+				<p>
+					<span>Beneficiarios </span>
+				</p>
 			</Row>
-			<Row>
-				<RowBeneficiario show={true} maxWidth="918px" name="Maria" benficiario="hija"  />
+			<Row bottom={16}>
+				<RowBeneficiario
+					bottom={8}
+					show={true}
+					maxWidth="918px"
+					name="Pablito"
+					benficiario="hijo"
+				/>
 			</Row>
-			<Row>
+			<Row bottom={1}>
+				<RowBeneficiario
+					bottom={8}
+					show={true}
+					maxWidth="918px"
+					name="Maria"
+					benficiario="hija"
+				/>
+			</Row>
+			<Row top={16}>
 				<Button
 					text="Atrás"
 					disabled={false}
@@ -86,7 +105,7 @@ const Contenedor_beneficiarios = () => {
 					title="Necesitamos validar tu cuenta"
 					showModal={true}
 					setModal={() => console.log('cerrar')}
-					funcOnClose={handleModal}					
+					funcOnClose={handleModal}
 				>
 					<ValidarCuenta email="email@dominio.com" />
 				</ModalContainer>
@@ -101,6 +120,7 @@ const Row = styled.div`
   flex-direction: row;
   gap: 34px;
   width: 100%;
+  margin-top: ${(props) => props.top || 0}px;
   margin-bottom: ${(props) => props.bottom || 16}px;
 `
 const Container = styled.div`
@@ -108,6 +128,14 @@ const Container = styled.div`
   height: 100%;
   padding: 48px 32px 32px 32px;
   background-color: var(--neutral-background-neutral-olive-100);
+  & > div:nth-child(3) > p {
+    font-family: Montserrat;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19px;
+    letter-spacing: 0px;
+    text-align: left;
+  }
   & > span:nth-child(1) {
     position: absolute;
     display: flex;

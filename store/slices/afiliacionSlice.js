@@ -99,6 +99,7 @@ export const afiliacionSlice = createSlice({
 			state.tipoPlan = action.payload
 		},
 		setPropietarioInfo: (state, action) => {
+			console.log('action.payload', action.payload)
 			state.propietario = action.payload
 		},
 		setPoliticaDePrivacidad: (state, action) => {
