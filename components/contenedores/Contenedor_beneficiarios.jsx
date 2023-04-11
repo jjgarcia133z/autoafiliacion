@@ -25,9 +25,10 @@ const Contenedor_beneficiarios = () => {
 	const { propietario, beneficiarios, mascotas, productosAdicionales } =
     useSelector((state) => state.afiliacion)
 	const handleClickLast = () => {
-		const url = '/'
+		const url = '/datos-personales'
 		goTo(url, () => {
 			dispatch(setCurrentIndex(1))
+			updateStepStatus(1, url, false)
 		})
 	}
 	const handleModal = () => {
@@ -94,7 +95,7 @@ const Contenedor_beneficiarios = () => {
 					style="secondaryLarge"
 					onClickHandle={handleClickLast}
 				/>
-				<CMP010
+				<Button
 					text="Continuar"
 					style="primaryLarge"
 					onClickHandle={handleModal}
