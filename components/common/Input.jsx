@@ -27,6 +27,7 @@ const Input = ({
 	tooltipProps = {},
 	disabled = false,
 	name = null,
+	autocomplete = null,
 }) => {
 	const handleChange = useMemo(() => (e) => {
 		if (setValue) {
@@ -83,6 +84,7 @@ const Input = ({
 					value={value.value}
 					disabled={disabled}
 					name={name}
+					autoComplete={autocomplete}
 				/>
 
 				{status == 'success' && !Icon && (

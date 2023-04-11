@@ -24,7 +24,7 @@ export const afiliacionSlice = createSlice({
 		},
 		beneficiarios: [
 			{
-				tipoIdentificacion: '',
+				tipoIdentificacion: 0,
 				numeroIdentificacion: '',
 				genero: '',
 				parentesco: '',

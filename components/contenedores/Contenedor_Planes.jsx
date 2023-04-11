@@ -28,6 +28,7 @@ const Contenedor_Planes = () => {
 			</article>
 			<div>
 				<PlanesGroup />
+				<Row bottom={0} direction="row"><span><strong>Importante:</strong><p> Todos los precios que se incluyen durante el proceso de afiliacion a incluyen el i.v.a</p></span> </Row>
 				<Row>
 					<Button
 						text="Continuar"
@@ -43,7 +44,8 @@ const Contenedor_Planes = () => {
 export default Contenedor_Planes
 const Row = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: ${(props) => props.direction || 'row'};
+  justify-content: ${(props) => props.justify || 'space-between'};
   gap: 34px;
   width: 100%;
   margin-bottom: ${(props) => props.bottom || 32}px;

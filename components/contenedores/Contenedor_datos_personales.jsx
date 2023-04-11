@@ -132,15 +132,7 @@ const Contenedor_datos_personales = () => {
 
 	const handleClickNext = async () => {
 		const url = '/beneficiarios'
-		const myPromise =await  new Promise((resolve, reject) => {
-			const result = validateData(true)
-			if (result) {
-			  resolve(result)
-			} else {
-			  reject('Los datos no son válidos')
-			}
-		  })
-
+		validateData(true)
 		let data = validateData()
 		if (data) {
 			console.log({ info: data })
@@ -152,7 +144,6 @@ const Contenedor_datos_personales = () => {
 		} else {
 			console.log('error')
 		}
-		
 	}
 	const validateData = (init = false) => {
 		if (init) {
@@ -342,11 +333,11 @@ const Contenedor_datos_personales = () => {
 		)
 			return
 		console.log({ isTipoIdentificacionOne, isSameLastValue })
-		//const url1 = `https://tse.medismart.info/api/persona/buscarCedula.php?user=sfconsult&password=8Rh8hcRFMyGmqimA&buscarCedula=${value}`
+		const url1 = `https://tse.medismart.info/api/persona/buscarCedula.php?user=sfconsult&password=8Rh8hcRFMyGmqimA&buscarCedula=${value}`
 		const url2 = `http://159.65.242.183/datospersonal/${value}`
-		const url = url2
+		const url = url1
 		try {
-			const response = await fetch(url,{method: 'GET'})
+			const response = await fetch(url, { method: 'GET' })
 			const { records } = await response.json()
 			const { nombre, apellido1, apellido2, genero } = records[0]
 			console.log('FETCH')
@@ -369,13 +360,18 @@ const Contenedor_datos_personales = () => {
 		}
 	}
 
-	const LoadProvinciaCantonDistrito=()=>{
-		handleProviceChange({target:{value:propietario.provincia}})
-		handleCantonChange({target:{value:propietario.canton}})
-		setDistrito({value:propietario.distrito,status:'success'})
-		setProvincia({value:propietario.provincia,status:'success'})
-		setCanton({value:propietario.canton,status:'success'})
-
+	const LoadProvinciaCantonDistrito = () => {
+		setProvincia({ value: propietario.provincia, status: 'success' })
+		handleProviceChange({
+			target: {
+				value: propietario?.provincia == '' ? 0 : propietario.provincia,
+			},
+		})
+		handleCantonChange({
+			target: { value: propietario?.canton == '' ? 0 : propietario.canton },
+		})
+		setDistrito({ value: propietario.distrito, status: 'success' })
+		setCanton({ value: propietario.canton, status: 'success' })
 	}
 
 	useEffect(() => {
@@ -399,23 +395,21 @@ const Contenedor_datos_personales = () => {
 		setTipoIdentificacion({
 			...tipoIdentificacion,
 			value:
-		propietario.tipoIdentificacion.trim() == ''
-			? 0
-			: propietario.tipoIdentificacion,
+        propietario.tipoIdentificacion == ''
+        	? 0
+        	: propietario.tipoIdentificacion,
 		})
 		setNumeroIdentificacion({
 			...numeroIdentificacion,
 			value: propietario.numeroIdentificacion,
 		})
-		setGenero({ ...genero, value: propietario.genero })
+		setGenero({
+			...genero,
+			value: propietario.genero == '' ? 0 : propietario.genero,
+		})
 		setNombre({ ...nombre, value: propietario.nombre })
-		setTipoIdentificacion({
-			...tipoIdentificacion,
-			value: propietario.tipoIdentificacion,
-		})
-		setApellido1({			...apellido1,
-			value: propietario.apellido1,
-		})
+
+		setApellido1({ ...apellido1, value: propietario.apellido1 })
 		setApellido2({
 			...apellido2,
 			value: propietario.apellido2,
@@ -437,19 +431,13 @@ const Contenedor_datos_personales = () => {
 			...direccionExacta,
 			value: propietario.direccion,
 		})
-		if (
-			propietario.tipoIdentificacion > 0 ||
-      propietario.tipoIdentificacion == ''
-		) {
-			console.log({ propietario })
-		}
 	}, [])
 
 	return (
 		<Container portada={ImagePortada2}>
 			<span></span>
 			<div>
-				<ContenedoresHeader title="Ingresá tus datos personales" />
+				<ContenedoresHeader title="Ingresá los datos del beneficiario" />
 			</div>
 
 			<Row>
@@ -479,7 +467,6 @@ const Contenedor_datos_personales = () => {
 					setValue={setNumeroIdentificacion}
 					status={numeroIdentificacion.status}
 					regex={regex.identification}
-					
 				/>
 			</Row>
 			<Row>
@@ -507,6 +494,7 @@ const Contenedor_datos_personales = () => {
 					status={nombre.status}
 					regex={regex.names}
 					name="name"
+					autocomplete="off"
 				/>
 				<Input
 					type="text"
@@ -519,7 +507,7 @@ const Contenedor_datos_personales = () => {
 					setValue={setApellido1}
 					status={apellido1.status}
 					regex={regex.names}
-					name="lastname"
+					autocomplete="off"
 				/>
 				<Input
 					type="text"
@@ -532,7 +520,7 @@ const Contenedor_datos_personales = () => {
 					setValue={setApellido2}
 					status={apellido2.status}
 					regex={regex.names}
-					name="patito"
+					autocomplete="off"
 				/>
 			</Row>
 			<Row>
@@ -546,6 +534,7 @@ const Contenedor_datos_personales = () => {
 					setValue={setCorreoElectronico}
 					status={correoElectronico.status}
 					regex={regex.email}
+					autocomplete="off"
 				/>
 			</Row>
 

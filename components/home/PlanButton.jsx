@@ -39,7 +39,7 @@ const PlanButton = ({
 									<div className="frame-37360-1">
 										<div className="text-9">${precio_titular} por titular</div>
 										<div className="text-9">
-                      ${precio_adicional} i.v.i por adicional
+                      ${precio_adicional} por adicional
 										</div>
 									</div>
 								</div>

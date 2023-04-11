@@ -52,6 +52,7 @@ const TextArea = ({
 					value={value.value}
 					onChange={handleChange}
 					onBlur={validateRegex}
+					maxLength={250}
 				/>
 				<i>
 					{status == 'success' && <Success />}
