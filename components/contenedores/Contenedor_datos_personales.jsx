@@ -342,9 +342,9 @@ const Contenedor_datos_personales = () => {
 		)
 			return
 		console.log({ isTipoIdentificacionOne, isSameLastValue })
-
-		const url = `https://tse.medismart.info/api/persona/buscarCedula.php?user=sfconsult&password=8Rh8hcRFMyGmqimA&buscarCedula=${value}`
-
+		//const url1 = `https://tse.medismart.info/api/persona/buscarCedula.php?user=sfconsult&password=8Rh8hcRFMyGmqimA&buscarCedula=${value}`
+		const url2 = `http://159.65.242.183/datospersonal/${value}`
+		const url = url2
 		try {
 			const response = await fetch(url,{method: 'GET'})
 			const { records } = await response.json()

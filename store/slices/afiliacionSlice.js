@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 export const afiliacionSlice = createSlice({
 	name: 'afiliacion',
 	initialState: {
-		tipoPlan: 1,
+		tipoPlan: 0,
 		politicadePrivacidad: false,
 		propietario: {
 			tipoIdentificacion: '',
