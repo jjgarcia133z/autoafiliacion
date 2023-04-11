@@ -129,16 +129,16 @@ const Contenedor_datos_personales = () => {
 		})
 	}
 
-	const handleClickNext = () => {
+	const handleClickNext = async () => {
 		const url = '/beneficiarios'
-		validateData(true)
-		let data = validateData()
+		await validateData(true)
+		let data = await validateData()
 		if (data) {
 			console.log({ info: data })
 			dispatch(setPropietarioInfo({ ...data }))
 			goTo(url, () => {
-				dispatch(setCurrentIndex(3))
-				updateStepStatus(url) //set the current step as active
+				dispatch(setCurrentIndex(2))
+				updateStepStatus(2, url, false) //set the current step as active
 			})
 		} else {
 			console.log('error')
@@ -146,7 +146,7 @@ const Contenedor_datos_personales = () => {
 	}
 	const validateData = (init = false) => {
 		if (init) {
-			//testear si el estado de los inputs y selects es success o none and setearlos
+		
 			setTipoIdentificacion({
 				...tipoIdentificacion,
 				status: regex.onlyNumbers.test(tipoIdentificacion.value)
@@ -227,7 +227,7 @@ const Contenedor_datos_personales = () => {
 			setProvincia({
 				...provincia,
 				status:
-          provincia.value != 0 || provincia.value !=  undefined
+          provincia.value != 0 || provincia.value != undefined
           	? 'success'
           	: provincia.mandatory
           		? 'fail'
@@ -236,7 +236,11 @@ const Contenedor_datos_personales = () => {
 			setCanton({
 				...canton,
 				status:
-          canton.value != 0 || canton.value != undefined ? 'success' : canton.mandatory ? 'fail' : 'N/A',
+          canton.value != 0 || canton.value != undefined
+          	? 'success'
+          	: canton.mandatory
+          		? 'fail'
+          		: 'N/A',
 			})
 			setDistrito({
 				...distrito,
