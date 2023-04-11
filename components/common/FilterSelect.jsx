@@ -157,7 +157,7 @@ const FilterSelect = ({
 								</span>
 								<span>{selectedCountry.codeArea}</span>
 								<input
-									type="text"
+									type="tel"
 									onChange={handleChange}
 									onBlur={handleBlur}
 									value={value.value}

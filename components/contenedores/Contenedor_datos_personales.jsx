@@ -30,6 +30,7 @@ import {
 	districtCostarica,
 	regex,
 } from '@/constants/constants'
+import { resolve } from 'styled-jsx/css'
 const Contenedor_datos_personales = () => {
 	const dispatch = useDispatch()
 	const { goTo, updateStepStatus } = usePage()
@@ -131,8 +132,16 @@ const Contenedor_datos_personales = () => {
 
 	const handleClickNext = async () => {
 		const url = '/beneficiarios'
-		await validateData(true)
-		let data = await validateData()
+		const myPromise =await  new Promise((resolve, reject) => {
+			const result = validateData(true)
+			if (result) {
+			  resolve(result)
+			} else {
+			  reject('Los datos no son válidos')
+			}
+		  })
+
+		let data = validateData()
 		if (data) {
 			console.log({ info: data })
 			dispatch(setPropietarioInfo({ ...data }))
@@ -143,10 +152,10 @@ const Contenedor_datos_personales = () => {
 		} else {
 			console.log('error')
 		}
+		
 	}
 	const validateData = (init = false) => {
 		if (init) {
-		
 			setTipoIdentificacion({
 				...tipoIdentificacion,
 				status: regex.onlyNumbers.test(tipoIdentificacion.value)
@@ -252,7 +261,7 @@ const Contenedor_datos_personales = () => {
           		: 'N/A',
 			})
 
-			return
+			return true
 		}
 		if (telefono2.value === '') setTelefono2({ ...telefono2, status: 'N/A' })
 		const inputs = {
@@ -337,7 +346,7 @@ const Contenedor_datos_personales = () => {
 		const url = `https://tse.medismart.info/api/persona/buscarCedula.php?user=sfconsult&password=8Rh8hcRFMyGmqimA&buscarCedula=${value}`
 
 		try {
-			const response = await fetch(url)
+			const response = await fetch(url,{method: 'GET'})
 			const { records } = await response.json()
 			const { nombre, apellido1, apellido2, genero } = records[0]
 			console.log('FETCH')
@@ -360,27 +369,39 @@ const Contenedor_datos_personales = () => {
 		}
 	}
 
+	const LoadProvinciaCantonDistrito=()=>{
+		handleProviceChange({target:{value:propietario.provincia}})
+		handleCantonChange({target:{value:propietario.canton}})
+		setDistrito({value:propietario.distrito,status:'success'})
+		setProvincia({value:propietario.provincia,status:'success'})
+		setCanton({value:propietario.canton,status:'success'})
+
+	}
+
 	useEffect(() => {
-		// dispatch(
-		// 	setPropietarioInfo({
-		// 		...propietario,
-		// 		tipoIdentificacion: tipoIdentificacion.value,
-		// 	})
-		// )
-		if (tipoIdentificacion.value == 1 || tipoIdentificacion.value == 0) {
-			// setNombre({ ...nombre, value: '', status: 'none' })
-			// setApellido1({ ...apellido1, value: '', status: 'none' })
-			// setApellido2({ ...apellido2, value: '', status: 'none' })
+		dispatch(
+			setPropietarioInfo({
+				...propietario,
+				tipoIdentificacion: tipoIdentificacion.value,
+			})
+		)
+		if (tipoIdentificacion.value == 0) {
+			setNombre({ ...nombre, value: '', status: 'none' })
+			setApellido1({ ...apellido1, value: '', status: 'none' })
+			setApellido2({ ...apellido2, value: '', status: 'none' })
 			setIsInputDisabled(true)
 		} else {
 			setIsInputDisabled(false)
 		}
 	}, [tipoIdentificacion])
 	useEffect(() => {
-		//set all state using the propietario info
+		// set all state using the propietario info
 		setTipoIdentificacion({
 			...tipoIdentificacion,
-			value: propietario.tipoIdentificacion,
+			value:
+		propietario.tipoIdentificacion.trim() == ''
+			? 0
+			: propietario.tipoIdentificacion,
 		})
 		setNumeroIdentificacion({
 			...numeroIdentificacion,
@@ -392,8 +413,7 @@ const Contenedor_datos_personales = () => {
 			...tipoIdentificacion,
 			value: propietario.tipoIdentificacion,
 		})
-		setApellido1({
-			...apellido1,
+		setApellido1({			...apellido1,
 			value: propietario.apellido1,
 		})
 		setApellido2({
@@ -412,15 +432,7 @@ const Contenedor_datos_personales = () => {
 			...telefono2,
 			value: propietario.telefono2,
 		})
-		setProvincia({
-			...provincia,
-			value: propietario.provincia,
-		})
-		setCanton({ ...canton, value: propietario.canton, status: 'success' })
-		setDistrito({
-			...distrito,
-			value: propietario.distrito,
-		})
+		LoadProvinciaCantonDistrito()
 		setDireccionExacta({
 			...direccionExacta,
 			value: propietario.direccion,
@@ -467,6 +479,7 @@ const Contenedor_datos_personales = () => {
 					setValue={setNumeroIdentificacion}
 					status={numeroIdentificacion.status}
 					regex={regex.identification}
+					
 				/>
 			</Row>
 			<Row>
@@ -493,6 +506,7 @@ const Contenedor_datos_personales = () => {
 					setValue={setNombre}
 					status={nombre.status}
 					regex={regex.names}
+					name="name"
 				/>
 				<Input
 					type="text"
@@ -505,6 +519,7 @@ const Contenedor_datos_personales = () => {
 					setValue={setApellido1}
 					status={apellido1.status}
 					regex={regex.names}
+					name="lastname"
 				/>
 				<Input
 					type="text"
@@ -517,6 +532,7 @@ const Contenedor_datos_personales = () => {
 					setValue={setApellido2}
 					status={apellido2.status}
 					regex={regex.names}
+					name="patito"
 				/>
 			</Row>
 			<Row>

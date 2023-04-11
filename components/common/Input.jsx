@@ -26,6 +26,7 @@ const Input = ({
 	onHandleBlur = null,
 	tooltipProps = {},
 	disabled = false,
+	name = null,
 }) => {
 	const handleChange = useMemo(() => (e) => {
 		if (setValue) {
@@ -81,6 +82,7 @@ const Input = ({
 					onBlur={(e) => handleBlur(e)}
 					value={value.value}
 					disabled={disabled}
+					name={name}
 				/>
 
 				{status == 'success' && !Icon && (
