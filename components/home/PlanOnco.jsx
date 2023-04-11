@@ -10,12 +10,23 @@ import vector from '@/assets/img/vector.svg'
 import ModalContainer from '../common/ModalContainer'
 import PlanOncoSmartInfo from '../modalContents/PlanOncoSmartInfo'
 
-function Boton({ seleccionado, onClick, setModal, modal }) {
+function Boton({
+	seleccionado,
+	onClick,
+	setModal,
+	modal,
+	title = '',
+	description = '',
+	price = '',
+	code = '',
+	estado = '',
+}) {
 	const handleClick = () => {
 		if (onClick) {
 			setModal(!modal)
 		}
 	}
+	if (estado != 1) return
 	return (
 		<div className="aditional-plan">
 			<div className="overlap-group4">
@@ -33,7 +44,7 @@ function Boton({ seleccionado, onClick, setModal, modal }) {
 									</div>
 									<div className="group-31">
 										<div className="x000-1 x000-2 bodybody-large---montserrat-bold">
-                      $2.26
+                      ${price}
 										</div>
 									</div>
 								</div>
@@ -59,14 +70,15 @@ function Boton({ seleccionado, onClick, setModal, modal }) {
 								<div className="text-3">
 									<div className="plan-onco-smart">Plan OncoSmart</div>
 									<p className="para-todas-aquellas">
-                    Este plan es para todas aquellas personas interesadas en la
-                    prevención y detección temprana de cáncer, así como personas
-                    sobrevivientes o en el proceso.
+										{description}
 									</p>
 								</div>
 								<img className="vector" src={vector1.src} alt="Vector" />
 								<div className="flex-row-2">
-									<button className="comp-button-1 comp-button-7" onClick={()=>handleClick()}>
+									<button
+										className="comp-button-1 comp-button-7"
+										onClick={() => handleClick()}
+									>
                     Da click acá para ver más información
 									</button>
 									<img className="vector-1" src={vector2.src} alt="Vector" />
@@ -86,7 +98,13 @@ function Boton({ seleccionado, onClick, setModal, modal }) {
  * @ComponentNumber CMP020
  */
 
-const PlanOnco = () => {
+const PlanOnco = ({
+	title = '',
+	description = '',
+	price = '',
+	code = '',
+	estado = '',
+}) => {
 	const [seleccionado, setSeleccionado] = useState(null)
 	const [showModal, setShowModal] = useState(false)
 
@@ -107,6 +125,11 @@ const PlanOnco = () => {
 				onClick={() => handleClick('1')}
 				setModal={setShowModal}
 				modal={showModal}
+				title={title}
+				description={description}
+				price={price}
+				code={code}
+				estado={estado}
 			></Boton>
 			{showModal && (
 				<ModalContainer
@@ -115,7 +138,6 @@ const PlanOnco = () => {
 					setModal={setShowModal}
 					funcOnClose={() => setShowModal(false)}
 				>
-
 					<PlanOncoSmartInfo />
 				</ModalContainer>
 			)}
@@ -303,10 +325,8 @@ const Primary = styled.div`
     justify-content: center;
     width: fit-content;
     &:hover {
-
-background-color: #f2f2f2;
-
-}
+      background-color: #f2f2f2;
+    }
   }
   .comp-button-1 {
     background-color: #ffffff;
@@ -325,7 +345,6 @@ background-color: #f2f2f2;
     letter-spacing: 0px;
     text-align: left;
   }
-
 
   .flex-row-2 {
     align-items: flex-start;

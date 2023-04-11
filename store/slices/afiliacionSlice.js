@@ -22,42 +22,7 @@ export const afiliacionSlice = createSlice({
 			distrito: '',
 			direccion: '',
 		},
-		beneficiarios: [
-			{
-				tipoIdentificacion: 0,
-				numeroIdentificacion: '',
-				genero: '',
-				parentesco: '',
-				nombre: '',
-				apellido1: '',
-				apellido2: '',
-				correo: '',
-				telefono1: '',
-				telefono2: '',
-				phoneCode1: '',
-				phoneCode2: '',
-				provincia: '',
-				canton: '',
-				distrito: '',
-				direccion: '',
-			},
-			{
-				tipoIdentificacion: '',
-				numeroIdentificacion: '',
-				genero: '',
-				parentesco: 'hija',
-				nombre: 'test beneficiario 2',
-				primerApellido: '',
-				segundoApellido: '',
-				correo: '',
-				telefono: '',
-				otroTelefono: '',
-				provincia: '',
-				canton: '',
-				distrito: '',
-				direccion: '',
-			},
-		],
+		beneficiarios: [],
 		mascotas: [
 			{
 				tipoMascota: 'Perro',
@@ -104,6 +69,14 @@ export const afiliacionSlice = createSlice({
 			console.log('action.payload', action.payload)
 			state.propietario = action.payload
 		},
+		setBeneficiarios: (state, action) => {
+			//add new beneficiario to array of beneficiarios
+			state.beneficiarios.push(action.payload)
+		},
+		setMascotas: (state, action) => {
+			//add new mascota to array of mascotas
+			state.mascotas.push(action.payload)
+		},
 		setPoliticaDePrivacidad: (state, action) => {
 			state.politicadePrivacidad = action.payload
 		},
@@ -111,7 +84,7 @@ export const afiliacionSlice = createSlice({
 	},
 })
 
-export const { setCurrentIndex, setWelcomeModal, setTipoPlan, setPropietarioInfo, setPoliticaDePrivacidad } =
+export const { setCurrentIndex, setWelcomeModal, setTipoPlan, setPropietarioInfo, setBeneficiarios, setPoliticaDePrivacidad } =
   afiliacionSlice.actions
 
 export default afiliacionSlice.reducer

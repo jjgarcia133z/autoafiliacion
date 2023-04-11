@@ -30,11 +30,12 @@ import {
 	districtCostarica,
 	regex,
 } from '@/constants/constants'
-import { resolve } from 'styled-jsx/css'
 const Contenedor_datos_personales = () => {
 	const dispatch = useDispatch()
 	const { goTo, updateStepStatus } = usePage()
-	const { fetchData } = useFetch()
+	const { response, loading, error } = useFetch(
+		'http://159.65.242.183/planesadd'
+	)
 	const { propietario } = useSelector((state) => state.afiliacion)
 
 	const [isInputDisabled, setIsInputDisabled] = useState(false)
@@ -547,13 +548,15 @@ const Contenedor_datos_personales = () => {
 					setValue={setTelefono1}
 					value={telefono1}
 					helperText="El formato del teléfono no es correcto."
+					label="Número de celular"
 				/>
 				<FilterSelect
 					status={telefono2.status}
-					regex={regex.phone}
+					regex={regex.onlyNumbers}
 					setValue={setTelefono2}
 					value={telefono2}
 					helperText="El formato del teléfono no es correcto."
+					label="Otro número de teléfono"
 				/>
 			</Row>
 			<Row bottom={32}>
@@ -608,7 +611,21 @@ const Contenedor_datos_personales = () => {
 				<h2>Planes adicionales</h2>
 			</Row>
 			<Row>
-				<PlanOnco />
+				{loading && <p>Loading...</p>}
+				{error && <p>Error</p>}
+				<div className="container">
+					{response &&
+            response.map((item, index) => (
+            	<PlanOnco
+				 key={item.codigoSalesforce}
+				 title = {item.nombre}
+				 description = {item.descripcion}
+				 price = {item.precio}
+				 code = {item.codigoSalesforce}
+				 estado = {item.estado}
+				 />
+            ))}
+				</div>
 			</Row>
 			<Row>
 				<PoliticaCheckbox value={politicaStatus} state={setPoliticaStatus} />

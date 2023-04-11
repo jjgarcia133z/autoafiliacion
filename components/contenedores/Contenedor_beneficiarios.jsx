@@ -17,7 +17,7 @@ import AgregarBeneficiarioCard from '../common/AgregarBeneficiarioCard'
 import RowBeneficiario from '../RowBeneficiario'
 import ModalContainer from '../common/ModalContainer'
 import ValidarCuenta from '../modalContents/ValidarCuenta'
-
+import { parentescosData } from '@/constants/constants'
 const Contenedor_beneficiarios = () => {
 	const dispatch = useDispatch()
 	const [showModal, setShowModal] = useState(false)
@@ -70,24 +70,20 @@ const Contenedor_beneficiarios = () => {
 					<span>Beneficiarios </span>
 				</p>
 			</Row>
-			<Row bottom={16}>
-				<RowBeneficiario
-					bottom={8}
-					show={true}
-					maxWidth="918px"
-					name="Pablito"
-					benficiario="hijo"
-				/>
-			</Row>
-			<Row bottom={1}>
-				<RowBeneficiario
-					bottom={8}
-					show={true}
-					maxWidth="918px"
-					name="Maria"
-					benficiario="hija"
-				/>
-			</Row>
+			{beneficiarios.map((beneficiario, index) => {
+				return (
+					<Row bottom={16} key={index}>
+						{console.log(beneficiario.parentesco)}
+						<RowBeneficiario
+							bottom={8}
+							show={true}
+							maxWidth="918px"
+							name={beneficiario.nombre}
+							benficiario={parentescosData[0].label}
+						/>
+					</Row>
+				)
+			})}
 			<Row top={16}>
 				<Button
 					text="Atrás"

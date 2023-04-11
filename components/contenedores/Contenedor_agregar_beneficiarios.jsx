@@ -16,7 +16,7 @@ import Button from '../common/Button'
 import ImagePortada2 from '@/assets/img/PortadaAfiliacion_medismart2.png'
 import { setCurrentIndex, setStatusReady } from '@/store/slices/configSlice'
 import {
-	setPropietarioInfo,
+	setBeneficiarios,
 	setPoliticaDePrivacidad,
 } from '@/store/slices/afiliacionSlice'
 import { useDispatch, useSelector } from 'react-redux'
@@ -29,6 +29,7 @@ import {
 	cantonesCostarica,
 	districtCostarica,
 	regex,
+	parentescosData,
 } from '@/constants/constants'
 import { resolve } from 'styled-jsx/css'
 const Contenedor_agregar_beneficiarios = () => {
@@ -57,18 +58,19 @@ const Contenedor_agregar_beneficiarios = () => {
 		mandatory: true,
 		regex: regex.onlyNumbers,
 	}) //estado del genero
+
+	const [parentesco, setParentesco] = useState({
+		value: 0,
+		status: '',
+		mandatory: true,
+		regex: regex.onlyNumbers,
+	}) //estado del parentesco
 	const [nombre, setNombre] = useState({
 		value: '',
 		status: '',
 		mandatory: true,
 		regex: regex.names,
 	}) //estado del nombre
-	const [parentesco, setParentesco] = useState({
-		value: '',
-		status: '',
-		mandatory: true,
-		regex: regex.names,
-	}) //estado del parentesco
 	const [apellido1, setApellido1] = useState({
 		value: '',
 		status: '',
@@ -138,19 +140,11 @@ const Contenedor_agregar_beneficiarios = () => {
 
 	const handleClickNext = async () => {
 		const url = '/beneficiarios'
-		const myPromise = await new Promise((resolve, reject) => {
-			const result = validateData(true)
-			if (result) {
-				resolve(result)
-			} else {
-				reject('Los datos no son válidos')
-			}
-		})
-
+		validateData(true)
 		let data = validateData()
-		if (data) {
+		if (true) {
 			console.log({ info: data })
-			dispatch(setPropietarioInfo({ ...data }))
+			dispatch(setBeneficiarios(data))
 			goTo(url, () => {
 				dispatch(setCurrentIndex(2))
 				updateStepStatus(2, url, false) //set the current step as active
@@ -281,7 +275,6 @@ const Contenedor_agregar_beneficiarios = () => {
 		}
 		const selects = {
 			tipoIdentificacion,
-			genero,
 			provincia,
 			canton,
 			distrito,
@@ -301,6 +294,7 @@ const Contenedor_agregar_beneficiarios = () => {
 				tipoIdentificacion: tipoIdentificacion.value,
 				numeroIdentificacion: numeroIdentificacion.value,
 				genero: genero.value,
+				parentesco: parentesco.value,
 				nombre: nombre.value,
 				apellido1: apellido1.value,
 				apellido2: apellido2.value,
@@ -347,9 +341,9 @@ const Contenedor_agregar_beneficiarios = () => {
 		)
 			return
 		console.log({ isTipoIdentificacionOne, isSameLastValue })
-
-		const url = `https://tse.medismart.info/api/persona/buscarCedula.php?user=sfconsult&password=8Rh8hcRFMyGmqimA&buscarCedula=${value}`
-
+		const url1 = `https://tse.medismart.info/api/persona/buscarCedula.php?user=sfconsult&password=8Rh8hcRFMyGmqimA&buscarCedula=${value}`
+		const url2 = `http://159.65.242.183/datospersonal/${value}`
+		const url = url1
 		try {
 			const response = await fetch(url, { method: 'GET' })
 			const { records } = await response.json()
@@ -375,20 +369,21 @@ const Contenedor_agregar_beneficiarios = () => {
 	}
 
 	const LoadProvinciaCantonDistrito = () => {
-		handleProviceChange({ target: { value: propietario.provincia } })
-		handleCantonChange({ target: { value: propietario.canton } })
-		setDistrito({ value: propietario.distrito, status: 'success' })
 		setProvincia({ value: propietario.provincia, status: 'success' })
+		handleProviceChange({
+			target: {
+				value: propietario?.provincia == '' ? 0 : propietario.provincia,
+			},
+		})
+		handleCantonChange({
+			target: { value: propietario?.canton == '' ? 0 : propietario.canton },
+		})
+		setDistrito({ value: propietario.distrito, status: 'success' })
 		setCanton({ value: propietario.canton, status: 'success' })
 	}
 
 	useEffect(() => {
-		dispatch(
-			setPropietarioInfo({
-				...propietario,
-				tipoIdentificacion: tipoIdentificacion.value,
-			})
-		)
+
 		if (tipoIdentificacion.value == 0) {
 			setNombre({ ...nombre, value: '', status: 'none' })
 			setApellido1({ ...apellido1, value: '', status: 'none' })
@@ -398,54 +393,52 @@ const Contenedor_agregar_beneficiarios = () => {
 			setIsInputDisabled(false)
 		}
 	}, [tipoIdentificacion])
-	useEffect(() => {
-		// set all state using the propietario info
-		setTipoIdentificacion({
-			...tipoIdentificacion,
-			value:
-        propietario.tipoIdentificacion.trim() == ''
-        	? 0
-        	: propietario.tipoIdentificacion,
-		})
-		setNumeroIdentificacion({
-			...numeroIdentificacion,
-			value: propietario.numeroIdentificacion,
-		})
-		setGenero({ ...genero, value: propietario.genero })
-		setNombre({ ...nombre, value: propietario.nombre })
-		setTipoIdentificacion({
-			...tipoIdentificacion,
-			value: propietario.tipoIdentificacion,
-		})
-		setApellido1({ ...apellido1, value: propietario.apellido1 })
-		setApellido2({
-			...apellido2,
-			value: propietario.apellido2,
-		})
-		setCorreoElectronico({
-			...correoElectronico,
-			value: propietario.correo,
-		})
-		setTelefono1({
-			...telefono1,
-			value: propietario.telefono1,
-		})
-		setTelefono2({
-			...telefono2,
-			value: propietario.telefono2,
-		})
-		LoadProvinciaCantonDistrito()
-		setDireccionExacta({
-			...direccionExacta,
-			value: propietario.direccion,
-		})
-		if (
-			propietario.tipoIdentificacion > 0 ||
-      propietario.tipoIdentificacion == ''
-		) {
-			console.log({ propietario })
-		}
-	}, [])
+	// useEffect(() => {
+	// 	// set all state using the propietario info
+	// 	setTipoIdentificacion({
+	// 		...tipoIdentificacion,
+	// 		value:
+	//     propietario.tipoIdentificacion == ''
+	//     	? 0
+	//     	: propietario.tipoIdentificacion,
+	// 	})
+	// 	setNumeroIdentificacion({
+	// 		...numeroIdentificacion,
+	// 		value: propietario.numeroIdentificacion,
+	// 	})
+	// 	setGenero({
+	// 		...genero,
+	// 		value: propietario.genero == '' ? 0 : propietario.genero,
+	// 	})
+	// 	setParentesco({
+	// 		...parentesco,
+	// 		value: propietario.parentesco == '' ? 0 : propietario.parentesco,
+	// 	})
+	// 	setNombre({ ...nombre, value: propietario.nombre })
+
+	// 	setApellido1({ ...apellido1, value: propietario.apellido1 })
+	// 	setApellido2({
+	// 		...apellido2,
+	// 		value: propietario.apellido2,
+	// 	})
+	// 	setCorreoElectronico({
+	// 		...correoElectronico,
+	// 		value: propietario.correo,
+	// 	})
+	// 	setTelefono1({
+	// 		...telefono1,
+	// 		value: propietario.telefono1,
+	// 	})
+	// 	setTelefono2({
+	// 		...telefono2,
+	// 		value: propietario.telefono2,
+	// 	})
+	// 	LoadProvinciaCantonDistrito()
+	// 	setDireccionExacta({
+	// 		...direccionExacta,
+	// 		value: propietario.direccion,
+	// 	})
+	// }, [])
 
 	return (
 		<Container portada={ImagePortada2}>
@@ -489,16 +482,16 @@ const Contenedor_agregar_beneficiarios = () => {
 					label="Género"
 					placeholder="Seleccióna tipo de género"
 					options={generos}
-					value={genero}
+					value={genero.value}
 					status={genero.status}
 					setState={setGenero}
 					regex={regex.names}
 				/>
-				<Input
-					type="text"
-					mandatory={true}
+				<Select
+					mandatory={false}
 					label="Parentesco"
 					placeholder="Seleccioná el parentesco"
+					options={parentescosData}
 					value={parentesco}
 					setValue={setParentesco}
 					status={parentesco.status}
@@ -570,6 +563,7 @@ const Contenedor_agregar_beneficiarios = () => {
 					setValue={setTelefono1}
 					value={telefono1}
 					helperText="El formato del teléfono no es correcto."
+					label="Número de celular"
 				/>
 				<FilterSelect
 					status={telefono2.status}
@@ -577,6 +571,7 @@ const Contenedor_agregar_beneficiarios = () => {
 					setValue={setTelefono2}
 					value={telefono2}
 					helperText="El formato del teléfono no es correcto."
+					label="Otro número de teléfono"
 				/>
 			</Row>
 			<Row bottom={32}>

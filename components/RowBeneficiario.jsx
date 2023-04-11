@@ -42,7 +42,7 @@ const RowBeneficiario = ({
 								<Hearth />
 							)}
 						</span>
-						<p>{name}</p>
+						<p>{name?.toLowerCase() ?? 'Sin nombre'}</p>
 						<span>-</span>
 						<p>{benficiario}</p>
 					</div>
@@ -106,6 +106,7 @@ const RowEmpty = styled.article`
     line-height: 19px;
     letter-spacing: 0px;
     text-align: left;
+    
   }
 `
 
@@ -149,6 +150,8 @@ const Row = styled.article`
       line-height: 19px;
       letter-spacing: 0px;
       text-align: left;
+      text-transform: capitalize;
+      
     }
     & p:last-of-type {
       //styleName: Body/Body Medium  - Montserrat Medium;
@@ -158,6 +161,7 @@ const Row = styled.article`
       line-height: 19px;
       letter-spacing: 0px;
       text-align: left;
+      
     }
   }
   & div:nth-child(2) {
@@ -179,6 +183,7 @@ const Row = styled.article`
       letter-spacing: 0px;
       text-align: right;
       color: var(--primary-blue-primary-blue-900);
+      
     }
   }
   & div:nth-child(3) {

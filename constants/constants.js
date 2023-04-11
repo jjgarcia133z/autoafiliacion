@@ -106,6 +106,26 @@ const regex = { // for email, phone, etc
 	address: /^[a-zA-Z0-9\s\-\_\.\,\#\°\º\ª\(\)\:\;\¿\?\¡\!\+\*\/\&\%\$\@\[\]\{\}]{1,1000}$/,
 	
 }
+const parentescosData = [
+	{ value: '1', label: 'Padre' },
+	{ value: '2', label: 'Madre' },
+	{ value: '3', label: 'Hijo' },
+	{ value: '4', label: 'Hija' },
+	{ value: '5', label: 'Hermano' },
+	{ value: '6', label: 'Hermana' },
+	{ value: '7', label: 'Tio' },
+	{ value: '8', label: 'Tia' },
+	{ value: '9', label: 'Primo' },
+	{ value: '10', label: 'Prima' },
+	{ value: '11', label: 'Abuelo' },
+	{ value: '12', label: 'Abuela' },
+	{ value: '13', label: 'Nieto' },
+	{ value: '14', label: 'Nieta' },
+	{ value: '15', label: 'Sobrino' },
+	{ value: '16', label: 'Sobrina' },
+	{ value: '17', label: 'Conyugue' },
+	{ value: '18', label: 'Otro' },
+]
 
 	
 	
@@ -120,5 +140,6 @@ export {
 	provinciasCostarica,
 	cantonesCostarica,
 	districtCostarica,
-	regex
+	regex,
+	parentescosData
 }

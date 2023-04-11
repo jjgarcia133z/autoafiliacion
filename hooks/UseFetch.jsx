@@ -1,24 +1,27 @@
-import { useState } from 'react'
-const useFetch = () => {
+import { useState, useEffect } from 'react'
+
+const useFetch = (url, options) => {
 	const [response, setResponse] = useState(null)
 	const [loading, setLoading] = useState(true)
 	const [error, setError] = useState(null)
-	async function fetchData(url, options) {
-		try {
-			const response = await fetch(url, options)
-			const json = await response.json()
-			setResponse(json)
-		} catch (error) {
-			setError(error)
-		} finally {
-			setLoading(false)
-		}
 
-		return { response, loading, error }
-	}
-	return {
-		fetchData,
-	}
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const res = await fetch(url, options)
+				const json = await res.json()
+				setResponse(json)
+			} catch (error) {
+				setError(error)
+			} finally {
+				setLoading(false)
+			}
+		}
+		fetchData()
+	}, [url, options])
+
+	return { response, loading, error }
 }
 
 export default useFetch
+

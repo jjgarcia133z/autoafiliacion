@@ -17,6 +17,7 @@ const FilterSelect = ({
 	block = false,
 	mandatory = false,
 	helperText = '',
+	label = 'Número de teléfono',
 }) => {
 	const dropdownRef = useRef(null)
 	const [selectedCountry, setSelectedCountry] = useState({
@@ -145,7 +146,7 @@ const FilterSelect = ({
 				>
 					{selectedCountry && (
 						<div>
-							<span>Número de celular</span>
+							<span>{label}</span>
 							<div>
 								<span onClick={() => handleShowList()}>
 									<Flag
